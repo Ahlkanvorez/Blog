@@ -1,0 +1,221 @@
+@font-face {
+    font-family : MedievalInitials;
+    src : url('http://localhost:3000/fonts/GoudyIni.ttf');
+}
+
+@font-face {
+    font-family : Blackletter;
+    src : url('http://localhost:3000/fonts/Plain Germanica.ttf');
+}
+
+body {
+    font-family: "Iowan Old Style", "Times New Roman", serif;
+}
+
+h1, h2 a, h3, h4, a, p, label, sup {
+    font-family: "Iowan Old Style", "Times New Roman", serif;
+}
+
+sup {
+    color: #8A0707;
+}
+
+dd {
+    text-align: justify;
+}
+
+a {
+    color: #8A0707;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #8a0707;
+}
+
+textarea:focus, input:focus {
+    outline: none !important;
+    border-color: #8A0707;
+    box-shadow: 0 0 8px #8A0707;
+}
+
+p {
+    font-family: inherit;
+    font-weight: normal;
+    font-size: 0.875em;
+    line-height: 1.4285714286;
+    margin-bottom: 1.25em;
+    text-align: justify;
+    text-rendering: optimizeLegibility;
+}
+
+footer {
+    height: 100%;
+    border-top: 1px solid #EFEFEF;
+    background-color: #FEFEFE;
+    margin-top: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+footer p {
+    text-align: center;
+}
+
+.smallcaps {
+    font-variant: small-caps;
+}
+
+.header {
+    background-color: #FEFEFE;
+    border-bottom: 4px solid #8A0707;
+}
+
+.header nav a {
+    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-size: 1.25em;
+    text-decoration: none;
+    color: #333;
+    margin-right: 25px;
+}
+
+.header .nav-item {
+    float: right;
+}
+
+.sidebar {
+    padding: 10px;
+}
+
+.sidebar-block {
+    font-size: 10pt;
+    font-family: "Georgia", serif;
+    text-align: justify;
+}
+
+.article-author {
+    color: #333;
+}
+
+.article-author a {
+    color: #333;
+}
+
+.article-author a:hover {
+    color: #8A0707;
+}
+
+.author-name:hover {
+    text-decoration: none;
+}
+
+.article-date {
+    float: right;
+}
+
+.article-title {
+    font-family: "Iowan Old Style", "Times New Roman", serif;
+    color: #333;
+}
+
+.article-title a {
+    color: #333;
+}
+
+.article-meta {
+    border-top: 1px solid #EFEFEF;
+    padding-top: 10px;
+    margin-bottom: -10px;
+    margin-top: 15px;
+}
+
+.article-content {
+    font-family: "Iowan Old Style", "Times New Roman", serif;
+    margin-top: 20px;
+    font-size: 1.25em;
+    line-height: 1.6875;
+    text-align: justify;
+    clear: left;
+    text-rendering: optimizeLegibility;
+}
+
+.article-content-quote {
+    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-variant: normal;
+    line-height: 1.6875;
+    font-style: italic;
+    text-align: center;
+}
+
+.article-content h3 {
+    font-size: 1.22em;
+}
+
+blockquote {
+    border-left: 4px solid #8A0707;
+}
+
+.blackletter {
+    font-family: Blackletter;
+}
+
+.article-content p:first-of-type::first-letter {
+    font-size: 7em; /* 3 em; */
+    font-family: MedievalInitials, "liberation-serif", serif;
+    color: #8A0707;
+    float: left;
+    line-height: 80px;
+    padding-right: 5px;
+}
+
+.article-content p:first-of-type::first-line {
+    font-style: normal;
+    font-variant: small-caps;
+}
+
+.chinese, .chinese p, .chinese h3, .chinese h4, .chinese h5, .chinese p {
+    font-family: sans-serif;
+}
+
+.chinese p {
+    font-size: 16pt;
+    text-align: left;
+}
+
+.article-content .chinese p:first-of-type::first-letter {
+    font-family: serif;
+    font-size: 3em;
+    color: #8A0707;
+    float: left;
+    line-height: 50px;
+    padding-right: 5px;
+}
+
+.article-editing {
+    width: 100%;
+    height: 600px;
+}
+
+.article-snippet {
+    text-align: justify;
+}
+
+.article-snippet a {
+    color: #333;
+    font-size: 12pt;
+}
+
+.comment-editing {
+    width: 100%;
+    height: 150px;
+}
+
+/* ABOUT Themes */
+.main-picture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 90px;
+    margin-top: 10px;
+    width: 150px;
+}

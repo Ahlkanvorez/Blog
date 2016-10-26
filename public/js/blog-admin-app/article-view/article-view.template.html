@@ -1,0 +1,123 @@
+<div ng-switch on="$ctrl.mode">
+  <div ng-switch-when="edit">
+    <label>Article title: </label><input class="article-title" ng-model="box.article.title" />
+    <label>Sticky? </label><input type="checkbox" ng-model="box.article.sticky" />
+    <label>Private: </label><input type="checkbox" ng-model="box.article.private" />
+  </div>
+  <div ng-switch-default>
+    <h1 class="article-title" ng-bind-html="box.article.title"></h1>
+    <h3 ng-if="box.article.sticky">Sticky!</h3>
+    <h3 ng-if="box.article.private">Private!</h3>
+
+  </div>
+</div>
+
+
+<div class="col-sm-9 blog-main">
+
+  <article class="article" ng-switch on="$ctrl.mode">
+    <header class="article-meta">
+      <div ng-switch-when="edit">
+        <label>Author name: </label><input class="article-author" ng-model="box.article.author.name" />
+        <div class="article-date">
+          <label>Date posted: </label><input ng-model="box.article.date" />
+        </div>
+        <hr />
+      </div>
+
+      <div ng-switch-default>
+        <address class="article-author" style="display:inline-block">
+          <a rel="author" href="#!/article-list/Everything/{{$ctrl.article.author.name}}">
+            {{$ctrl.article.author.name}}
+          </a>
+        </address>
+        <time pubdate datetime="{{$ctrl.article.date | date}}" title="{{$ctrl.article.date | date}}" class="article-date">
+          {{$ctrl.article.date | date}}
+        </time>
+      </div>
+
+    </header>
+
+    <div>
+      <div ng-switch-when="edit">
+        <textarea class="article-editing" ng-model="box.article.content"></textarea>
+        <div class="article-content" ng-bind-html="box.article.content"></div>
+      </div>
+
+      <div ng-switch-default>
+        <div class="article-content" ng-bind-html="box.article.content"></div>
+      </div>
+    </div>
+
+    <div ng-switch-when="edit">
+      <a ng-click="saveArticleUpdates(box.article)">Save</a>
+      -
+      <a ng-click="deleteCurrentArticle()">Delete</a>
+      -
+      <a ng-click="cancelEdits()">Cancel</a>
+    </div>
+
+    <div ng-switch-default>
+      <a ng-click="enterEditMode()">Edit</a>
+      -
+      <a ng-click="deleteCurrentArticle()">Delete</a>
+    </div>
+    
+  </article>
+
+  <div class="comment-list">
+    <hr />
+    <div ng-switch on="$ctrl.mode">
+      <div ng-switch-when="view">
+        <p>Questions? Comments? Feel free to <a href="mailto:{{$ctrl.article.author.email}}">email the author</a>.</p>
+      </div>
+
+      <div ng-switch-when="edit">
+        <label>Author email: </label> <input type="text" ng-model="box.article.author.email" />
+      </div>
+    </div>
+  </div>
+</div><!-- /.blog-main -->
+
+<div class="col-sm-3 sidebar">
+  <div class="sidebar-block">
+    <div ng-switch on="$ctrl.mode">
+      <div ng-switch-when="edit">
+        <select ng-model="box.category" ng-options="category.name for category in $ctrl.categoryList"></select>
+        <a ng-click="saveCategoryChange(box.category)">Save</a>
+      </div>
+
+      <div ng-switch-default>
+        <h4><a href="admin#!/article-list/{{box.category.name}}">{{box.category.name}}</a></h4>
+        <p ng-bind-html="box.category.aboutAuthor"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Categories</h4>
+    <ol class="list-unstyled">
+      <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
+        <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+      </li>
+    </ol>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Similar</h4>
+    <ol class="list-unstyled">
+      <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">
+        <a href="#!/articles/{{article._id}}" ng-bind-html="article.title"></a>
+      </li>
+    </ol>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Elsewhere</h4>
+    <ol class="list-unstyled">
+      <!-- <li><a href="#">Github</a></li> -->
+      <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
+      <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+    </ol>
+  </div>
+</div>

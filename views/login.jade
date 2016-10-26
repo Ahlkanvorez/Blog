@@ -1,0 +1,15 @@
+doctype html
+
+html(lang="en")
+
+	head
+		title= title
+
+		link(rel="stylesheet", href="/css/login.css")
+
+	body
+		#loginContainer
+			form(action="/users/login", method="post")
+				input(type="text", placeholder="Username", name="username", required)
+				input(type="password", placeholder="Password", name="password", required)
+				button(type="submit") LOGIN

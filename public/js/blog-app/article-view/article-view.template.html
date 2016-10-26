@@ -1,0 +1,62 @@
+<div>
+    <h1 class="article-title" ng-bind-html="$ctrl.article.title"></h1>
+</div>
+
+<div class="col-sm-9 blog-main">
+
+  <article class="article">
+    <header class="article-meta">
+      <address class="article-author" style="display:inline-block">
+        <a rel="author" href="#!/article-list/Everything/{{$ctrl.article.author.name}}">
+          {{$ctrl.article.author.name}}
+        </a>
+      </address>
+      <time pubdate datetime="{{$ctrl.article.date | date}}" title="{{$ctrl.article.date | date}}" class="article-date">
+        {{$ctrl.article.date | date}}
+      </time>
+    </header>
+
+    <div class="article-content" ng-bind-html="$ctrl.article.content"></div>
+  </article>
+
+  <div class="comment-list">
+    <hr />
+    <p>Questions? Comments? Feel free to <a href="mailto:{{$ctrl.article.author.email}}">email the author</a>.</p>
+  </div>
+
+</div><!-- /.blog-main -->
+
+<div class="col-sm-3 sidebar" ng-if="!readingMode">
+  <div class="sidebar-block">
+    <div>
+      <h4><a href="#!/article-list/{{$ctrl.category.name}}">{{$ctrl.category.name}}</a></h4>
+      <p ng-bind-html="$ctrl.category.aboutAuthor"></p>
+    </div>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Categories</h4>
+    <ol class="list-unstyled">
+      <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
+        <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+      </li>
+    </ol>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Similar</h4>
+    <ol class="list-unstyled">
+      <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">
+        <a href="#!/articles/{{article._id}}" ng-bind-html="article.title"></a>
+      </li>
+    </ol>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Elsewhere</h4>
+    <ol class="list-unstyled">
+      <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
+      <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+    </ol>
+  </div>
+</div>
