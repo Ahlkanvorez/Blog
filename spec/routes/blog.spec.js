@@ -1,11 +1,11 @@
 (function () {
   'use strict';
 
-  var request = require('request');
-  var http = require('http');
+  const request = require('request');
+  const http = require('http');
 
-  var base_url = "http://localhost:3000/blog";
-  var pass = "password";
+  const base_url = "http://localhost:3000/blog";
+//  var pass = "password";
 
   describe('Blog Server, Blog route', function () {
     describe('GET /', function () {
@@ -34,7 +34,7 @@
 
       it('returns an array of public Articles as a JSON string', function (done) {
         request(base_url + '/article-list', function (err, res, data) {
-          var articles = JSON.parse(data);
+          const articles = JSON.parse(data);
           articles.forEach(function (article) {
             expect(article.title).not.toBe(undefined);
             expect(article.author).not.toBe(undefined);
@@ -68,7 +68,7 @@
 
       it('returns an array of Articles as a JSON string', function (done) {
         request(base_url + '/all-article-list', function (err, res, data) {
-          var articles = JSON.parse(data);
+          const articles = JSON.parse(data);
           articles.forEach(function (article) {
             expect(article.title).not.toBe(undefined);
             expect(article.author).not.toBe(undefined);
@@ -85,7 +85,7 @@
     });
 
     describe('GET /article-list/:category', function () {
-      var category = 'Theology';
+      const category = 'Theology';
 
       it('returns status code 200', function (done) {
         request(base_url + '/article-list/' + category, function (err, res, data) {
@@ -107,7 +107,7 @@
             return article.title === "The Apostles' Creed"
                 && article.author.name === 'Unknown'
                 && article.category === category
-                && article.content.indexOf('<p>\nI believe in God the Father Almighty, Maker of heaven and earth.\n</p>\n\n<p>\nAnd in Jesus Christ his only Son our Lord, Who was conceived by the Holy Ghost, Born of the Virgin Mary, Suffered under Pontius Pilate, Was crucified, dead, and buried: He descended into hell; The third day he rose again from the dead; He ascended into heaven, And sitteth on the right hand of God the Father Almighty; From thence he shall come to judge the quick and the dead.\n</p>\n\n<p>\nI believe in the Holy Ghost; the holy Catholick Church; the Communion of Saints; the Forgiveness of sins; The Resurrection of the body, And the life everlasting. Amen.\n</p>') === 0
+                && article.content.indexOf('<p>\nI believe in God the Father Almighty, Maker of heaven and earth.\n</p>\n\n<p>\nAnd in Jesus Christ his only Son our Lord, Who was conceived by the Holy Ghost, Born of the Virgin Mary, Suffered under Pontius Pilate, Was crucified, dead, and buried: He descended into hell; The third day he rose again from the dead; He ascended into heaven, And sitteth on the right hand of God the Father Almighty; From thence he shall come to judge the quick and the dead.\n</p>\n\n<p>\nI believe in the Holy Ghost; the holy Catholic Church; the Communion of Saints; the Forgiveness of sins; The Resurrection of the body, And the life everlasting. Amen.\n</p>') === 0
                 && !article.private;
           }).length).toBe(1);
           done();
@@ -116,7 +116,7 @@
     });
 
     describe('GET /all-article-list/:category', function () {
-      var category = 'LoremIpsum';
+      const category = 'LoremIpsum';
 
       it('returns status code 200', function (done) {
         request(base_url + '/all-article-list/' + category, function (err, res, data) {
@@ -141,8 +141,8 @@
     });
 
     describe('GET /article-list/:category/:author', function () {
-      var category = 'Theology';
-      var author = 'The Council of Nicaea';
+      const category = 'Theology';
+      const author = 'The Council of Nicaea';
 
       it('returns status code 200', function (done) {
         request(base_url + '/all-article-list/' + category + '/' + author, function (err, res, data) {
@@ -167,7 +167,7 @@
 
       it('returns the Nicene Creed article for author "The Council of Nicaea" in an array as a JSON string', function (done) {
         request(base_url + '/all-article-list/' + category + '/' + author, function (err, res, data) {
-          var article = JSON.parse(data)[0];
+          const article = JSON.parse(data)[0];
           expect(article.title).toBe('The Nicene Creed');
           expect(article.author).not.toBe(undefined);
           expect(article.author.name).toBe(author);
@@ -185,8 +185,8 @@
     });
 
     describe('GET /all-article-list/:category/:author', function () {
-      var category = 'LoremIpsum';
-      var authors = ['Somebody', 'Someone else'];
+      const category = 'LoremIpsum';
+      const authors = ['Somebody', 'Someone else'];
 
       authors.forEach(function (author) {
         it('returns status code 200', function (done) {
@@ -220,9 +220,9 @@
     });
 
     describe('GET /article-list/:category/:startDate/:endDate', function () {
-      var category = 'Theology';
-      var start = 1472706000000;
-      var end = 1475298000000;
+      const category = 'Theology';
+      const start = 1472706000000;
+      const end = 1475298000000;
 
       it('returns status code 200', function (done) {
         request(base_url + '/article-list/' + category + '/' + start + '/' + end, function (err, res, data) {
@@ -240,12 +240,12 @@
 
       it('returns two public articles (the Nicene & Apostles creeds) for dates between (1472706000000, 1475298000000) as a JSON string', function (done) {
         request(base_url + '/article-list/' + category + '/' + start + '/' + end, function (err, res, data) {
-          var articles = JSON.parse(data);
+          const articles = JSON.parse(data);
           expect(articles.length).toBe(2);
           var nicene = articles[0];
           var apostles = articles[1];
           if (nicene.title !== 'The Nicene Creed') {
-            var tmp = apostles;
+            const tmp = apostles;
             apostles = nicene;
             nicene = tmp;
           }
@@ -266,7 +266,7 @@
           expect(apostles.author.email).toBe('robert.mitchell36@gmail.com');
           expect(apostles.date).toBe('2016-09-28T18:47:56.000Z');
           expect(apostles.category).toBe(category);
-          expect(apostles.content.indexOf('<p>\nI believe in God the Father Almighty, Maker of heaven and earth.\n</p>\n\n<p>\nAnd in Jesus Christ his only Son our Lord, Who was conceived by the Holy Ghost, Born of the Virgin Mary, Suffered under Pontius Pilate, Was crucified, dead, and buried: He descended into hell; The third day he rose again from the dead; He ascended into heaven, And sitteth on the right hand of God the Father Almighty; From thence he shall come to judge the quick and the dead.\n</p>\n\n<p>\nI believe in the Holy Ghost; the holy Catholick Church; the Communion of Saints; the Forgiveness of sins; The Resurrection of the body, And the life everlasting. Amen.\n</p>'))
+          expect(apostles.content.indexOf('<p>\nI believe in God the Father Almighty, Maker of heaven and earth.\n</p>\n\n<p>\nAnd in Jesus Christ his only Son our Lord, Who was conceived by the Holy Ghost, Born of the Virgin Mary, Suffered under Pontius Pilate, Was crucified, dead, and buried: He descended into hell; The third day he rose again from the dead; He ascended into heaven, And sitteth on the right hand of God the Father Almighty; From thence he shall come to judge the quick and the dead.\n</p>\n\n<p>\nI believe in the Holy Ghost; the holy Catholic Church; the Communion of Saints; the Forgiveness of sins; The Resurrection of the body, And the life everlasting. Amen.\n</p>'))
               .toBe(0);
           expect(apostles.sticky).toBe(false);
           expect(apostles.private).toBe(false);
@@ -277,13 +277,13 @@
     });
 
     describe('GET /all-article-list/:category/:startDate/:endDate', function () {
-      var category = 'LoremIpsum';
-      var startDates = [1467349200000, 1470027600000];
-      var endDates = [1470027600000, 1472706000000];
+      const category = 'LoremIpsum';
+      const startDates = [1467349200000, 1470027600000];
+      const endDates = [1470027600000, 1472706000000];
 
       for (var i = 0; i < 1; ++i) {
-        var start = startDates[i];
-        var end = endDates[i];
+        const start = startDates[i];
+        const end = endDates[i];
 
         it('returns status code 200', function (done) {
           request(base_url + '/all-article-list/' + category + '/' + start + '/' + end, function (err, res, data) {
@@ -325,7 +325,7 @@
 
       it("returns the \"The Apostles' Creed\" article for id \"57ec105c6006a9c73b585eac\" in JSON form", function (done) {
         request(base_url + '/get-article/' + '57ec105c6006a9c73b585eac', function (err, res, data) {
-          var article = JSON.parse(data);
+          const article = JSON.parse(data);
 
           expect(article.title).toBe("The Apostles' Creed");
           expect(article.author).not.toBe(undefined);
@@ -333,7 +333,7 @@
           expect(article.author.email).toBe('robert.mitchell36@gmail.com');
           expect(article.date).toBe('2016-09-28T18:47:56.000Z');
           expect(article.category).toBe('Theology');
-          expect(article.content.indexOf('<p>\nI believe in God the Father Almighty, Maker of heaven and earth.\n</p>\n\n<p>\nAnd in Jesus Christ his only Son our Lord, Who was conceived by the Holy Ghost, Born of the Virgin Mary, Suffered under Pontius Pilate, Was crucified, dead, and buried: He descended into hell; The third day he rose again from the dead; He ascended into heaven, And sitteth on the right hand of God the Father Almighty; From thence he shall come to judge the quick and the dead.\n</p>\n\n<p>\nI believe in the Holy Ghost; the holy Catholick Church; the Communion of Saints; the Forgiveness of sins; The Resurrection of the body, And the life everlasting. Amen.\n</p>'))
+          expect(article.content.indexOf('<p>\nI believe in God the Father Almighty, Maker of heaven and earth.\n</p>\n\n<p>\nAnd in Jesus Christ his only Son our Lord, Who was conceived by the Holy Ghost, Born of the Virgin Mary, Suffered under Pontius Pilate, Was crucified, dead, and buried: He descended into hell; The third day he rose again from the dead; He ascended into heaven, And sitteth on the right hand of God the Father Almighty; From thence he shall come to judge the quick and the dead.\n</p>\n\n<p>\nI believe in the Holy Ghost; the holy Catholic Church; the Communion of Saints; the Forgiveness of sins; The Resurrection of the body, And the life everlasting. Amen.\n</p>'))
               .toBe(0);
           expect(article.sticky).toBe(false);
           expect(article.private).toBe(false);
@@ -343,7 +343,7 @@
 
       it("returns the \"The Nicene Creed\" article for id \"57ec12da6006a9c73b585ead\" in JSON form", function (done) {
         request(base_url + '/get-article/' + '57ec12da6006a9c73b585ead', function (err, res, data) {
-          var article = JSON.parse(data);
+          const article = JSON.parse(data);
 
           expect(article.title).toBe('The Nicene Creed');
           expect(article.author).not.toBe(undefined);
@@ -370,7 +370,7 @@
 
       it('returns the "Lorem Ipsum" article in JSON form', function (done) {
         request(base_url + '/get-private-article/' + '57e5daf45cd9d6a520d712e7', function (err, res, data) {
-          var article = JSON.parse(data);
+          const article = JSON.parse(data);
 
           expect(article.title).toBe('Lorem Ipsum');
           expect(article.author).not.toBe(undefined);
@@ -394,7 +394,7 @@
 
       it('returns the "Duis leo ligula" article in JSON form', function (done) {
         request(base_url + '/get-private-article/' + '57a039ed88d10494508ad570', function (err, res, data) {
-          var article = JSON.parse(data);
+          const article = JSON.parse(data);
 
           expect(article.title).toBe('Duis leo ligula');
           expect(article.author).not.toBe(undefined);
@@ -473,7 +473,7 @@
 
       it('returns an array of public Categories as a JSON string', function (done) {
         request(base_url + '/category-list', function (err, res, data) {
-          var categories = JSON.parse(data);
+          const categories = JSON.parse(data);
           categories.forEach(function (category) {
             expect(category.name).not.toBe(undefined);
             expect(category.description).not.toBe(undefined);
@@ -503,7 +503,7 @@
 
       it('returns an array of Categories as a JSON string', function (done) {
         request(base_url + '/all-category-list', function (err, res, data) {
-          var categories = JSON.parse(data);
+          const categories = JSON.parse(data);
           categories.forEach(function (category) {
             expect(category.name).not.toBe(undefined);
             expect(category.description).not.toBe(undefined);
@@ -516,7 +516,7 @@
     });
 
     describe('GET /get-category/:name', function () {
-      var name = 'Theology';
+      const name = 'Theology';
 
       it('returns status code 200', function (done) {
         request(base_url + '/get-category/' + name, function (err, res, data) {
@@ -534,7 +534,7 @@
 
       it('returns an array of a single public category as a JSON string', function (done) {
         request(base_url + '/get-category/' + name, function (err, res, data) {
-          var category = JSON.parse(data)[0];
+          const category = JSON.parse(data)[0];
           expect(category.name).toBe('Theology');
           expect(category.description).toBe('"O send out thy light and thy truth, that they may lead me  and bring me unto thy holy hill, and to thy dwelling." Psalm xliii 3');
           expect(category.aboutAuthor).toBe('Robert Mitchell is Reformed & Presbyterian. He enjoys the 1662 Book of Common Prayer, and his favorite Puritan is Thomas Watson.');
@@ -545,7 +545,7 @@
     });
 
     describe('GET /get-private-category/:name', function () {
-      var name = 'LoremIpsum';
+      const name = 'LoremIpsum';
 
       it('returns status code 200', function (done) {
         request(base_url + '/get-private-category/' + name, function (err, res, data) {
