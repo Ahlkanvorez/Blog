@@ -1,8 +1,12 @@
 (function () {
 	'use strict';
 
-	// Define the 'core' module.
+	/** Define the 'core' module.
+	* - core.articleIndex
+	* - core.category
+	*/
 	angular.module('core', [
-		'core.articleIndex'
+		'core.articleIndex',
+        'core.category'
 	]);
 })();

@@ -1,48 +1,66 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular.
-    module('articleView').
-    component('articleView', {
-      templateUrl : '/js/blog-app/article-view/article-view.template.html',
-      controller : ['$scope', '$routeParams', 'ArticleIndex', 'Category',
-        function articleViewController($scope, $routeParams, ArticleIndex, Category) {
-          var self = this;
+    /** Defines the ArticleView module, and registers it with the module, which contains the View in
+     *     an HTML file (/js/blog-app/article-view/article-view.template.html), with the associated Controller in this
+     *     file.
+     * - $routeParams is used to access the ID of the article which is to be displayed.
+     * - ArticleIndex is used to access the articles from the server, and acts like a REST API with a GET function.
+     * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
+     */
+    angular.module('articleView').component('articleView', {
+        templateUrl: '/js/blog-app/article-view/article-view.template.html',
+        controller: ['$routeParams', 'ArticleIndex', 'Category',
+            function articleViewController($routeParams, ArticleIndex, Category) {
+                const self = this;
 
-          self.articleId = $routeParams.articleId;
-          ArticleIndex.get(function successCallback (articleList) {
-            for (var n = 0; n < articleList.length; ++n) {
-              if (self.articleId === articleList[n]._id) {
-                self.article = articleList[n];
-              }
+                // TODO: Consider making articles accessible by Name instead of ID.
+                /* Check what the ID of the desired article is. */
+                self.articleId = $routeParams.articleId;
+                ArticleIndex.get(function successCallback(articleList) {
+                    /* Look through all the articles from the server, and save the desired one. */
+                    // TODO: Consider using a filter method instead of a for-loop.
+                    for (var n = 0; n < articleList.length; ++n) {
+                        if (self.articleId === articleList[n]._id) {
+                            self.article = articleList[n];
+                            break; /* Article ID's are unique, so we don't need to look any further. */
+                        }
+                    }
+
+                    /* Save all the other articles in the same category as the one being displayed, to be listed as
+                          'similar articles' on the page. */
+                    self.similarArticles = articleList.filter(function (article) {
+                        return article.category === self.article.category && article._id != self.articleId;
+                    });
+
+                    /* This really shouldn't ever be the case ... but if somehow no article is found with the given ID,
+                         log an error, and redirect to the home (#!/article-list) page. */
+                    if (!self.article) {
+                        console.error('Invalid article id: %d.', self.articleId);
+                        // TODO: Redirect to #!/article-list
+                        return;
+                    }
+
+                    /* Record the name of the category of the current article, and if it doesn't have one,
+                        then it belongs to the category 'Miscellany'. */
+                    const categoryName = self.article.category ? self.article.category : 'Miscellany';
+
+                    /* Get a list of all categories from the server. */
+                    Category.get(function successCallback(categories) {
+                        /* Record the list of categories, so they can be displayed under the 'Categories' tab in
+                              the View. */
+                        self.categoryList = categories;
+                        for (var n in categories) {
+                            /* Find the full category data for the category of the current article, so that the
+                                 'About' section in the View can be filled (that information is saved in the Category). */
+                            if (categories[n].name === categoryName) {
+                                self.category = categories[n];
+                                break;
+                            }
+                        }
+                    });
+                });
             }
-
-            self.similarArticles = articleList.filter(function (article, n, list) {
-              return article.category === self.article.category && article._id != self.articleId;
-            });
-
-            if (!self.article) {
-              console.error('Invalid article id: %d.', self.articleId);
-              return;
-            }
-
-            var categoryName = self.article.category;
-            if (!categoryName) {
-              categoryName = 'Miscellany';
-            }
-
-            // Get a list of all categories from the server.
-            Category.get(function successCallback (categories) {
-              self.categoryList = categories;
-              for (var n in categories) {
-                if (categories[n].name === self.article.category) {
-                  self.category = categories[n];
-                  break;
-                }
-              }
-            });
-          });
-        }
-      ]
+        ]
     });
 })();
