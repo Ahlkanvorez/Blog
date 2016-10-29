@@ -36,8 +36,6 @@
                     self.categoryName = 'Everything';
                 }
 
-                console.log(Category);
-
                 // Pull a (usually cached) list of categories from the server.
                 Category.get(function successCallback(categories) {
                     // Pick the current category from the category list.
@@ -54,15 +52,15 @@
                 ArticleIndex.get(function successCallback(articleList) {
                     self.articles = articleList;
                     if (dateStart && dateEnd) {
-                        getArticlesByDateRange(self.categoryName, dateStart, dateEnd);
+                        getArticlesByDateRange(dateStart, dateEnd);
                     } else if (self.authorName) {
-                        getArticlesByAuthor(self.categoryName, self.authorName);
+                        getArticlesByAuthor();
                     } else if (self.categoryName) {
-                        getArticlesByCategory(self.categoryName);
+                        getArticlesByCategory();
                     }
 
-                    /*            // TODO: Sort articles.
-
+                    /* For pagination
+                     // TODO: Sort articles.
                      $scope.numberOfPages = (self.articles.length - (self.articles.length % ARTICLES_PER_PAGE)) / ARTICLES_PER_PAGE
                      + (self.articles.length % ARTICLES_PER_PAGE === 0 ? 0 : 1);
 
@@ -119,18 +117,21 @@
                  */
 
                 /* GET a list of articles by category within a specified range of dates. */
-                function getArticlesByDateRange(category, start, end) {
+                function getArticlesByDateRange(start, end) {
                     /* Keep displaying all archive dates, so display them before restricting the
                      currently viewed articles to those between the start and end dates. */
                     displayArchiveDates();
 
-                    // Convert the dates to an efficiently comparable format.
+                    /* Convert the dates to an efficiently comparable format, viz. integers. */
                     start = new Date(parseInt(start)).getTime();
                     end = new Date(parseInt(end)).getTime();
 
+                    /* Filter the articles so that only those which fall within the date range, and are of the correct
+                         category, remain in the list. If the category is 'Everything', then this only checks whether
+                         they fall within the date range. */
                     self.articles = self.articles.filter(function (article) {
-                        var date = new Date(article.date).getTime();
-                        return (category === 'Everything' || category === article.category) &&
+                        const date = new Date(article.date).getTime();
+                        return (self.categoryName === 'Everything' || self.categoryName === article.category) &&
                             start < date && date < end;
                     });
 
@@ -138,59 +139,70 @@
                 }
 
                 /* GET a list of articles by author, within a specified category. */
-                function getArticlesByAuthor(category, author) {
-                    /* When searching by author, limit archive searches to
-                     for convenience. */
+                function getArticlesByAuthor() {
+                    /* When searching by author, limit archive searches to those of that author for convenience. */
                     self.articles = self.articles.filter(function (article) {
-                        return article.author.name === author &&
-                            (category === 'Everything' || article.category === category);
+                        return article.author.name === self.authorName &&
+                            (self.categoryName === 'Everything' || article.category === self.category);
                     });
                     displayArchiveDates();
-                    // Obviously don't display author names, since only one author is being viewed.
+                    /* Obviously don't display author names, since only one author is being viewed. */
                 }
 
                 /* GET a list of articles by category. */
-                function getArticlesByCategory(categoryName) {
-                    /* When searching within a category, limit archive
-                     searches to that category for convenience. */
+                function getArticlesByCategory() {
+                    /* When searching within a category, limit archive searches to that category for convenience. */
                     self.articles = self.articles.filter(function (article) {
-                        return categoryName === 'Everything' || article.category === categoryName;
+                        return self.categoryName === 'Everything' || article.category === self.categoryName;
                     })
                     displayArchiveDates();
                     displayAuthorNames();
                 }
 
-                /*
-                 Miscellaneous helping functions
+                /* Miscellaneous helping functions:
+                 - displayArchiveDates sets up the data for the View to display month-long ranges of dates in which
+                     currently viewed articles were written.
+                 - displayAuthorNames sets up the data for the View to display all the author names for articles in the
+                     currently displayed set. However, if authorName is one of the currently used filters, this function
+                     will have no effect.
                  */
 
                 function displayArchiveDates() {
-                    // Get a unique mapping of all relevant date ranges.
-                    var articles = self.articles;
-                    var dateSet = {};
+                    /* Get a unique mapping of all relevant date ranges from the selected articles,
+                        mapping from the start of the date range, to the end of the date range, which is always
+                        one month in length (i.e. end = start + one_month). */
+                    const articles = self.articles;
+                    const dateSet = {};
                     for (var n in articles) {
-                        var a = new Date(articles[n].date);
+                        /* Only make archive dates for articles in the current category. Of course, if the current
+                             category is 'Everything', then make archives for everything. */
+                        if (self.categoryName != 'Everything' && articles[n].category !== self.categoryName) {
+                            continue;
+                        }
+                        const a = new Date(articles[n].date);
                         if (a.toString() !== 'Invalid Date') {
-                            var start = new Date(a.getFullYear(), a.getMonth(), 1);
+                            const start = new Date(a.getFullYear(), a.getMonth(), 1);
                             dateSet[start] = new Date(a.getFullYear(), a.getMonth() + 1, 1);
                         }
                     }
 
-                    // Add the date ranges to self.dates
+                    /* Add the date ranges to self.dates, for display in the View under 'Archives' */
                     self.dates = [];
                     angular.forEach(dateSet, function (value, key) {
                         self.dates.push({
-                            start: new Date(key), // Construct a date because the key is a String.
-                            end: value
+                            start: new Date(key), /* Construct a date because the key is a String. */
+                            end: value /* The value was already a date, so no need to instantiate a new Date object. */
                         });
                     });
                 }
 
                 function displayAuthorNames() {
+                    /* If no particular author is selected for use in filtering articles, then list all the authors who
+                            have available articles in the side bar under 'Authors'. */
                     if (!self.authorName) {
-                        // Create a list of distinct authors within the current category.
-                        var authorMap = {};
-                        self.articles.forEach(function (article, n, list) {
+                        /* Create a list of distinct authors within the current category. */
+                        const authorMap = {};
+                        self.articles.forEach(function (article) {
                             authorMap[article.author.name] = article.author;
                         });
 
@@ -198,13 +210,6 @@
                         for (var authorName in authorMap) {
                             self.authors.push(authorMap[authorName]);
                         }
-                    } else {
-                        /* Otherwise, since only one author is selected, don't load
-                         an author list, and only load that author's articles. */
-                        var authorsArticles = [];
-                        self.articles.filter(function (article, n, articleList) {
-                            return article.author.name === self.authorName;
-                        });
                     }
                 }
 
