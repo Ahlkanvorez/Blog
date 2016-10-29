@@ -537,7 +537,7 @@
           const category = JSON.parse(data)[0];
           expect(category.name).toBe('Theology');
           expect(category.description).toBe('"O send out thy light and thy truth, that they may lead me  and bring me unto thy holy hill, and to thy dwelling." Psalm xliii 3');
-          expect(category.aboutAuthor).toBe('Robert Mitchell is Reformed & Presbyterian. He enjoys the 1662 Book of Common Prayer, and his favorite Puritan is Thomas Watson.');
+          expect(category.aboutAuthor).toBe('Robert Mitchell is Reformed & Presbyterian. He subscribes to the Westminster Standards, his favorite Puritan is Thomas Watson, and he enjoys the 1662 Book of Common Prayer.');
           expect(category.private).toBe(false);
           done();
         });
