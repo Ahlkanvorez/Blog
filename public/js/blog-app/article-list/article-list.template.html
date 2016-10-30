@@ -1,88 +1,88 @@
 <div>
-  <h1>{{$ctrl.category.name === 'Everything' ? 'Latest Articles' : $ctrl.category.name}}</h1>
-  <h4>{{$ctrl.category.description}}</h4>
+    <h1>{{$ctrl.category.name === 'Everything' ? 'Latest Articles' : $ctrl.category.name}}</h1>
+    <h4>{{$ctrl.category.description}}</h4>
 </div>
 
 <div class="col-sm-8">
 
-  <div ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
-    <h2 class="article-title">
-      <a href="#!/articles/{{article._id}}" ng-bind-html="article.title"></a>
-    </h2>
-      <a href="#!/article-list/{{article.category}}">
-        {{article.category}}
-      </a>
-      - By
-      <a class="article-author" href="#!/article-list/Everything/{{article.author.name}}">
-        {{article.author.name}}
-      </a>
-      - posted on
-      <span>{{article.date | date}}</span>
-    <p class="article-snippet">
-      <a href="#!/articles/{{article._id}}" ng-bind-html="article.content | snippet"></a>
-    </p>
+    <div ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
+        <h2 class="article-title">
+            <a href="#!/articles/{{article._id}}" ng-bind-html="article.title"></a>
+        </h2>
+        <a href="#!/article-list/{{article.category}}">
+            {{article.category}}
+        </a>
+        - By
+        <a class="article-author" href="#!/article-list/Everything/{{article.author.name}}">
+            {{article.author.name}}
+        </a>
+        - posted on
+        <span>{{article.date | date}}</span>
+        <p class="article-snippet">
+            <a href="#!/articles/{{article._id}}" ng-bind-html="article.content | snippet"></a>
+        </p>
 
-  </div><!-- /.blog-post -->
+    </div><!-- /.blog-post -->
 
-  <!-- Implement pagination for the blog posts, and make the buttons
-        dissapear when innapropriate. (i.e. when they wouldn't bring new content)
+    <!-- Implement pagination for the blog posts, and make the buttons
+          disappear when inappropriate. (i.e. when they wouldn't bring new content)
 
-      TODO: Decide if you want to use this.
-  <nav>
-    <ul class="pager">
-      <li ng-if="hasPreviousPage" ng-click="viewPreviousPage()"><a>Previous</a></li>
-      <span>{{page + 1}} / {{numberOfPages}}</span>
-      <li ng-if="hasNextPage" ng-click="viewNextPage()"><a>Next</a></li>
-    </ul>
-  </nav> -->
+        TODO: Decide if you want to use pagination.
+    <nav>
+      <ul class="pager">
+        <li ng-if="hasPreviousPage" ng-click="viewPreviousPage()"><a>Previous</a></li>
+        <span>{{page + 1}} / {{numberOfPages}}</span>
+        <li ng-if="hasNextPage" ng-click="viewNextPage()"><a>Next</a></li>
+      </ul>
+    </nav> -->
 
 </div><!-- /.blog-main -->
 
 <div class="col-sm-3 col-sm-offset-1 sidebar">
-  <div class="sidebar-block">
-    <label>Search: <input filler="Search by Article Name" ng-model="query.$" /></label>
-  </div>
+    <div class="sidebar-block">
+        <label>Search: <input filler="Search by Article Name" ng-model="query.$"/></label>
+    </div>
 
-  <div class="sidebar-block">
-    <h4>About</h4>
-    <p ng-bind-html="$ctrl.category.aboutAuthor"></p>
-  </div>
+    <div class="sidebar-block">
+        <h4>About</h4>
+        <p ng-bind-html="$ctrl.category.aboutAuthor"></p>
+    </div>
 
-  <div class="sidebar-block" ng-if="$ctrl.dates.length > 0">
-    <h4>Archives</h4>
-    <ol class="list-unstyled">
-      <li ng-repeat="dateRange in $ctrl.dates | orderBy : '-start'">
-        <a href="#!/article-list/{{$ctrl.categoryName}}/{{dateRange.start.getTime()}}/{{dateRange.end.getTime()}}">
-          {{dateRange.start | date : 'MMM yyyy' : mma}}
-        </a>
-      </li>
-    </ol>
-  </div>
+    <div class="sidebar-block" ng-if="$ctrl.dates.length > 0">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+            <li ng-repeat="dateRange in $ctrl.dates | orderBy : '-start'">
+                <a href="#!/article-list/{{$ctrl.categoryName}}/{{dateRange.start.getTime()}}/{{dateRange.end.getTime()}}">
+                    {{dateRange.start | date : 'MMM yyyy' : mma}}
+                </a>
+            </li>
+        </ol>
+    </div>
 
-  <div class="sidebar-block" ng-if="$ctrl.authors.length > 0">
-    <h4>Authors</h4>
-    <ol class="list-unstyled">
-      <li ng-repeat="author in $ctrl.authors | orderBy : 'name'">
-        <a href="#!/article-list/{{$ctrl.categoryName}}/{{author.name}}">{{author.name}}</a>
-      </li>
-    </ol>
-  </div>
+    <div class="sidebar-block" ng-if="$ctrl.authors.length > 0">
+        <h4>Authors</h4>
+        <ol class="list-unstyled">
+            <li ng-repeat="author in $ctrl.authors | orderBy : 'name'">
+                <a href="#!/article-list/{{$ctrl.categoryName}}/{{author.name}}">{{author.name}}</a>
+            </li>
+        </ol>
+    </div>
 
-  <div class="sidebar-block">
-    <h4>Categories</h4>
-    <ol class="list-unstyled">
-      <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
-        <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
-      </li>
-    </ol>
-  </div>
+    <div class="sidebar-block">
+        <h4>Categories</h4>
+        <ol class="list-unstyled">
+            <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
+                <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+            </li>
+        </ol>
+    </div>
 
-  <div class="sidebar-block">
-    <h4>Elsewhere</h4>
-    <ol class="list-unstyled">
-      <li><a href="https://github.com/Ahlkanvorez">Github</a></li>
-      <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
-      <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
-    </ol>
-  </div>
+    <div class="sidebar-block">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+            <li><a href="https://github.com/Ahlkanvorez">Github</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
+            <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+        </ol>
+    </div>
 </div>
