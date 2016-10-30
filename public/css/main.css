@@ -156,7 +156,7 @@ blockquote {
 }
 
 .blackletter {
-    font-family: Blackletter;
+    font-family: Blackletter, serif;
 }
 
 .article-content p:first-of-type::first-letter {
@@ -203,11 +203,6 @@ blockquote {
 .article-snippet a {
     color: #333;
     font-size: 12pt;
-}
-
-.comment-editing {
-    width: 100%;
-    height: 150px;
 }
 
 /* ABOUT Themes */
