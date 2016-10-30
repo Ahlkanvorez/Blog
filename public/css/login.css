@@ -18,7 +18,7 @@ body {
 	-webkit-box-shadow: 0 0 10px black;
 	-moz-box-shadow: 0 0 10px black;
 	box-shadow: 0 0 10px black;
-	font-family: "Times", sans-serif;
+	font-family: "Times", serif;
 }
 
 input {
@@ -47,5 +47,5 @@ button {
 	border: none;
 	text-transform: uppercase;
 	cursor: pointer;
-	font-family: "Garamond", Times;
+	font-family: "Garamond", Times, serif;
 }

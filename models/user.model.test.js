@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 var User = require('./user.model').User;
 
 // TODO: Use a real testing suite ...
