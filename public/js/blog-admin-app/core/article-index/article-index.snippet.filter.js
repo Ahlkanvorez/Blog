@@ -3,7 +3,7 @@
 
 	// Register the 'snippet' filter, which returns the first sentence of a blog of text.
 	angular.
-		module('core.article').
+		module('core.articleIndex').
 		filter('snippet', function() {
 			return function snippet(text) {
 				var snip = new RegExp("^([^.!?。]+.)").exec(text)[0];

@@ -6,7 +6,7 @@
      * - core.category provides a service which handles all interaction with the server for Category objects.
      */
     angular.module('core', [
-        'core.article',
-        'core.articleIndex'
+        'core.articleIndex',
+        'core.category'
     ]);
 })();
