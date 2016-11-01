@@ -8,14 +8,17 @@ var Article = blogDatabase.Article;
 var Category = blogDatabase.Category;
 
 /**
+ * A simple helper factory for callback functions which send the resulting data as JSON to the client, or log an error
+ * upon erring.
  *
- * @param res
- * @returns {sendData}
+ * @param res The response passed into the router function, and here captured via a closure for use in the callback.
+ * @returns a lambda which takes the potential error and the data to send to the client, and sends them on the response
+ *          object from the calling router.
  */
 function callback(res) {
     return function sendData(err, data) {
         if (err) {
-            console.log(err);
+            console.log(err); /* This will be output into server.log, since all console output is piped thereto. */
             res.send(500, {error: err});
         } else {
             res.json(data);
@@ -24,28 +27,28 @@ function callback(res) {
 }
 
 /*
- Blog article related API.
+ * Blog article related API.
  */
 
-/* GET list of all public articles */
 /**
- *
+ * GET a list of all public articles, as a JSON array of objects.
  */
 router.get('/article-list', function (req, res, next) {
     Article.find().public().exec(callback(res));
 });
 
-/* GET list of all articles */
 /**
+ * GET a list of all articles, public or private, as a JSON array of objects.
  *
+ * TODO: Determine whether this should be protected by checkAuth or not.
  */
 router.get('/all-article-list', function (req, res, next) {
     Article.find().exec(callback(res));
 });
 
-/* GET public articles by category */
 /**
- *
+ * GET a list of all public articles in the given category (which can be either a plain String, or a regex pattern),
+ * as a JSON array of objects. Note, that '/article-list/Everything' is equivalent to '/article-list'
  */
 router.get('/article-list/:category', function (req, res, next) {
     var category = req.params.category;
@@ -56,9 +59,9 @@ router.get('/article-list/:category', function (req, res, next) {
     }
 });
 
-/* GET all articles by category */
 /**
- *
+ * GET a list of all articles, public or private, in the given category (which can be either a plain String, or a regex
+ * pattern), as a JSON array of objects. Note that '/all-article-list/Everything' is equivalent to '/all-article-list'
  */
 router.get('/all-article-list/:category', function (req, res, next) {
     var category = req.params.category;
@@ -69,9 +72,12 @@ router.get('/all-article-list/:category', function (req, res, next) {
     }
 });
 
-/* GET list of public articles by category & author */
 /**
- *
+ * GET a list of all public articles in the given category by the specified author (which can both be either a plain
+ * String, or a regex pattern), as a JSON array of objects. Note that if no particular category is desired,
+ * '/article-list/Everything/:author' will return all public articles of any category by the specified author.
+ * Also note, that '/article-list/Everything/Everything' is equivalent to '/article-list', and that
+ * '/article-list/:category/Everything' is equivalent to '/article-list/:category'.
  */
 router.get('/article-list/:category/:author', function (req, res, next) {
     var category = req.params.category;
@@ -87,9 +93,12 @@ router.get('/article-list/:category/:author', function (req, res, next) {
     }
 });
 
-/* GET list of all articles by category & author */
 /**
- *
+ * GET a list of all articles, public or private, in the given category by the specified author (which can both be
+ * either a plain String, or a regex pattern), as a JSON array of objects. Note that if no particular category is
+ * desired, '/all-article-list/Everything/:author' will return all articles of any category by the specified author.
+ * Also note, that '/all-article-list/Everything/Everything' is equivalent to '/all-article-list', and that
+ * '/all-article-list/:category/Everything' is equivalent to '/all-article-list/:category'.
  */
 router.get('/all-article-list/:category/:author', function (req, res, next) {
     var category = req.params.category;
@@ -105,9 +114,11 @@ router.get('/all-article-list/:category/:author', function (req, res, next) {
     }
 });
 
-/* GET list of articles by category between two dates */
 /**
- *
+ * GET a list of all public articles in the given category (which can be either a plain String, or a regex pattern)
+ * between the two specified dates, inclusive for the first date, and exclusive for the second date, as a JSON array of
+ * objects. Note, that '/article-list/Everything/:startDate/:endDate' will return all public articles between the
+ * specified dates, of all categories.
  */
 router.get('/article-list/:category/:startDate/:endDate', function (req, res, next) {
     var category = req.params.category;
@@ -127,9 +138,11 @@ router.get('/article-list/:category/:startDate/:endDate', function (req, res, ne
     }
 });
 
-/* GET list of all articles by category between two dates */
 /**
- *
+ * GET a list of all articles, public or private, in the given category (which can be either a plain String, or a regex
+ * pattern) between the two specified dates, inclusive for the first date, and exclusive for the second date, as a JSON
+ * array of objects. Note, that '/all-article-list/Everything/:startDate/:endDate' will return all articles between the
+ * specified dates, of all categories.
  */
 router.get('/all-article-list/:category/:startDate/:endDate', function (req, res, next) {
     var category = req.params.category;
@@ -139,7 +152,7 @@ router.get('/all-article-list/:category/:startDate/:endDate', function (req, res
     startDate.setTime(parseInt(req.params.startDate));
     endDate.setTime(parseInt(req.params.endDate));
 
-    // Validate the dates
+    /* Ensure the dates are valid. */
     if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
         if (category === 'Everything') {
             Article.find().betweenDates(startDate, endDate).exec(callback(res));
@@ -149,9 +162,9 @@ router.get('/all-article-list/:category/:startDate/:endDate', function (req, res
     }
 });
 
-/* GET a public article by article-id */
 /**
- *
+ * GET the unique public article with the specified ID, as a JSON object. Note, that unlike the other handles in this
+ * REST API, this one does NOT return a JSON Array.
  */
 router.get('/get-article/:id', function (req, res, next) {
     var articleId = req.params.id;
@@ -165,9 +178,9 @@ router.get('/get-article/:id', function (req, res, next) {
     });
 });
 
-/* GET any article by article-id */
 /**
- *
+ * Get the unique article, public or private, with the specified ID, as a JSON object. Note, that unlike the other
+ * handles in this REST API, this one does NOT return a JSON Array.
  */
 router.get('/get-private-article/:id', function (req, res, next) {
     var articleId = req.params.id;
@@ -181,16 +194,20 @@ router.get('/get-private-article/:id', function (req, res, next) {
     });
 });
 
-/* POST articles to the database, requiring authorization */
 /**
+ * POST the provided article to the database. The article must be provided as a JSON object. For more information on the
+ * possible fields in an article, see the articleSchema in article.model.js
  *
+ * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
+ * For more on that process, see auth.js, user.js, and user.model.js
  */
 router.post('/post-article', checkAuth, function (req, res, next) {
     var article = req.body;
 
-    // TOOD: Validate the contents of the article.
-    //   Validate all of: title, author (name & email), date, content, comments.
-    //     ^^ Should be done because of the Schema. Only email needs validation.
+    /* TODO: Validate the contents of the article.
+     *   Validate all of: title, author (name & email), date, content, comments.
+     *     ^^ Should be done because of the Schema. Only email needs validation.
+     */
 
     var dbArticle = new Article(article);
 
@@ -203,18 +220,20 @@ router.post('/post-article', checkAuth, function (req, res, next) {
     });
 });
 
-/* PUT update articles in the database, by id, requiring authorization 
- NOTE: Attempting to update comments via this api will overwrite
- all existing comments. */
 /**
+ * PUT updates the unique article with the provided ID, by overwriting fields in the database which are provided in the
+ * update object. Updates must be provided as a JSON Object. For more information on the possible fields in an article,
+ * see the articleSchema in article.model.js
  *
+ * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
+ * For more on that process, see auth.js, user.js, and user.model.js
  */
 router.put('/update-article/:id', checkAuth, function (req, res, next) {
     var articleId = req.params.id;
 
     var updates = req.body;
 
-    // TODO: Validate updates.
+    /* TODO: Validate updates. */
 
     Article.findOneAndUpdate({_id: articleId}, updates, {new: true},
         function (err, article) {
@@ -226,10 +245,12 @@ router.put('/update-article/:id', checkAuth, function (req, res, next) {
         });
 });
 
-/* DELETE remove an article and all associated comments by article id,
- requiring authorization. */
 /**
+ * DELETE the unique article with the provided ID. Note that this operation cannot be undone, and when requested in the
+ * admin portal is protected by confirmation fields.
  *
+ * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
+ * For more on that process, see auth.js, user.js, and user.model.js
  */
 router.delete('/remove-article/:id', checkAuth, function (req, res, next) {
     var articleId = req.params.id;
