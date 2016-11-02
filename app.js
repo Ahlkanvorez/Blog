@@ -13,7 +13,6 @@ mongoose.connect('mongodb://localhost:27017/blog');
 
 var blogDatabase = require('./data/blog-database.js');
 var db = mongoose.connection;
-blogDatabase.initialize();
 
 // Routes
 var routes = require('./routes/index');
