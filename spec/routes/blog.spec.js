@@ -411,12 +411,12 @@
         describe('POST /post-article', function () {
             it('returns status code 403 when not already logged in.', function (done) {
                 request.post(base_url + '/post-article', {
-                    json : {
-                        title : 'This should NOT be posted.',
-                        category : 'Illegal Documents',
-                        author : 'Unauthorized user',
-                        date : new Date(),
-                        content : 'This should not get through security, and should definitely not get into the database.'
+                    json: {
+                        title: 'This should NOT be posted.',
+                        category: 'Illegal Documents',
+                        author: 'Unauthorized user',
+                        date: new Date(),
+                        content: 'This should not get through security, and should definitely not get into the database.'
                     }
                 }, function (err, res) {
                     expect(res.statusCode).toBe(403);
@@ -429,12 +429,12 @@
             it('returns status code 403 when not already logged in.', function (done) {
                 /* Attempts to alter the LoremIpsum article. */
                 request.put(base_url + '/update-article/57e5daf45cd9d6a520d712e7', {
-                    json : {
-                        title : 'This better not be posted',
-                        category : 'Illegal documents',
-                        author : 'Illegal user',
-                        date : new Date(),
-                        content : 'Illegal content. Too horrendous to render in your editor.'
+                    json: {
+                        title: 'This better not be posted',
+                        category: 'Illegal documents',
+                        author: 'Illegal user',
+                        date: new Date(),
+                        content: 'Illegal content. Too horrendous to render in your editor.'
                     }
                 }, function (err, res) {
                     expect(res.statusCode).toBe(403);
@@ -573,10 +573,10 @@
         describe('POST /post-category', function () {
             it('returns status code 403 when not already logged in.', function (done) {
                 request.post(base_url + '/post-category', {
-                    json : {
-                        name : 'Illegal category',
-                        description : 'Bad bad stuff.',
-                        aboutAuthor : 'Really this should not exist'
+                    json: {
+                        name: 'Illegal category',
+                        description: 'Bad bad stuff.',
+                        aboutAuthor: 'Really this should not exist'
                     }
                 }, function (err, res) {
                     expect(res.statusCode).toBe(403);
@@ -589,10 +589,10 @@
             it('returns status code 403 when not already logged in.', function (done) {
                 /* Attempts to update the Everything category. */
                 request.put(base_url + '/update-category/57b5423cf22c6b7d4055fef4', {
-                    json : {
-                        name : 'Illegal category',
-                        description : 'I hope this does not go through',
-                        aboutAuthor : 'about who?'
+                    json: {
+                        name: 'Illegal category',
+                        description: 'I hope this does not go through',
+                        aboutAuthor: 'about who?'
                     }
                 }, function (err, res) {
                     expect(res.statusCode).toBe(403);
