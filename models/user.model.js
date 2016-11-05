@@ -103,7 +103,7 @@
      * current time.
      */
     userSchema.virtual('isLocked').get(function () {
-        /* Check for a future lockUntil timestamp; !! makes it either true or false.*/
+        /* Check for a future lockUntil timestamp; !! makes it either true or false. */
         return !!(this.lockUntil && this.lockUntil > Date.now());
     });
 
@@ -210,28 +210,39 @@
         return this.update(updates, callback);
     };
 
-    // Precondition: callback is of the form function callback(err, user, loginFailureReason).
     /**
+     * Attempts to process a login attempt, by checking the validity of the given username, whether the desired User is
+     * locked out or able to login, and whether the given password is equal to that from which the hash associated with
+     * this User was generated. If unsuccessful, the failed login attempt is recorded, and if needed the User is locked
+     * out of logging in for a set time, or either an error or a reason for failure will be given to the callback;
+     * and if successful, then the desired User object is given to the callback.
      *
+     * @param name The username of the User to be authenticated.
+     * @param password the password to check for authentication.
+     * @param callback a function of the form callback(error, user, reasonForLoginFailure)
      */
     userSchema.static('getAuthenticated', function (name, password, callback) {
-        // Search the database for the given user
-        this.findOne({username: name}).exec(function (err, user) {
+        /* Searches the database for a User of the specified username.
+         * If an error occurs, fail authentication by invoking the callback to handle the error and return.
+         * If no such user exists, fail authentication by invoking the callback and telling it that no such user exists.
+         * If such a user exists, but it is locked, fail authentication by invoking the callback and tell it that.
+         * Otherwise, check the password.
+         */
+        this.findOne({ username : name }).exec(function (err, user) {
             if (err) {
                 return callback(err);
             }
 
-            console.log(user);
+            console.log('Login attempt from:', user);
 
-            // Make sure the user exists
+            /* If no such User exists, fail authentication. */
             if (!user) {
                 return callback(null, null, reasons.NOT_FOUND);
             }
 
-            // Check if the account is currently locked
+            /* If the User is locked, fail authentication. */
             if (user.isLocked) {
                 console.log('User locked');
-                // If it iss, just incrememt the login attempts.
                 return user.incLoginAttempts(function (err) {
                     if (err) {
                         return callback(err);
@@ -240,25 +251,33 @@
                 });
             }
 
-            // Test for a matching password
+            /* Compare the given password against the hash stored in the database. */
             user.comparePassword(password, function (err, isMatch) {
                 if (err) {
                     return callback(err);
                 }
 
-                // Check if the password was a match
+                /* The isMatch parameter is provided by comparePassword(...), which will be true if the given password
+                 * is equal to that from which the hash stored in the database was generated.
+                 */
                 if (isMatch) {
-                    // If there's no lock or failed attempts, just return the user
+                    /* If the User isn't locked, and has no logged attempts, just give the user to the callback and
+                     * return.
+                     */
                     if (!user.loginAttempts && !user.lockUntil) {
                         return callback(null, user);
                     }
 
-                    // Reset attempts and lock info
+                    /* Otherwise, make sure to reset the User to a state with no loginAttempts, and unset the lockUntil
+                     * date to make sure the account won't be accidentally locked if they log out and have a failed
+                     * attempt logging back in.
+                     */
                     var updates = {
                         $set: {loginAttempts: 0},
                         $unset: {lockUntil: 1}
                     };
 
+                    /* Push the updates to the database, then pass the User to the callback and return. */
                     return user.update(updates, function (err) {
                         if (err) {
                             return callback(err);
@@ -267,7 +286,9 @@
                     });
                 }
 
-                // Otherwise, password is incorrect, so increment login attempts.
+                /* If the password was incorrect, then increment the number of attempted logins, and lock the User if
+                 * needed.
+                 */
                 user.incLoginAttempts(function (err) {
                     if (err) {
                         return callback(err);
