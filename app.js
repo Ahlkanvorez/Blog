@@ -13,7 +13,6 @@ mongoose.connect('mongodb://localhost:27017/blog');
 
 var blogDatabase = require('./data/blog-database.js');
 var db = mongoose.connection;
-blogDatabase.initialize();
 
 // Routes
 var routes = require('./routes/index');
@@ -80,7 +79,7 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-// no stacktraces leaked to user
+// no stack-traces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {

@@ -5,7 +5,6 @@
     const http = require('http');
 
     const base_url = "http://localhost:3000/blog";
-//  var pass = "password";
 
     describe('Blog Server, Blog route', function () {
         describe('GET /', function () {
@@ -419,41 +418,39 @@
                         date: new Date(),
                         content: 'This should not get through security, and should definitely not get into the database.'
                     }
-                }, function (err, res, body) {
+                }, function (err, res) {
                     expect(res.statusCode).toBe(403);
                     done();
                 });
             });
+        });
 
-            /*
-             // TODO: Make the tests able to login as an admin.
-             it ('returns status code 200 when actually logged in.', function (done) {
-             request.post('http://localhost:3000/users/login', {
-             json : {
-             username : "Ahlkanvorez",
-             password : pass
-             }
-             }, function (err, res, next) {
-             console.log("----------", res);
-             request.post(base_url + '/post-article', {
-             json : {
-             title : 'Lorem Ipsum part 2',
-             category : 'Tests',
-             author : 'Someone special',
-             date : new Date(),
-             content : 'Puellae mē saepe cōgitant.'
-             },
-             }, function (err, res, next) {
-             console.log(res.statusCode, http.STATUS_CODES[res.statusCode]);
-             var articleId = res.body._id;
-             expect(res.statusCode).toBe(200);
-             request.delete('http://localhost:3000/blog/remove-article/' + articleId, function (err, res, next) {
-             request.get('http://localhost:3000/users/logout', function (err, res, next) {
-             done();
-             });
-             });
-             });
-             }); */
+        describe('PUT /update-article/:id', function () {
+            it('returns status code 403 when not already logged in.', function (done) {
+                /* Attempts to alter the LoremIpsum article. */
+                request.put(base_url + '/update-article/57e5daf45cd9d6a520d712e7', {
+                    json: {
+                        title: 'This better not be posted',
+                        category: 'Illegal documents',
+                        author: 'Illegal user',
+                        date: new Date(),
+                        content: 'Illegal content. Too horrendous to render in your editor.'
+                    }
+                }, function (err, res) {
+                    expect(res.statusCode).toBe(403);
+                    done();
+                });
+            });
+        });
+
+        describe('DELETE /remove-article/:id', function () {
+            it('returns status code 403 when not already logged in.', function (done) {
+                /* Attempts to delete the LoremIpsum article. */
+                request.delete(base_url + '/remove-article/57e5daf45cd9d6a520d712e7', {}, function (err, res) {
+                    expect(res.statusCode).toBe(403);
+                    done();
+                });
+            })
         });
 
         describe('GET /category-list', function () {
@@ -568,6 +565,47 @@
                     expect(category.description).toBe('Test category; should be private.');
                     expect(category.aboutAuthor).toBe('This exists solely for testing purposes');
                     expect(category.private).toBe(true);
+                    done();
+                });
+            });
+        });
+
+        describe('POST /post-category', function () {
+            it('returns status code 403 when not already logged in.', function (done) {
+                request.post(base_url + '/post-category', {
+                    json: {
+                        name: 'Illegal category',
+                        description: 'Bad bad stuff.',
+                        aboutAuthor: 'Really this should not exist'
+                    }
+                }, function (err, res) {
+                    expect(res.statusCode).toBe(403);
+                    done();
+                });
+            });
+        });
+
+        describe('PUT /update-category/:id', function () {
+            it('returns status code 403 when not already logged in.', function (done) {
+                /* Attempts to update the Everything category. */
+                request.put(base_url + '/update-category/57b5423cf22c6b7d4055fef4', {
+                    json: {
+                        name: 'Illegal category',
+                        description: 'I hope this does not go through',
+                        aboutAuthor: 'about who?'
+                    }
+                }, function (err, res) {
+                    expect(res.statusCode).toBe(403);
+                    done();
+                });
+            });
+        });
+
+        describe('DELETE /remove-category/:id', function () {
+            it('returns status code 403 when not already logged in.', function (done) {
+                /* Attempts to remove the Everything category. */
+                request.delete(base_url + '/remove-category/57b5423cf22c6b7d4055fef4', {}, function (err, res) {
+                    expect(res.statusCode).toBe(403);
                     done();
                 });
             });

@@ -5,7 +5,7 @@
 	 *  The REST API presented by this service only allows HTTP GET operations, since the user will never need to, and
      *     is not allowed to, perform any other options.
 	 *
-	 *  - GET will return all the categories on the server, but will only access the server once, caching the response
+	 *  - get will return all the categories on the server, but will only access the server once, caching the response
 	 *        in memory, and serving that data when re-requested.
 	 *
 	 * Requirements:
