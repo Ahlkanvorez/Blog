@@ -10,8 +10,6 @@
      *   username : ___,
      *   email : ___
      * }
-     *
-     * TODO: Determine whether this needs authentication or not.
      */
     router.get('/', checkAuth, function (req, res, next) {
         User.find().exec(function callback(err, data) {
@@ -32,7 +30,7 @@
         res.render('login', {title: 'Login'});
     });
 
-    /* TODO: Investigate
+    /* TODO: Investigate the following:
      - https://github.com/bnoguchi/everyauth
      - https://github.com/ncb000gt/node.bcrypt.js/
      */
@@ -81,7 +79,6 @@
      * first being logged in, there should be no negative effect, since the value being deleted is already null; they will
      * simply be redirected to the login page.
      *
-     * TODO: Does this need to be wrapped in 'checkauth'? I don't think it does.
      */
     router.get('/logout', function (req, res) {
         req.session.reset();
