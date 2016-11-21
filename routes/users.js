@@ -51,7 +51,8 @@
             /* Login was successful if user is not null. */
             if (user) {
                 req.session.userId = user._id;
-                res.redirect('/admin');
+                req.session.username = req.body.username;
+                res.redirect('/admin', { title : req.body.username });
                 return;
             }
 
@@ -83,7 +84,7 @@
      * TODO: Does this need to be wrapped in 'checkauth'? I don't think it does.
      */
     router.get('/logout', function (req, res) {
-        delete req.session.userId;
+        req.session.reset();
         res.redirect('/users/login');
     });
 
