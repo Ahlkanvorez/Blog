@@ -1,56 +1,56 @@
 doctype html
 
 html(ng-app="blogAdminApp")
-  head
-    meta(charset="utf-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
 
-    meta(name="description", content="Administrative dashboard for Robert Mitchell's Blog")
-    meta(name="author", content="Robert Mitchell")
-    link(rel="icon" href="../public/img/favicon.ico")
+        meta(name="description", content="Administrative dashboard for Robert Mitchell's Blog")
+        meta(name="author", content="Robert Mitchell")
+        link(rel="icon" href="../public/img/favicon.ico")
 
-    title= title
+        title= title
 
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/ie10-viewport-bug-workaround.css')
-    link(rel='stylesheet', href='/css/main.css')
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
+        link(rel='stylesheet', href='/css/ie10-viewport-bug-workaround.css')
+        link(rel='stylesheet', href='/css/main.css')
 
-    script(src='/bower_components/jquery/dist/jquery.js')
-    script(src='/bower_components/angular/angular.js')
-    script(src='/bower_components/angular-resource/angular-resource.js')
-    script(src='/bower_components/angular-route/angular-route.js')
-    script(src='/bower_components/angular-sanitize/angular-sanitize.js')
+        script(src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous")
+        script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js")
+        script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-resource.js")
+        script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js")
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-sanitize.js')
 
-    script(src='/js/blog-admin-app/app.module.js')
-    script(src='/js/blog-admin-app/app.config.js')
-    script(src='/js/blog-admin-app/app.constants.js')
-    script(src='/js/blog-admin-app/core/core.module.js')
-    script(src='/js/blog-admin-app/core/category/category.module.js')
-    script(src='/js/blog-admin-app/core/category/category.service.js')
-    script(src='/js/blog-admin-app/core/article-index/article-index.module.js')
-    script(src='/js/blog-admin-app/core/article-index/article-index.service.js')
-    script(src='/js/blog-admin-app/core/article-index/article-index.snippet.filter.js')
-    script(src='/js/blog-admin-app/article-list/article-list.module.js')
-    script(src='/js/blog-admin-app/article-list/article-list.component.js')
-    script(src='/js/blog-admin-app/article-view/article-view.module.js')
-    script(src='/js/blog-admin-app/article-view/article-view.component.js')
-    script(src='/js/blog-admin-app/about-view/about.module.js')
-    script(src='/js/blog-admin-app/about-view/about.component.js')
+        script(src='/js/blog-admin-app/app.module.js')
+        script(src='/js/blog-admin-app/app.config.js')
+        script(src='/js/blog-admin-app/app.constants.js')
+        script(src='/js/blog-admin-app/core/core.module.js')
+        script(src='/js/blog-admin-app/core/category/category.module.js')
+        script(src='/js/blog-admin-app/core/category/category.service.js')
+        script(src='/js/blog-admin-app/core/article-index/article-index.module.js')
+        script(src='/js/blog-admin-app/core/article-index/article-index.service.js')
+        script(src='/js/blog-admin-app/core/article-index/article-index.snippet.filter.js')
+        script(src='/js/blog-admin-app/article-list/article-list.module.js')
+        script(src='/js/blog-admin-app/article-list/article-list.component.js')
+        script(src='/js/blog-admin-app/article-view/article-view.module.js')
+        script(src='/js/blog-admin-app/article-view/article-view.component.js')
+        script(src='/js/blog-admin-app/about-view/about.module.js')
+        script(src='/js/blog-admin-app/about-view/about.component.js')
 
-  body(ng-app="blogAdminApp")
-    .header
-      .container
-        nav
-          a.blog-title Robert Mitchell
-          a.nav-item.active(href='admin#!/article-list') Blog
-          a.nav-item(href='admin#!/about') About
-      
-    .container
-      ng-view
+    body(ng-app="blogAdminApp")
+        .header
+            .container
+                nav
+                    a.blog-title Robert Mitchell
+                    a.nav-item.active(href='admin#!/article-list') Blog
+                    a.nav-item(href='admin#!/about') About
 
-    footer
-      p Copyright Robert Mitchell, 2016.
-      p.
-        Glory be to the Father, and to the Son, and to the Holy Ghost. <br />
-        As it was in the beginning, is now and ever shall be. World without end, Amen.
+        .container
+            ng-view
+
+        footer
+            p Copyright Robert Mitchell, 2016.
+            p.
+                Glory be to the Father, and to the Son, and to the Holy Ghost. <br />
+                As it was in the beginning, is now and ever shall be. World without end, Amen.

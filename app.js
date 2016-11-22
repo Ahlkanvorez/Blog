@@ -1,9 +1,8 @@
 const express = require('express');
-const session = require('express-session');
+const session = require('client-sessions');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 /* Database requirements and initialization */
@@ -28,24 +27,22 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser('Ahlkanvorez')); // Initialize with a secret.
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* Configure the session
- * TODO: Review the session settings.
+ * For a good reference on the session library used, see:
+ * - https://github.com/mozilla/node-client-sessions
+ * - https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
  */
-var sess = {
-  secret : 'Ahlkanvorez',
-  resave : false,
-  cookie : { secure : false } // TODO: Make it work with secure : true.
-};
-
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1); // Trust first proxy
-  sess.cookie.secure = true; // Serve secure cookies
-}
-
-app.use(session(sess));
+app.use(session({
+    cookieName : 'session', /* The key name added to the req object. */
+    secret : 'RAg1H7DnxA36tU8nhRIgjTER05RT3YStF8CXuvAJZdSn8iMXmu',
+    duration : 30 * 60 * 1000, /* 30 minutes */
+    activeDuration : 15 * 60 * 1000, /* activity adds 15 minutes */
+    httpOnly : true, /* Cookie is inaccessible via javascript */
+    // secure : true, /* Cookie will only be sent over SSL */
+    ephemeral : true /* Delete cookies on browser exit, so it's safer to login on a public computer. TODO: Fix. */
+}));
 
 /* Make the database accessible to the router */
 app.use(function(req, res, next) {
@@ -83,7 +80,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message : err.message,
-    error : {}
+    error : {},
   });
 });
 
