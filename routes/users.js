@@ -50,7 +50,7 @@
             if (user) {
                 req.session.userId = user._id;
                 req.session.username = req.body.username;
-                res.redirect('/admin', { title : req.body.username });
+                res.redirect('/admin');
                 return;
             }
 

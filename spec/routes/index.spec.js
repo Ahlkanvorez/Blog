@@ -2,7 +2,7 @@
     'use strict';
 
     var request = require('request');
-    var base_url = "http://localhost:3000/";
+    var base_url = "https://www.hrodebert.me/";
 
     describe('Blog Server, Index route', function () {
         describe('GET /', function () {

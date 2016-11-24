@@ -304,7 +304,6 @@
         }
     });
 
-
     /**
      * GET a list of all categories, public or private, with names matching the provided name (which can be either a plain
      * String, or a regex pattern), as a JSON array of objects. Note that '/get-private-category/Everything' is the unique

@@ -1,11 +1,11 @@
 @font-face {
     font-family : MedievalInitials;
-    src : url('http://localhost:3000/fonts/GoudyIni.ttf');
+    src : url('https://www.hrodebert.me/fonts/GoudyIni.ttf');
 }
 
 @font-face {
     font-family : Blackletter;
-    src : url('http://localhost:3000/fonts/Plain Germanica.ttf');
+    src : url('https://www.hrodebert.me/fonts/Plain Germanica.ttf');
 }
 
 body {

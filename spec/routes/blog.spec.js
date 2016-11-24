@@ -4,7 +4,7 @@
     const request = require('request');
     const http = require('http');
 
-    const base_url = "http://localhost:3000/blog";
+    const base_url = "http://www.hrodebert.me/blog";
 
     describe('Blog Server, Blog route', function () {
         describe('GET /', function () {

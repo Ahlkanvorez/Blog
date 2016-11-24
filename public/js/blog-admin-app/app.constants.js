@@ -7,7 +7,7 @@
      * TODO: Make sure each ViewMode is needed.
      */
     angular.module('blogAdminApp').constant('ServerConfig', {
-        baseUrl: 'http://localhost:3000'
+        baseUrl: 'https://www.hrodebert.me'
     }).constant('ViewModes', {
         view: 'view',
         edit: 'edit',
