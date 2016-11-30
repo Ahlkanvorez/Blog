@@ -13,7 +13,7 @@ const db = mongoose.connection;
 /* Route files */
 const routes = require('./routes/index');
 const users = require('./routes/users');
-const blog = require('./routes/blog')
+const blog = require('./routes/blog');
 
 const app = express();
 
