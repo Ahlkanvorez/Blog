@@ -103,7 +103,7 @@
     </ol>
   </div>
 
-  <div class="sidebar-block">
+  <div class="sidebar-block" ng-if="$ctrl.similarArticles.length > 0">
     <h4>Similar</h4>
     <ol class="list-unstyled">
       <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">

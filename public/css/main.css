@@ -93,12 +93,24 @@ footer p {
     text-align: justify;
 }
 
+/* TODO: Consider how to indicate an article is clickable.
+.article-container {
+    padding-left: 15px;
+}
+*/
+/*
+.article-container:hover {
+    border-left: 5px solid #8A0707;
+    padding-left: 10px;
+}
+*/
+
 .article-author {
-    color: #333;
+    color: #8A0707;
 }
 
 .article-author a {
-    color: #333;
+    color: ##8A0707;
 }
 
 .article-author a:hover {
@@ -119,7 +131,7 @@ footer p {
 }
 
 .article-title a {
-    color: #333;
+    color: #8A0707;
 }
 
 .article-meta {
