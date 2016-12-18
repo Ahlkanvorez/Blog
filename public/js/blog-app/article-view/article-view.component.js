@@ -4,7 +4,7 @@
     /** Defines the ArticleView module, and registers it with the module, which contains the View in
      *     an HTML file (/js/blog-app/article-view/article-view.template.html), with the associated Controller in this
      *     file.
-     * - $routeParams is used to access the ID of the article which is to be displayed.
+     * - $routeParams is used to access the title of the article which is to be displayed.
      * - ArticleIndex is used to access the articles from the server, and acts like a REST API with a GET function.
      * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
      */
@@ -14,29 +14,28 @@
             function articleViewController($routeParams, ArticleIndex, Category) {
                 const self = this;
 
-                // TODO: Consider making articles accessible by Name instead of ID.
-                /* Check what the ID of the desired article is. */
-                self.articleId = $routeParams.articleId;
+                /* Check what the name of the desired article is. */
+                self.title = $routeParams.title;
                 ArticleIndex.get(function successCallback(articleList) {
                     /* Look through all the articles from the server, and save the desired one. */
                     // TODO: Consider using a filter method instead of a for-loop.
                     for (var n = 0; n < articleList.length; ++n) {
-                        if (self.articleId === articleList[n]._id) {
+                        if (self.title === articleList[n].title.split(' ').join('-')) {
                             self.article = articleList[n];
-                            break; /* Article ID's are unique, so we don't need to look any further. */
+                            break; /* article titles are unique, so we do not need to look any further. */
                         }
                     }
 
                     /* Save all the other articles in the same category as the one being displayed, to be listed as
                           'similar articles' on the page. */
                     self.similarArticles = articleList.filter(function (article) {
-                        return article.category === self.article.category && article._id != self.articleId;
+                        return article.category === self.article.category && article._id != self.article._id;
                     });
 
                     /* This really shouldn't ever be the case ... but if somehow no article is found with the given ID,
                          log an error, and redirect to the home (#!/article-list) page. */
                     if (!self.article) {
-                        console.error('Invalid article id: %d.', self.articleId);
+                        console.error('Invalid title: %s.', self.title);
                         // TODO: Redirect to #!/article-list
                         return;
                     }

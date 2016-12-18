@@ -50,7 +50,7 @@
         <h4>Similar</h4>
         <ol class="list-unstyled">
             <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">
-                <a href="#!/articles/{{article._id}}" ng-bind-html="article.title"></a>
+                <a href="#!/articles/{{article.title.split(' ').join('-'}}" ng-bind-html="article.title"></a>
             </li>
         </ol>
     </div>
