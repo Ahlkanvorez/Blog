@@ -17,7 +17,7 @@
 
   <div class="article-container" ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
     <h2 class="article-title">
-      <a href="#!/articles/{{article._id}}" ng-bind-html="article.title"></a>
+      <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
       <i ng-if="article.private">-- Private!</i>
     </h2>
       <a href="#!/article-list/{{article.category}}">
@@ -30,7 +30,7 @@
       - posted on
       <span>{{article.date | date}}</span>
     <p class="article-snippet">
-      <a href="#!/articles/{{article._id}}" ng-bind-html="article.content | snippet"></a>
+      <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.content | snippet"></a>
     </p>
 
   </div><!-- /.blog-post -->

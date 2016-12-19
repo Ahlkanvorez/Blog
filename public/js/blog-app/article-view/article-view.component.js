@@ -18,7 +18,6 @@
                 self.title = $routeParams.title;
                 ArticleIndex.get(function successCallback(articleList) {
                     /* Look through all the articles from the server, and save the desired one. */
-                    // TODO: Consider using a filter method instead of a for-loop.
                     for (var n = 0; n < articleList.length; ++n) {
                         if (self.title === articleList[n].title.split(' ').join('-')) {
                             self.article = articleList[n];
