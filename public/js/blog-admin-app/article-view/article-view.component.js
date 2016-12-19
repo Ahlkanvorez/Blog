@@ -10,7 +10,7 @@
      *     currently being viewed.
      * - $scope is used to make available a few functions so the view can indicate to the controller that the article
      *     has been edited and should be saved, or that editing should cease/begin, etc.
-     * - $routeParams is used to access the ID of the article which is to be displayed.
+     * - $routeParams is used to access the title of the article which is to be displayed.
      * - ArticleIndex is used to access the articles from the server, and acts like a REST API with a GET function.
      * - ServerConfig is used to allow access to the app-wide constant value of the base-url of the server.
      * - ViewModes is used as a simple enum indicating which state of viewing is currently happening: whether the
