@@ -3,17 +3,16 @@
     src : url('https://www.hrodebert.me/fonts/GoudyIni.ttf');
 }
 
-@font-face {
-    font-family : Blackletter;
-    src : url('https://www.hrodebert.me/fonts/Plain Germanica.ttf');
-}
-
 body {
-    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-family: "Iowan Old Style", 'Lustria',  "Times New Roman", serif;
 }
 
-h1, h2 a, h3, h4, a, p, label, sup {
-    font-family: "Iowan Old Style", "Times New Roman", serif;
+a, p, label, sup {
+    font-family: "Iowan Old Style", 'Lustria', "Times New Roman", serif;
+}
+
+h1, h2, h3, h4, h2 a, h3 a {
+    font-family: 'Iowan Old Style', 'Lustria', "Times New Roman", serif;
 }
 
 sup {
@@ -72,7 +71,7 @@ footer p {
 }
 
 .header nav a {
-    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-family: "Iowan Old Style", 'Lustria', "Times New Roman", serif;
     font-size: 1.25em;
     text-decoration: none;
     color: #333;
@@ -89,7 +88,7 @@ footer p {
 
 .sidebar-block {
     font-size: 10pt;
-    font-family: "Georgia", serif;
+    font-family: "Iowan Old Style", 'Lustria', serif;
     text-align: justify;
 }
 
@@ -126,7 +125,7 @@ footer p {
 }
 
 .article-title {
-    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-family: "Iowan Old Style", 'Lustria', "Times New Roman", serif;
     color: #333;
 }
 
@@ -142,7 +141,7 @@ footer p {
 }
 
 .article-content {
-    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-family: "Iowan Old Style", 'Lustria', "Times New Roman", serif;
     margin-top: 20px;
     font-size: 1.25em;
     line-height: 1.6875;
@@ -152,7 +151,7 @@ footer p {
 }
 
 .article-content-quote {
-    font-family: "Iowan Old Style", "Times New Roman", serif;
+    font-family: "Iowan Old Style", 'Lustria', "Times New Roman", serif;
     font-variant: normal;
     line-height: 1.6875;
     font-style: italic;
@@ -167,10 +166,6 @@ blockquote {
     border-left: 4px solid #8A0707;
 }
 
-.blackletter {
-    font-family: Blackletter, serif;
-}
-
 .article-content p:first-of-type::first-letter {
     font-size: 7em; /* 3 em; */
     font-family: MedievalInitials, "liberation-serif", serif;
@@ -181,6 +176,7 @@ blockquote {
 }
 
 .article-content p:first-of-type::first-line {
+    font-family: 'Iowan Old Style', 'Georgia', 'Times New Roman', serif;
     font-style: normal;
     font-variant: small-caps;
 }
