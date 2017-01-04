@@ -13,7 +13,7 @@
      *            posted between the specified dates.
      *   - #!/article-list/:category/:authorName/:startDate/:endDate lists all the articles in the specified category
      *            which were written by the specified author and posted between the specified dates.
-     *   - #!/articles/:articleId is a dynamic page which displays the unique article with the specified ID.
+     *   - #!/articles/:title is a dynamic page which displays the unique article with the specified title.
      *
      *   Any other url will be defaulted to admin#!/article-list
      */
@@ -33,7 +33,7 @@
                 template: '<article-list></article-list>'
             }).when('/article-list/:category/:authorName/:startDate/:endDate/', {
                 template: '<article-list></article-list>'
-            }).when('/articles/:articleId', {
+            }).when('/articles/:title', {
                 template: '<article-view></article-view>'
             }).otherwise('/article-list');
         }

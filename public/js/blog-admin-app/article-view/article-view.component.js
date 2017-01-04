@@ -10,7 +10,7 @@
      *     currently being viewed.
      * - $scope is used to make available a few functions so the view can indicate to the controller that the article
      *     has been edited and should be saved, or that editing should cease/begin, etc.
-     * - $routeParams is used to access the ID of the article which is to be displayed.
+     * - $routeParams is used to access the title of the article which is to be displayed.
      * - ArticleIndex is used to access the articles from the server, and acts like a REST API with a GET function.
      * - ServerConfig is used to allow access to the app-wide constant value of the base-url of the server.
      * - ViewModes is used as a simple enum indicating which state of viewing is currently happening: whether the
@@ -21,30 +21,29 @@
         templateUrl: '/js/blog-admin-app/article-view/article-view.template.html',
         controller: ['$sanitize', '$window', '$scope', '$routeParams', 'ArticleIndex', 'ServerConfig', 'ViewModes', 'Category',
             function articleViewController($sanitize, $window, $scope, $routeParams, ArticleIndex, ServerConfig, ViewModes, Category) {
-                var self = this;
+                const self = this;
                 self.mode = ViewModes.view;
                 $scope.ViewModes = ViewModes;
                 $scope.box = {};
 
-                self.articleId = $routeParams.articleId;
+                self.title = $routeParams.title;
                 ArticleIndex.get(function successCallback(articles) {
-                    /* Filter out all but the article we want; viz. the unique article with the desired ID. */
-                    var article = articles.filter(function (article) {
-                        return article._id === self.articleId;
-                    })[0];
-
-                    var category = article.category;
+                    /* Filter out all but the article we want; viz. the unique article with the desired title. */
+                    for (var n = 0; n < articles.length; ++n) {
+                        if (self.title === articles[n].title.split(' ').join('-')) {
+                            /* Make a deep copy of the article to restore back to. */
+                            $scope.box.article = articles[n];
+                            self.article = JSON.parse(JSON.stringify(articles[n]));
+                            break; /* article titles are unique, so we do not need to look any further. */
+                        }
+                    }
 
                     /* Record for use in the View (in the 'Similar' side area) all other articles within the same
                      * category.
                      */
                     self.similarArticles = articles.filter(function (article) {
-                        return category === article.category && article._id != self.articleId;
+                        return self.article.category === article.category && article._id != self.article._id;
                     });
-
-                    /* Make a deep copy of the article to restore back to. */
-                    self.article = JSON.parse(JSON.stringify(article));
-                    $scope.box.article = article;
 
                     /* Get a list of all categories from the server. */
                     Category.get(function successCallback(categories) {
@@ -88,7 +87,7 @@
                     }, function elseCallback() {
                         $scope.box.article.category = self.article.category;
                     });
-                }
+                };
 
                 /* Confirm the admin would like to save the article */
                 $scope.saveArticleUpdates = function saveArticleUpdates(article) {
@@ -96,15 +95,15 @@
                         saveArticle(article);
                     }, function elseCallback() {
                     });
-                }
+                };
 
                 /* Confirm the admin would like to delete the article */
                 $scope.deleteCurrentArticle = function deleteCurrentArticle() {
-                    confirmBefore('delete article ' + self.articleId, function confirmedCallback() {
+                    confirmBefore('delete article ' + self.article._id, function confirmedCallback() {
                         deleteArticle(self);
                     }, function elseCallback() {
                     });
-                }
+                };
 
                 /* Confirm the desired operation, then execute the callback if affirmed. */
                 function confirmBefore(description, confirmedCallback, elseCallback) {

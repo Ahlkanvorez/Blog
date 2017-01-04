@@ -13,6 +13,7 @@ html(ng-app="blogApp")
         title= title
 
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
+        link(href="https://fonts.googleapis.com/css?family=Lustria" rel="stylesheet")
 
         link(rel='stylesheet', href='/css/ie10-viewport-bug-workaround.css')
         link(rel='stylesheet', href='/css/main.css')
@@ -22,22 +23,6 @@ html(ng-app="blogApp")
         script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-resource.js")
         script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js")
         script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-sanitize.js')
-
-        script(src='/js/blog-app/app.module.js')
-        script(src='/js/blog-app/app.config.js')
-        script(src='/js/blog-app/app.constants.js')
-        script(src='/js/blog-app/core/core.module.js')
-        script(src='/js/blog-app/core/article-index/article-index.module.js')
-        script(src='/js/blog-app/core/article-index/article-index.service.js')
-        script(src='/js/blog-app/core/article-index/article-index.snippet.filter.js')
-        script(src='/js/blog-app/core/category/category.module.js')
-        script(src='/js/blog-app/core/category/category.service.js')
-        script(src='/js/blog-app/about-view/about.module.js')
-        script(src='/js/blog-app/about-view/about.component.js')
-        script(src='/js/blog-app/article-list/article-list.module.js')
-        script(src='/js/blog-app/article-list/article-list.component.js')
-        script(src='/js/blog-app/article-view/article-view.module.js')
-        script(src='/js/blog-app/article-view/article-view.component.js')
 
     body(ng-app="blogApp")
         .header
@@ -52,7 +37,9 @@ html(ng-app="blogApp")
 
 
         footer
-            p Copyright Robert Mitchell, 2016.
+            p Copyright Robert Mitchell, 2016-2017.
             p.
                 Glory be to the Father, and to the Son, and to the Holy Ghost. <br />
                 As it was in the beginning, is now and ever shall be. World without end, Amen.
+
+        script(src='/blog-app.js')
