@@ -499,7 +499,7 @@
                     const category = JSON.parse(data)[0];
                     expect(category.name).toBe('Technology');
                     expect(category.description.indexOf('"... adding one thing to another')).toBe(0);
-                    expect(category.aboutAuthor.indexOf('Robert Mitchell likes to program')).toBe(0);
+                    expect(category.aboutAuthor.indexOf('Robert Mitchell views each program')).toBe(0);
                     expect(category.private).toBe(false);
                     done();
                 });
