@@ -13,9 +13,9 @@
      */
     angular.module('articleList').component('articleList', {
         templateUrl: '/js/blog-app/article-list/article-list.template.html',
-        controller: ['$sanitize', '$routeParams', 'ArticleIndex', 'Category',
+        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', 'ArticleIndex', 'Category',
             /* NOTE: If you uncomment the code for pagination, you'll need to import $scope again. */
-            function ArticleListController($sanitize, $routeParams, ArticleIndex, Category) {
+            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, ArticleIndex, Category) {
                 const self = this;
                 const dateStart = $routeParams.startDate;
                 const dateEnd = $routeParams.endDate;
@@ -70,6 +70,15 @@
                      $scope.hasNextPage = true;
                      } */
                 });
+
+                /* Set the contents of the search bar to the given query, resulting in a filtered article list. Also watch
+                     $scope.query for changes, i.e. text being entered in the search box, and reflect those updates in the
+                     url, so users can enter a search, and save or share the url with that query. */
+                $scope.query = $routeParams.query;
+
+                $scope.updateQuery = function updateQuery () {
+                    $route.updateParams({ 'query': $scope.query });
+                };
 
                 /* Paginate the articles.
                 function displayArticlesForPage() {
