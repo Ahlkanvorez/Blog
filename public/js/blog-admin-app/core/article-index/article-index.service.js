@@ -50,7 +50,7 @@
                             "content": "<p>This is some content.</p>",
                             "category": ((!category || category === 'Everything') ? 'Miscellany' : category),
                             "date": new Date().toString(),
-                            "private": false
+                            "private": true
                         }
                     }).then(successCallback, errorCallback);
                 },

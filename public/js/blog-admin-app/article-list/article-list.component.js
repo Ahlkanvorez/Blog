@@ -208,8 +208,8 @@
                     /* Create a new, templated article on the server, then navigate to view it for editing purposes. */
                     ArticleIndex.createArticle(self.categoryName,
                         function successCallback(response) {
-                            var articleId = response.data.Ok._id;
-                            refreshAll('/admin#!/articles/' + articleId);
+                            var article = response.data.Ok;
+                            refreshAll('/admin#!/articles/' + article.title.split(' ').join('-'));
                         }, function errorCallback(response) {
                             alert("Oops! It seems there's something wrong with the server. Try again in a few moments.");
                         }
