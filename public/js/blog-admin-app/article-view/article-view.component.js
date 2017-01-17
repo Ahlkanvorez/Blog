@@ -99,7 +99,7 @@
 
                 /* Confirm the admin would like to delete the article */
                 $scope.deleteCurrentArticle = function deleteCurrentArticle() {
-                    confirmBefore('delete article ' + self.article._id, function confirmedCallback() {
+                    confirmBefore('delete article ' + self.article.title, function confirmedCallback() {
                         deleteArticle(self);
                     }, function elseCallback() {
                     });
