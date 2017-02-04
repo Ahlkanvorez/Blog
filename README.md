@@ -4,5 +4,5 @@ My personal blog, written on the MEAN stack, using Jasmine for tests, and Gulp t
 </p>
 
 <p>
-If you are interested in a longer explanation of my motives and methods for making this blog, <a target="_blank" href="https://www.hrodebert.me">check out my article on this blog.</a>
+If you are interested in a longer explanation of my motives and methods for making this blog, <a target="_blank" href="https://www.hrodebert.me/#!/articles/The-Making-of-my-Blog">check out my article on this blog.</a>
 </p>
