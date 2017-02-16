@@ -34,7 +34,8 @@
                             /* Make a deep copy of the article to restore back to. */
                             $scope.box.article = articles[n];
                             self.article = JSON.parse(JSON.stringify(articles[n]));
-                            break; /* article titles are unique, so we do not need to look any further. */
+                            break;
+                            /* article titles are unique, so we do not need to look any further. */
                         }
                     }
 

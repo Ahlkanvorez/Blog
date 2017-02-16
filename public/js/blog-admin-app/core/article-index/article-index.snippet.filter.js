@@ -14,7 +14,7 @@
             // If the first sentence is contained in an html tag,
             //  complete that tag in the snippet for valid syntax.
             return snip + (snip.indexOf('<p>') === 0 ? '</p>' : '')
-                        + (snip.indexOf('<blockquote>') === 0 ? '</blockquote>' : '');
+                + (snip.indexOf('<blockquote>') === 0 ? '</blockquote>' : '');
         }
     });
 })();

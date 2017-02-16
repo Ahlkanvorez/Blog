@@ -9,8 +9,8 @@
      * - core.category is needed in order to access categories from the server, which can then be viewed by name.
      */
     angular.module('articleList', [
-	'ngSanitize',
-	'core.articleIndex',
-	'core.category'
+        'ngSanitize',
+        'core.articleIndex',
+        'core.category'
     ]);
 })();
