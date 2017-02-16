@@ -190,6 +190,10 @@ blockquote {
     text-align: left;
 }
 
+.greek {
+    font-family: 'Gentium', serif;
+}
+
 .article-content .chinese p:first-of-type::first-letter {
     font-family: serif;
     font-size: 3em;

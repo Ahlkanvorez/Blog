@@ -91,7 +91,7 @@
 
                 /* Confirm the admin would like to save the article */
                 $scope.saveArticleUpdates = function saveArticleUpdates(article) {
-                    confirmBefore('save article ' + article._id, function confirmedCallback() {
+                    confirmBefore('save article ' + article.title, function confirmedCallback() {
                         saveArticle(article);
                     }, function elseCallback() {
                     });
