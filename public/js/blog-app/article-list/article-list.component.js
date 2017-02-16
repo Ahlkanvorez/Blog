@@ -24,13 +24,13 @@
                 self.categoryName = $routeParams.category;
 
                 /*
-                $scope.page = 0;
-                $scope.numberOfPages = 1;
-                var ARTICLES_PER_PAGE = 5;
+                 $scope.page = 0;
+                 $scope.numberOfPages = 1;
+                 var ARTICLES_PER_PAGE = 5;
 
-                $scope.hasNextPage = false;
-                $scope.hasPreviousPage = false;
-                */
+                 $scope.hasNextPage = false;
+                 $scope.hasPreviousPage = false;
+                 */
 
                 if (!self.categoryName) {
                     self.categoryName = 'Everything';
@@ -72,54 +72,54 @@
                 });
 
                 /* Set the contents of the search bar to the given query, resulting in a filtered article list. Also watch
-                     $scope.query for changes, i.e. text being entered in the search box, and reflect those updates in the
-                     url, so users can enter a search, and save or share the url with that query. */
+                 $scope.query for changes, i.e. text being entered in the search box, and reflect those updates in the
+                 url, so users can enter a search, and save or share the url with that query. */
                 $scope.query = $routeParams.query;
 
-                $scope.updateQuery = function updateQuery () {
-                    $route.updateParams({ 'query': $scope.query });
+                $scope.updateQuery = function updateQuery() {
+                    $route.updateParams({'query': $scope.query});
                 };
 
                 /* Paginate the articles.
-                function displayArticlesForPage() {
-                    self.articles = self.allArticles.slice($scope.page * ARTICLES_PER_PAGE,
-                        ($scope.page + 1) * ARTICLES_PER_PAGE);
-                };
-                */
+                 function displayArticlesForPage() {
+                 self.articles = self.allArticles.slice($scope.page * ARTICLES_PER_PAGE,
+                 ($scope.page + 1) * ARTICLES_PER_PAGE);
+                 };
+                 */
 
                 /*
                  Functions called by the view
                  */
 
                 /* Pagination functions
-                $scope.viewNextPage = function viewNextPage() {
-                    if ($scope.page < $scope.numberOfPages) {
-                        $scope.page++;
-                        displayArticlesForPage();
+                 $scope.viewNextPage = function viewNextPage() {
+                 if ($scope.page < $scope.numberOfPages) {
+                 $scope.page++;
+                 displayArticlesForPage();
 
-                        // For use in hiding buttons
-                        $scope.hasPreviousPage = true;
-                    }
-                    if ($scope.page >= $scope.numberOfPages) {
-                        // For use in hiding buttons
-                        $scope.hasNextPage = false;
-                    }
-                };
+                 // For use in hiding buttons
+                 $scope.hasPreviousPage = true;
+                 }
+                 if ($scope.page >= $scope.numberOfPages) {
+                 // For use in hiding buttons
+                 $scope.hasNextPage = false;
+                 }
+                 };
 
-                $scope.viewPreviousPage = function viewPreviousPage() {
-                    if ($scope.page > 0) {
-                        $scope.page--;
-                        displayArticlesForPage();
+                 $scope.viewPreviousPage = function viewPreviousPage() {
+                 if ($scope.page > 0) {
+                 $scope.page--;
+                 displayArticlesForPage();
 
-                        // For use in hiding buttons
-                        $scope.hasNextPage = true;
-                    }
-                    // Not an else, because we always want to check if we need to disable a button.
-                    if ($scope.page <= 0) {
-                        // For use in hiding buttons
-                        $scope.hasPreviousPage = false;
-                    }
-                } */
+                 // For use in hiding buttons
+                 $scope.hasNextPage = true;
+                 }
+                 // Not an else, because we always want to check if we need to disable a button.
+                 if ($scope.page <= 0) {
+                 // For use in hiding buttons
+                 $scope.hasPreviousPage = false;
+                 }
+                 } */
 
                 /*
                  GET operations
@@ -136,8 +136,8 @@
                     end = new Date(parseInt(end)).getTime();
 
                     /* Filter the articles so that only those which fall within the date range, and are of the correct
-                         category, remain in the list. If the category is 'Everything', then this only checks whether
-                         they fall within the date range. */
+                     category, remain in the list. If the category is 'Everything', then this only checks whether
+                     they fall within the date range. */
                     self.articles = self.articles.filter(function (article) {
                         const date = new Date(article.date).getTime();
                         return (self.categoryName === 'Everything' || self.categoryName === article.category) &&
@@ -163,28 +163,28 @@
                     /* When searching within a category, limit archive searches to that category for convenience. */
                     self.articles = self.articles.filter(function (article) {
                         return self.categoryName === 'Everything' || article.category === self.categoryName;
-                    })
+                    });
                     displayArchiveDates();
                     displayAuthorNames();
                 }
 
                 /* Miscellaneous helping functions:
                  - displayArchiveDates sets up the data for the View to display month-long ranges of dates in which
-                     currently viewed articles were written.
+                 currently viewed articles were written.
                  - displayAuthorNames sets up the data for the View to display all the author names for articles in the
-                     currently displayed set. However, if authorName is one of the currently used filters, this function
-                     will have no effect.
+                 currently displayed set. However, if authorName is one of the currently used filters, this function
+                 will have no effect.
                  */
 
                 function displayArchiveDates() {
                     /* Get a unique mapping of all relevant date ranges from the selected articles,
-                        mapping from the start of the date range, to the end of the date range, which is always
-                        one month in length (i.e. end = start + one_month). */
+                     mapping from the start of the date range, to the end of the date range, which is always
+                     one month in length (i.e. end = start + one_month). */
                     const articles = self.articles;
                     const dateSet = {};
                     for (var n in articles) {
                         /* Only make archive dates for articles in the current category. Of course, if the current
-                             category is 'Everything', then make archives for everything. */
+                         category is 'Everything', then make archives for everything. */
                         if (self.categoryName != 'Everything' && articles[n].category !== self.categoryName) {
                             continue;
                         }
@@ -207,7 +207,7 @@
 
                 function displayAuthorNames() {
                     /* If no particular author is selected for use in filtering articles, then list all the authors who
-                            have available articles in the side bar under 'Authors'. */
+                     have available articles in the side bar under 'Authors'. */
                     if (!self.authorName) {
                         /* Create a list of distinct authors within the current category. */
                         const authorMap = {};

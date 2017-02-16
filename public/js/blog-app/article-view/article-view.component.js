@@ -21,18 +21,19 @@
                     for (var n = 0; n < articleList.length; ++n) {
                         if (self.title === articleList[n].title.split(' ').join('-')) {
                             self.article = articleList[n];
-                            break; /* article titles are unique, so we do not need to look any further. */
+                            break;
+                            /* article titles are unique, so we do not need to look any further. */
                         }
                     }
 
                     /* Save all the other articles in the same category as the one being displayed, to be listed as
-                          'similar articles' on the page. */
+                     'similar articles' on the page. */
                     self.similarArticles = articleList.filter(function (article) {
                         return article.category === self.article.category && article._id != self.article._id;
                     });
 
                     /* This really shouldn't ever be the case ... but if somehow no article is found with the given ID,
-                         log an error, and redirect to the home (#!/article-list) page. */
+                     log an error, and redirect to the home (#!/article-list) page. */
                     if (!self.article) {
                         console.error('Invalid title: %s.', self.title);
                         // TODO: Redirect to #!/article-list
@@ -40,17 +41,17 @@
                     }
 
                     /* Record the name of the category of the current article, and if it doesn't have one,
-                        then it belongs to the category 'Miscellany'. */
+                     then it belongs to the category 'Miscellany'. */
                     const categoryName = self.article.category ? self.article.category : 'Miscellany';
 
                     /* Get a list of all categories from the server. */
                     Category.get(function successCallback(categories) {
                         /* Record the list of categories, so they can be displayed under the 'Categories' tab in
-                              the View. */
+                         the View. */
                         self.categoryList = categories;
                         for (var n in categories) {
                             /* Find the full category data for the category of the current article, so that the
-                                 'About' section in the View can be filled (that information is saved in the Category). */
+                             'About' section in the View can be filled (that information is saved in the Category). */
                             if (categories[n].name === categoryName) {
                                 self.category = categories[n];
                                 break;

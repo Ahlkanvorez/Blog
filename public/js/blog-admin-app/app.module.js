@@ -1,5 +1,5 @@
 (function () {
-    'use strict'
+    'use strict';
 
     /** Define the 'blogApp' module.
      * - ngRoute is needed for the controllers to determine parameters passed, such as which category of articles should
