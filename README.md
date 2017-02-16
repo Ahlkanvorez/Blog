@@ -1,6 +1,6 @@
 # Blog
 <p>
-My personal blog, written on the MEAN stack, using Jasmine for tests, and Gulp to prepare a single file for the site to request.
+My personal blog, written on the MEAN stack, using Jasmine for tests, and Gulp to prepare a single file for the site to request. While it is finished in the sense that it functions as a blog, I do plan to continually update and improve both the code-base and the web-page, as time allows.
 </p>
 
 <p>
