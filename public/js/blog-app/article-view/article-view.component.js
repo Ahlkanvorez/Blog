@@ -5,17 +5,21 @@
      *     an HTML file (/js/blog-app/article-view/article-view.template.html), with the associated Controller in this
      *     file.
      * - $routeParams is used to access the title of the article which is to be displayed.
+     * - $window allows the title of the webpage to be changed.
      * - ArticleIndex is used to access the articles from the server, and acts like a REST API with a GET function.
      * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
      */
     angular.module('articleView').component('articleView', {
         templateUrl: '/js/blog-app/article-view/article-view.template.html',
-        controller: ['$routeParams', 'ArticleIndex', 'Category',
-            function articleViewController($routeParams, ArticleIndex, Category) {
+        controller: ['$routeParams', '$window', 'ArticleIndex', 'Category',
+            function articleViewController($routeParams, $window, ArticleIndex, Category) {
                 const self = this;
 
                 /* Check what the name of the desired article is. */
                 self.title = $routeParams.title;
+
+                $window.document.title = "Robert Mitchell | " + self.title.split('-').join(' ');
+
                 ArticleIndex.get(function successCallback(articleList) {
                     /* Look through all the articles from the server, and save the desired one. */
                     for (var n = 0; n < articleList.length; ++n) {

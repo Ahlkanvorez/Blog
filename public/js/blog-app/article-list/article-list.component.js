@@ -8,17 +8,20 @@
      *     Server into the web-page, via the ng-bind-html modifier in the View.
      * - $routeParams is used to access the desired author name, category name, or range of dates, for use in filtering
      *     which articles are to be displayed.
+     * - $window allows the title of the webpage to be changed.
      * - ArticleIndex is used to access the articles from the server, and acts like a REST API with a GET function.
      * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
      */
     angular.module('articleList').component('articleList', {
         templateUrl: '/js/blog-app/article-list/article-list.template.html',
-        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', 'ArticleIndex', 'Category',
+        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', '$window', 'ArticleIndex', 'Category',
             /* NOTE: If you uncomment the code for pagination, you'll need to import $scope again. */
-            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, ArticleIndex, Category) {
+            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, $window, ArticleIndex, Category) {
                 const self = this;
                 const dateStart = $routeParams.startDate;
                 const dateEnd = $routeParams.endDate;
+
+                $window.document.title = "Robert Mitchell";
 
                 self.authorName = $routeParams.authorName;
                 self.categoryName = $routeParams.category;
