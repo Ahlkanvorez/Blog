@@ -5,7 +5,8 @@
 
 <div class="col-sm-8">
 
-    <div class="article-container" ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
+    <div class="article-container"
+         ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
         <h2 class="article-title">
             <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
         </h2>
@@ -40,7 +41,7 @@
 
 <div class="col-sm-3 col-sm-offset-1 sidebar">
     <div class="sidebar-block">
-        <label>Search: <input filler="Search by Article Name" ng-model="query" ng-blur="updateQuery()" /></label>
+        <label>Search: <input filler="Search by Article Name" ng-model="query" ng-blur="updateQuery()"/></label>
     </div>
 
     <div class="sidebar-block">
