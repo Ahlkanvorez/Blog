@@ -29,6 +29,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * Generate a random string of alphanumeric characters
+ */
+function randomSecretString() {
+    /* This string is long unless the number is a simple fraction, a very low probability event. */
+    function randomString() {
+        return Math.random().toString(36).substring(2);
+    }
+    /* The probability that all three are short is too unlikely to worry about. */
+    return randomString() + randomString() + randomString();
+}
+
 /* Configure the session
  * For a good reference on the session library used, see:
  * - https://github.com/mozilla/node-client-sessions
@@ -36,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use(session({
     cookieName : 'session', /* The key name added to the req object. */
-    secret : 'RAg1H7DnxA36tU8nhRIgjTER05RT3YStF8CXuvAJZdSn8iMXmu',
+    secret : randomSecretString(), /* A secret string generated on startup. */
     duration : 30 * 60 * 1000, /* 30 minutes */
     activeDuration : 15 * 60 * 1000, /* activity adds 15 minutes */
     httpOnly : true, /* Cookie is inaccessible via javascript */
