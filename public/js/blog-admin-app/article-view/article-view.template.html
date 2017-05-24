@@ -1,7 +1,7 @@
-<update-title title="{{box.article.title}} | {{box.article.category}}"></update-title>
+<update-title title="{{ box.article.title }} | {{ box.article.category }}"></update-title>
 <update-meta property="og:site_name" content="Hrodebert.com"></update-meta>
-<update-meta property="og:title" content="Title"></update-meta>
-<update-meta property="og:description" content="Description"></update-meta>
+<update-meta property="og:title" content="{{ box.article.title }}"></update-meta>
+<update-meta property="og:description" content="{{ box.article.content | snippet }}"></update-meta>
 <update-meta property="og:image" content=""></update-meta>
 <update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
 <update-meta property="og:type" content="blog"></update-meta>
