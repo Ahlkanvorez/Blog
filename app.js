@@ -29,6 +29,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* Allow web-crawlers to gather the right metadata for pretty links to any page
+ * on the single-page site.
+ */
+app.use(require('prerender-node'));
+
 /**
  * Generate a random string of alphanumeric characters
  */
