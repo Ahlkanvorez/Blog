@@ -41,7 +41,7 @@
 
                     /* The twitter button doesn't play nicely with normal Angular data-binding, so this will
                      * dynamically inject the proper title into the tweet. */
-                    $document.getElementsByClassName('twitter-share-button')[0]
+                    document.getElementsByClassName('twitter-share-button')[0]
                         .setAttribute('data-text', self.article.title);
                     twttr.widgets.load();
 
