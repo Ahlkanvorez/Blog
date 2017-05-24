@@ -17,6 +17,11 @@ const blog = require('./routes/blog');
 
 const app = express();
 
+/* Allow web-crawlers to gather the right metadata for pretty links to any page
+ * on the single-page site. This needs to happen early in the code or it won't work.
+ */
+app.use(require('prerender-node').set('prerenderToken', '_______'));
+
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,11 +33,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
-/* Allow web-crawlers to gather the right metadata for pretty links to any page
- * on the single-page site.
- */
-app.use(require('prerender-node').set('prerenderToken', '_______'));
 
 /**
  * Generate a random string of alphanumeric characters
