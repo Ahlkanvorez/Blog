@@ -11,7 +11,7 @@
     var ngAnnotate = require('gulp-ng-annotate');
     var uglify = require('gulp-uglify');
 
-    /* TODO: Turn off sourcemaps once this section is completed. It doubles the size of the js file,
+    /* Turn off sourcemaps once this section is completed. It doubles the size of the js file,
          and is only needed for testing. */
 
     /* Concatenate all the requisite files for either of the angular apps. */
@@ -28,6 +28,7 @@
         /* Make file for admin app */
         gulp.src(['public/js/blog-admin-app/**/*.module.js', 'public/js/blog-admin-app/**/*.js'])
             .pipe(concat('blog-admin-app.js'))
+            .pipe(concat('twitter.js'))
 //            .pipe(sourcemaps.init())
             .pipe(ngAnnotate())
             .pipe(uglify())
