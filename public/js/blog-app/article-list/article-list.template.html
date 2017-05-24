@@ -5,6 +5,12 @@
 <update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
 <update-meta property="og:type" content="blog"></update-meta>
 
+<update-meta name="twitter:card" content="summary"></update-meta>
+<update-meta name="twitter:site" content="@RobertMitchel_l"></update-meta>
+<update-meta name="twitter:title"  content="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-meta>
+<update-meta name="twitter:description" content="{{ $ctrl.category.description }}"></update-meta>
+<update-meta name="twitter:image" content=""></update-meta>
+
 <div>
     <h1>{{$ctrl.category.name === 'Everything' ? 'Latest Articles' : $ctrl.category.name}}</h1>
     <h4>{{$ctrl.category.description}}</h4>

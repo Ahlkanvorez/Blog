@@ -6,6 +6,12 @@
 <update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
 <update-meta property="og:type" content="blog"></update-meta>
 
+<update-meta name="twitter:card" content="summary"></update-meta>
+<update-meta name="twitter:site" content="@RobertMitchel_l"></update-meta>
+<update-meta name="twitter:title"  content="{{ box.article.title + ' | ' + box.article.category }} | Robert Mitchell"></update-meta>
+<update-meta name="twitter:description" content="{{ box.article.content | snippet }}"></update-meta>
+<update-meta name="twitter:image" content=""></update-meta>
+
 <div ng-switch on="$ctrl.mode">
     <div ng-switch-when="edit">
         <label>Article title: </label><input class="article-title" ng-model="box.article.title"/>
