@@ -30,6 +30,12 @@
                         }
                     }
 
+                    /* The twitter button doesn't play nicely with normal Angular data-binding, so this will
+                     * dynamically inject the proper title into the tweet. */
+                    document.getElementsByClassName('twitter-share-button')[0]
+                        .setAttribute('data-text', self.article.title);
+                    twttr.widgets.load();
+
                     /* Save all the other articles in the same category as the one being displayed, to be listed as
                      'similar articles' on the page. */
                     self.similarArticles = articleList.filter(function (article) {
