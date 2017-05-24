@@ -1,3 +1,10 @@
+<update-title title="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-title>
+<update-meta property="og:title" content="{{ $ctrl.category.name }}"></update-meta>
+<update-meta property="og:description" content="{{ $ctrl.category.description }}"></update-meta>
+<update-meta property="og:image" content=""></update-meta>
+<update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
+<update-meta property="og:type" content="blog"></update-meta>
+
 <div>
     <h1>{{$ctrl.category.name === 'Everything' ? 'Latest Articles' : $ctrl.category.name}}</h1>
     <h4>{{$ctrl.category.description}}</h4>

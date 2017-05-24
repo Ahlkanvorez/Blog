@@ -1,3 +1,11 @@
+<update-title title="{{ $ctrl.article.title + ' | ' + $ctrl.article.category }}"></update-title>
+<update-meta property="og:site_name" content="Hrodebert.com"></update-meta>
+<update-meta property="og:title" content="{{ $ctrl.article.title }}"></update-meta>
+<update-meta property="og:description" content="{{ $ctrl.article.content | snippet }}"></update-meta>
+<update-meta property="og:image" content=""></update-meta>
+<update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
+<update-meta property="og:type" content="blog"></update-meta>
+
 <div>
     <!-- TODO: If you make articles viewable by title, make sure that titles DO NOT contain HTML tags. -->
     <h1 class="article-title" ng-bind-html="$ctrl.article.title"></h1>

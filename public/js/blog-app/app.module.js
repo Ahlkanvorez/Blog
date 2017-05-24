@@ -11,6 +11,7 @@
      */
     angular.module('blogApp', [
         'ngRoute',
+        'updateMeta',
         'core',
         'articleList',
         'articleView',
