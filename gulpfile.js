@@ -26,9 +26,8 @@
             .pipe(gulp.dest('./public'));
 
         /* Make file for admin app */
-        gulp.src(['public/js/blog-admin-app/**/*.module.js', 'public/js/blog-admin-app/**/*.js'])
+        gulp.src(['public/js/twitter.js', 'public/js/blog-admin-app/**/*.module.js', 'public/js/blog-admin-app/**/*.js'])
             .pipe(concat('blog-admin-app.js'))
-            .pipe(concat('twitter.js'))
 //            .pipe(sourcemaps.init())
             .pipe(ngAnnotate())
             .pipe(uglify())
