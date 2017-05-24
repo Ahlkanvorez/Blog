@@ -61,6 +61,8 @@
                             }
                         }
                     });
+
+                    twttr.widgets.load();
                 });
 
                 /* Save the base-url in the Controller, so it can be accessed throughout the View and Controller. */
