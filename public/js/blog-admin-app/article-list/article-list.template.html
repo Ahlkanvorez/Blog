@@ -1,4 +1,4 @@
-<update-title title="{{ $ctrl.category.name + ' | Robert Mitchell' }}"></update-title>
+<update-title title="{{ ($ctrl.category.name == 'Everything' ? 'Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-title>
 <update-meta property="og:title" content="{{ $ctrl.category.name }}"></update-meta>
 <update-meta property="og:description" content="{{ $ctrl.category.description }}"></update-meta>
 <update-meta property="og:image" content=""></update-meta>
