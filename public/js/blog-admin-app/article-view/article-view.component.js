@@ -39,6 +39,12 @@
                         }
                     }
 
+                    /* The twitter button doesn't play nicely with normal Angular data-binding, so this will
+                     * dynamically inject the proper title into the tweet. */
+                    $document.getElementsByClassName('twitter-share-button')[0]
+                        .setAttribute('data-text', self.article.title);
+                    twttr.widgets.load();
+
                     /* Record for use in the View (in the 'Similar' side area) all other articles within the same
                      * category.
                      */
@@ -61,12 +67,6 @@
                             }
                         }
                     });
-
-                    /* The twitter button doesn't play nice with normal Angular data-binding, so this will
-                     * dynamically inject the proper title into the tweet. */
-                    $document.getElementsByClassName('twitter-share-button')[0]
-                        .setAttribute('data-text', self.title);
-                    twttr.widgets.load();
                 });
 
                 /* Save the base-url in the Controller, so it can be accessed throughout the View and Controller. */
