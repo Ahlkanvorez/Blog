@@ -17,7 +17,10 @@
     /* Concatenate all the requisite files for either of the angular apps. */
     gulp.task('js', function () {
         /* Make file for public app */
-        gulp.src(['public/js/twitter.js', 'public/js/blog-app/**/*.module.js', 'public/js/blog-app/**/*.js'])
+        gulp.src(['public/js/twitter.js',
+            'public/bower_components/angular-update-meta/dist/update-meta.min.js',
+            'public/js/blog-app/**/*.module.js',
+            'public/js/blog-app/**/*.js'])
             .pipe(concat('blog-app.js'))
 //            .pipe(sourcemaps.init())
             .pipe(ngAnnotate())
@@ -26,7 +29,10 @@
             .pipe(gulp.dest('./public'));
 
         /* Make file for admin app */
-        gulp.src(['public/js/twitter.js', 'public/js/blog-admin-app/**/*.module.js', 'public/js/blog-admin-app/**/*.js'])
+        gulp.src(['public/js/twitter.js',
+            'public/bower_components/angular-update-meta/dist/update-meta.min.js',
+            'public/js/blog-admin-app/**/*.module.js',
+            'public/js/blog-admin-app/**/*.js'])
             .pipe(concat('blog-admin-app.js'))
 //            .pipe(sourcemaps.init())
             .pipe(ngAnnotate())
