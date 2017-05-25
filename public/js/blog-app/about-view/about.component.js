@@ -10,8 +10,10 @@
         templateUrl: '/js/blog-app/about-view/about.template.html',
         controller: [
             function aboutViewController() {
-                /* Indicate to prerender that the view has fully been set up and can be cached. */
-                window.prerenderReady = true;
+                $scope.$on('$viewContentLoaded', function () {
+                    /* Indicate to prerender that the view has fully been set up and can be cached. */
+                    window.prerenderReady = true;
+                });
             }
         ]
     });
