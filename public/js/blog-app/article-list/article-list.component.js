@@ -62,6 +62,9 @@
                         getArticlesByCategory();
                     }
 
+                    /* Indicate to prerender that the view has fully been set up and can be cached. */
+                    window.prerenderReady = true;
+
                     /* For pagination
                      // TODO: Sort articles.
                      $scope.numberOfPages = (self.articles.length - (self.articles.length % ARTICLES_PER_PAGE)) / ARTICLES_PER_PAGE

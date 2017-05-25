@@ -44,6 +44,9 @@ html(ng-app="blogApp")
         script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-sanitize.js')
         script(src="/bower_components/angular-update-meta/dist/update-meta.min.js")
 
+        script.
+            window.prerenderReady = false;
+
     body(ng-app="blogApp")
         .header
             .container
