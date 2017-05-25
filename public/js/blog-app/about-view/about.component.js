@@ -8,8 +8,8 @@
      */
     angular.module('aboutView').component('aboutView', {
         templateUrl: '/js/blog-app/about-view/about.template.html',
-        controller: [
-            function aboutViewController() {
+        controller: ['$scope',
+            function aboutViewController($scope) {
                 $scope.$on('$viewContentLoaded', function () {
                     /* Indicate to prerender that the view has fully been set up and can be cached. */
                     window.prerenderReady = true;
