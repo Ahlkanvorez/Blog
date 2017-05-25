@@ -8,13 +8,12 @@
      */
     angular.module('aboutView').component('aboutView', {
         templateUrl: '/js/blog-app/about-view/about.template.html',
-        controller: ['$timeout',
+        controller:
             function aboutViewController($timeout) {
                 $timeout(function() {
                     /* Indicate to prerender that the view has fully been set up and can be cached. */
                     window.prerenderReady = true;
                 });
             }
-        ]
     });
 })();
