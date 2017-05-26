@@ -10,7 +10,7 @@
         templateUrl: '/js/blog-app/about-view/about.template.html',
         controller:['$scope',
             function aboutViewController($scope) {
-                $scope.$$postDigest(function () {
+                $scope.$evalAsync(function () {
                     /* Indicate to prerender that the view has fully been set up and can be cached. */
                     window.prerenderReady = true;
                 })
