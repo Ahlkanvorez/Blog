@@ -67,9 +67,6 @@
                                 break;
                             }
                         }
-
-                        /* Indicate to prerender that the view has fully been set up and can be cached. */
-                        window.prerenderReady = true;
                     });
                 });
             }
