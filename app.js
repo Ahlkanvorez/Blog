@@ -21,7 +21,7 @@ const app = express();
  * on the single-page site. This needs to happen early in the code or it won't work.
  */
 app.use(require('prerender-node')
-    .set('prerenderToken', '_______'));
+    .set('prerenderToken', '__PRERENDER_TOKEN__'));
 
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
