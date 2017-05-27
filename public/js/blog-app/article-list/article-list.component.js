@@ -62,6 +62,10 @@
                         getArticlesByCategory();
                     }
 
+                    $timeout(function () {
+                        window.prerenderReady = true;
+                    }, 3000)
+
                     /* For pagination
                      // TODO: Sort articles.
                      $scope.numberOfPages = (self.articles.length - (self.articles.length % ARTICLES_PER_PAGE)) / ARTICLES_PER_PAGE
