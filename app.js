@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 
 /* Database requirements and initialization */
 const mongoose = require('mongoose');
+/* The mongoose default Promise library is deprecated; this enables one that isn't. */
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://127.0.0.1:27017/blog');
 const db = mongoose.connection;
 
