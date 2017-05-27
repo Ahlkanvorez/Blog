@@ -8,9 +8,11 @@
      */
     angular.module('aboutView').component('aboutView', {
         templateUrl: '/js/blog-app/about-view/about.template.html',
-        controller:[
-            function aboutViewController() {
+        controller:
+            function aboutViewController($timeout) {
+                $timeout(function () {
+                    window.prerenderReady = true;
+                }, 3000)
             }
-        ]
     });
 })();
