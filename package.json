@@ -21,7 +21,7 @@
     "mongodb": "^1.4.4",
     "mongoose": "~4.5.8",
     "morgan": "~1.7.0",
-    "prerender-node": "^2.7.1",
+    "prerender-node": "latest",
     "request": "^2.74.0",
     "serve-favicon": "~2.3.0"
   },
