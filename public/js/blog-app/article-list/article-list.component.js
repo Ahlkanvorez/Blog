@@ -14,9 +14,9 @@
      */
     angular.module('articleList').component('articleList', {
         templateUrl: '/js/blog-app/article-list/article-list.template.html',
-        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', '$window', 'ArticleIndex', 'Category',
+        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', '$window', '$timeout', 'ArticleIndex', 'Category',
             /* NOTE: If you uncomment the code for pagination, you'll need to import $scope again. */
-            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, $window, ArticleIndex, Category) {
+            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, $window, $timeout, ArticleIndex, Category) {
                 const self = this;
                 const dateStart = $routeParams.startDate;
                 const dateEnd = $routeParams.endDate;
