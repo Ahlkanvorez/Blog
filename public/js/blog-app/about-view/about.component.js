@@ -12,7 +12,7 @@
             function aboutViewController($timeout) {
                 $timeout(function () {
                     window.prerenderReady = true;
-                }, 3000)
+                }, 7000)
             }
     });
 })();
