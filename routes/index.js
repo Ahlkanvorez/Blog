@@ -7,25 +7,7 @@
     var Article = blogDatabase.Article;
     var Category = blogDatabase.Category;
 
-    function getMetaForArticle(articleName, callback) {
-        Article.find().byName(articleName).exec(function (article) {
-            var meta = {
-                title : article.title,
-                description : ''
-            };
-            // TODO: Finish filling out the meta for og:___ and twitter:___
-            callback(meta);
-        });
-    }
-
-    /**
-     * GET the home page.
-     * Renders the home page for the whole blog, which is distinct from the home page for the admin panel.
-     * The page is formatted according to index.jade, and is a completely separate AngularJS app from that of the admin
-     * panel site.
-     */
-    router.get('/', function (req, res, next) {
-        res.render('index', {
+    const default_meta = {
             title : 'Blog | Robert Mitchell',
             description : "I write to investigate the Good, the Beautiful, the Simple, the Sublime, and the Just, in order to better understand what wisdom is, what a good education is, and what a good life is.",
             url : 'https://www.hrodebert.com/',
@@ -36,8 +18,57 @@
             image_height : '554',
             twitter_site : '@RobertMitchel_l',
             twitter_card : 'summary'
+    };
 
+    function getMetaForArticle(articleName, callback) {
+        var correctedName = articleName.split('-').join(' ');
+        console.log(correctedName);
+        Article.find().public().byTitle(correctedName).exec(function (err, articles) {
+            if (articles === []) {
+                /* No such article exists, so send the default meta for the site. */
+                console.log("Couldn't find the desired article: " + correctedName);
+                callback(default_meta);
+                return;
+            }
+            const article = articles[0];
+            console.log(article.title);
+            /* The description should be the first sentence of the article, with any wrapping HTML tags trimmed. */
+            /* TODO: Determine whether HTML is supported in Open Graph meta tags and Twitter card meta tags. */
+            var snippet = new RegExp("^([^.!?。]+.)").exec(article.content)[0];
+            if (snippet.indexOf('<p>') === 0) {
+                snippet = snippet.substring('<p>'.length);
+            }
+            if (snippet.indexOf('<blockquote>') === 0) {
+                snippet = snippet.substring('<blockquote>'.length);
+            }
+            var meta = {
+                title : article.title + (article.category != 'Miscellany' ? ' | ' + article.category : ''),
+                description : snippet.trim(),
+                url : 'https://www.hrodebert.com/articles/' + article.title,
+                type : 'blog',
+                image : 'http://www.hrodebert.com/' + article.image,
+                image_secure_url : 'https://www.hrodebert.com/' + article.image,
+                image_width : article.image_dimensions.width,
+                image_height : article.image_dimensions.height,
+                twitter_site : '@RobertMitchel_l',
+                twitter_card : 'summary'
+            };
+            callback(meta);
         });
+    }
+
+    function getMetaForCategory(categoryName, callback) {
+
+    }
+
+    /**
+     * GET the home page.
+     * Renders the home page for the whole blog, which is distinct from the home page for the admin panel.
+     * The page is formatted according to index.jade, and is a completely separate AngularJS app from that of the admin
+     * panel site.
+     */
+    router.get('/', function (req, res, next) {
+        res.render('index', default_meta);
     });
 
     /**

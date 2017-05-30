@@ -8,7 +8,7 @@
 	 */
 
 	/* Export the models. */
-	module.exports.Article = ArticleModel.Article
+        module.exports.Article = ArticleModel.Article;
 	module.exports.Category = CategoryModel.Category;
 	module.exports.User = UserModel.User;
 })();

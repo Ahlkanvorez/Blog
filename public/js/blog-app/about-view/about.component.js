@@ -9,19 +9,7 @@
     angular.module('aboutView').component('aboutView', {
         templateUrl: '/js/blog-app/about-view/about.template.html',
         controller:
-            function aboutViewController($window, $timeout) {
-                /* manually update meta information. */
-                var about = {
-                    'title' : "About | Robert Mitchell"
-                };
-                console.log($window.prerenderReady);
-                document.title = about.title;
-                $("meta[name='og:title']").attr("content", about.title);
-                $("meta[name='twitter:title']").attr("content", about.title);
-                $timeout(function () {
-                    $window.prerenderReady = true;
-                    console.log($window.prerenderReady);
-                }, 3000);
+            function aboutViewController() {
             }
     });
 })();

@@ -21,6 +21,7 @@
      * priority in sorting above date.
      * The 'private' attribute is used to mark articles which are still under construction, and are only visible on the
      * admin page behind the login.
+     * The 'image' attribute is used in the meta for linking to each article page.
      */
     var articleSchema = new Schema({
         title: String,
@@ -30,6 +31,8 @@
         content: String,
         sticky: {type: Boolean, default: false},
         private: {type: Boolean, default: true},
+        image: {type: String, default: '/img/favicon/png'},
+        image_dimensions : {width: Number, height: Number}
     });
 
     /**
@@ -39,7 +42,7 @@
      */
     articleSchema.query.public = function onlyPublic() {
         return this.find({private: false});
-    }
+    };
 
     /**
      * Returns the unique article with the provided ID.

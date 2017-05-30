@@ -11,8 +11,8 @@
      */
     angular.module('articleView').component('articleView', {
         templateUrl: '/js/blog-app/article-view/article-view.template.html',
-        controller: ['$routeParams', '$window', '$timeout', 'ArticleIndex', 'Category',
-            function articleViewController($routeParams, $window, $timeout, ArticleIndex, Category) {
+        controller: ['$routeParams', '$window', 'ArticleIndex', 'Category',
+            function articleViewController($routeParams, $window, ArticleIndex, Category) {
                 const self = this;
 
                 /* Check what the name of the desired article is. */
@@ -67,10 +67,6 @@
                                 break;
                             }
                         }
-
-                        $timeout(function () {
-                            window.prerenderReady = true;
-                        }, 15 * 1000);
                     });
                 });
             }

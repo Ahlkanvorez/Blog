@@ -14,9 +14,9 @@
      */
     angular.module('articleList').component('articleList', {
         templateUrl: '/js/blog-app/article-list/article-list.template.html',
-        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', '$window', '$timeout', 'ArticleIndex', 'Category',
+        controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', '$window', 'ArticleIndex', 'Category',
             /* NOTE: If you uncomment the code for pagination, you'll need to import $scope again. */
-            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, $window, $timeout, ArticleIndex, Category) {
+            function ArticleListController($sanitize, $location, $scope, $route, $routeParams, $window, ArticleIndex, Category) {
                 const self = this;
                 const dateStart = $routeParams.startDate;
                 const dateEnd = $routeParams.endDate;
@@ -61,10 +61,6 @@
                     } else if (self.categoryName) {
                         getArticlesByCategory();
                     }
-
-                    $timeout(function () {
-                        window.prerenderReady = true;
-                    }, 15 * 1000);
 
                     /* For pagination
                      // TODO: Sort articles.

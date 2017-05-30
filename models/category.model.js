@@ -40,7 +40,7 @@
      */
     categorySchema.query.public = function onlyPublic() {
         return this.find({private: false});
-    }
+    };
 
     /**
      * Searches for categories whose names match the given pattern (regular expression).
