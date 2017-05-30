@@ -55,6 +55,9 @@
     }
 
     function getMetaForCategory(categoryName, callback) {
+        if (!categoryName) {
+            categoryName = 'Everything';
+        }
         Category.find().public().byName(categoryName).exec(function (err, categories) {
             if (categories === []) {
                 /* No such category exists, so send the default meta for the site. */
@@ -115,10 +118,10 @@
      * Renders the article-list page with the proper meta tags for SEO.
      */
     router.get('/article-list', function (req, res, next) {
-        res.render('index', {
-            title : 'Latest Articles | Robert Mitchell',
-            description: 'Description'
-        });
+        var meta = JSON.parse(JSON.stringify(default_meta));
+        meta.title = 'Latest Articles | Robert Mitchell';
+        meta.url = 'https://www.hrodebert.com/article-list';
+        res.render('index', meta);
     });
 
     /**
@@ -135,10 +138,10 @@
      * GET the article-list page with default filters.
      * Renders the article-list page with the proper meta tags for SEO.
      */
-    router.get('/article-list/:category/:authorName', function (req, res, next) {
-        res.render('index', {
-            title : req.params.authorName + ' | ' + req.params.category + ' | Robert Mitchell',
-            description: 'Description'
+    router.get('/article-list/:category/:author', function (req, res, next) {
+        getMetaForCategory(req.params.category, function (meta) {
+            meta.url = 'https://www.hrodebert.com/article-list/' + req.params.category + '/' + req.params.author;
+            res.render('index', meta);
         });
     });
 
@@ -147,9 +150,9 @@
      * Renders the article-list page with the proper meta tags for SEO.
      */
     router.get('/article-list/:category/:startDate/:endDate', function (req, res, next) {
-        res.render('index', {
-            title : 'Latest Articles | Robert Mitchell',
-            description: 'Description'
+        getMetaForCategory(req.params.category, function (meta) {
+            meta.url = 'https://www.hrodebert.com/article-list/' + req.params.category + '/' + req.params.startDate + '/' + req.params.endDate;
+            res.render('index', meta);
         });
     });
 
@@ -158,9 +161,9 @@
      * Renders the article-list page with the proper meta tags for SEO.
      */
     router.get('/article-list/:category/:authorName/:startDate/:endDate', function (req, res, next) {
-        res.render('index', {
-            title : 'Latest Articles | Robert Mitchell',
-            description: 'Description'
+        getMetaForCategory(req.params.category, function (meta) {
+            meta.url = 'https://www.hrodebert.com/article-list/' + req.params.category + '/' + req.params.authorName + '/' + req.params.startDate + '/' + req.params.endDate;
+            res.render('index', meta);
         });
     });
 
