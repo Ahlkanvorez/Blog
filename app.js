@@ -26,12 +26,6 @@ const app = express();
 const helmet = require('helmet');
 app.use(helmet());
 
-/* Allow web-crawlers to gather the right metadata for pretty links to any page
- * on the single-page site. This needs to happen early in the code or it won't work.
- */
-app.use(require('prerender-node')
-    .set('prerenderToken', 'rgmj0PnUpueVFYXOYOCh'));
-
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

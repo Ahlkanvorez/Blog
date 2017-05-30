@@ -12,6 +12,7 @@
      * the article-list and article-view pages, and describes me in terms relevant to the given category.
      * The 'private' attribute is used to mark categories which do not contain any public articles, viz. are still under
      * construction, and are only visible on the admin page behind the login.
+     * The 'image' attribute is used in the meta tags for SEO.
      */
     var categorySchema = new Schema({
         name: {
@@ -30,6 +31,14 @@
         private: {
             type: Boolean,
             default: true
+        },
+        image : {
+            type : String,
+            default : 'img/favicon.png'
+        },
+        image_dimensions : {
+            width: Number,
+            height: Number
         }
     });
 

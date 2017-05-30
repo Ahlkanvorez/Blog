@@ -22,7 +22,6 @@
 
     function getMetaForArticle(articleName, callback) {
         var correctedName = articleName.split('-').join(' ');
-        console.log(correctedName);
         Article.find().public().byTitle(correctedName).exec(function (err, articles) {
             if (articles === []) {
                 /* No such article exists, so send the default meta for the site. */
@@ -31,7 +30,6 @@
                 return;
             }
             const article = articles[0];
-            console.log(article.title);
             /* The description should be the first sentence of the article, with any wrapping HTML tags trimmed. */
             /* TODO: Determine whether HTML is supported in Open Graph meta tags and Twitter card meta tags. */
             var snippet = new RegExp("^([^.!?。]+.)").exec(article.content)[0];
@@ -41,7 +39,7 @@
             if (snippet.indexOf('<blockquote>') === 0) {
                 snippet = snippet.substring('<blockquote>'.length);
             }
-            var meta = {
+            callback({
                 title : article.title + (article.category != 'Miscellany' ? ' | ' + article.category : ''),
                 description : snippet.trim(),
                 url : 'https://www.hrodebert.com/articles/' + article.title,
@@ -52,13 +50,35 @@
                 image_height : article.image_dimensions.height,
                 twitter_site : '@RobertMitchel_l',
                 twitter_card : 'summary'
-            };
-            callback(meta);
+            });
         });
     }
 
     function getMetaForCategory(categoryName, callback) {
-
+        Category.find().public().byName(categoryName).exec(function (err, categories) {
+            if (categories === []) {
+                /* No such category exists, so send the default meta for the site. */
+                console.log("Couldn't find the desired category: " + categoryName);
+                callback(default_meta);
+            }
+            const category = categories[0];
+            var name = category.name;
+            if (name === 'Everything') {
+                name = 'Latest Articles';
+            }
+            callback({
+                title : name + ' | Robert Mitchell',
+                description : category.aboutAuthor,
+                url : "https://www.hrodebert.com/article-list/" + category.name,
+                type : 'blog',
+                image : 'http://www.hrodebert.com/' + category.image,
+                image_secure_url : 'https://www.hrodebert.com/' + category.image,
+                image_width : category.image_dimensions.width,
+                image_height : category.image_dimensions.height,
+                twitter_site : '@RobertMitchel_l',
+                twitter_card : 'summary'
+            });
+        });
     }
 
     /**
@@ -106,9 +126,8 @@
      * Renders the article-list page with the proper meta tags for SEO.
      */
     router.get('/article-list/:category', function (req, res, next) {
-        res.render('index', {
-            title : req.params.category + ' | Robert Mitchell',
-            description: 'Description'
+        getMetaForCategory(req.params.category, function (meta) {
+            res.render('index', meta);
         });
     });
 
