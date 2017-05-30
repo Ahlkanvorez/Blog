@@ -23,7 +23,7 @@
     <article class="article">
         <header class="article-meta">
             <address class="article-author" style="display:inline-block">
-                <a rel="author" href="#!/article-list/Everything/{{$ctrl.article.author.name}}">
+                <a rel="author" href="/article-list/Everything/{{$ctrl.article.author.name}}">
                     {{$ctrl.article.author.name}}
                 </a>
             </address>
@@ -46,7 +46,7 @@
 <div class="col-sm-3 sidebar">
     <div class="sidebar-block">
         <div>
-            <h4><a href="#!/article-list/{{$ctrl.category.name}}">{{$ctrl.category.name}}</a></h4>
+            <h4><a href="/article-list/{{$ctrl.category.name}}">{{$ctrl.category.name}}</a></h4>
             <p ng-bind-html="$ctrl.category.aboutAuthor"></p>
         </div>
     </div>
@@ -55,7 +55,7 @@
         <h4>Categories</h4>
         <ol class="list-unstyled">
             <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
-                <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+                <a href="/article-list/{{category.name}}">{{category.name}}</a>
             </li>
         </ol>
     </div>
@@ -64,7 +64,7 @@
         <h4>Similar</h4>
         <ol class="list-unstyled">
             <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">
-                <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
+                <a href="/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
             </li>
         </ol>
     </div>

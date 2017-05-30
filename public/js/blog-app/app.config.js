@@ -19,7 +19,8 @@
      */
     angular.module('blogApp').config(['$locationProvider', '$routeProvider',
         function config($locationProvider, $routeProvider) {
-            $locationProvider.hashPrefix('!');
+            // $locationProvider.hashPrefix('!');
+            $locationProvider.html5Mode({ enabled: true, requireBase: true });
 
             $routeProvider.when('/about', {
                 template: '<about-view></about-view>'

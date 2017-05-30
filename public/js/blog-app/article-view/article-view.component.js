@@ -43,10 +43,10 @@
                     });
 
                     /* This really shouldn't ever be the case ... but if somehow no article is found with the given ID,
-                     log an error, and redirect to the home (#!/article-list) page. */
+                     log an error, and redirect to the home (/article-list) page. */
                     if (!self.article) {
                         console.error('Invalid title: %s.', self.title);
-                        // TODO: Redirect to #!/article-list
+                        // TODO: Redirect to /article-list
                         return;
                     }
 
@@ -70,7 +70,7 @@
 
                         $timeout(function () {
                             window.prerenderReady = true;
-                        }, 7000)
+                        }, 15 * 1000);
                     });
                 });
             }

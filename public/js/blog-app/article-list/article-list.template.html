@@ -1,5 +1,5 @@
 <update-title title="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-title>
-<update-meta property="og:title" content="{{ $ctrl.category.name }}"></update-meta>
+<!-- <update-meta property="og:title" content="{{ $ctrl.category.name }}"></update-meta> -->
 <update-meta property="og:description" content="{{ $ctrl.category.description }}"></update-meta>
 <update-meta property="og:image" content=""></update-meta>
 <update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
@@ -7,7 +7,7 @@
 
 <update-meta name="twitter:card" content="summary"></update-meta>
 <update-meta name="twitter:site" content="@RobertMitchel_l"></update-meta>
-<update-meta name="twitter:title"  content="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-meta>
+<!-- <update-meta name="twitter:title"  content="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-meta> -->
 <update-meta name="twitter:description" content="{{ $ctrl.category.description }}"></update-meta>
 <update-meta name="twitter:image" content=""></update-meta>
 
@@ -21,19 +21,19 @@
     <div class="article-container"
          ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
         <h2 class="article-title">
-            <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
+            <a href="/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
         </h2>
-        <a href="#!/article-list/{{article.category}}">
+        <a href="/article-list/{{article.category}}">
             {{article.category}}
         </a>
         - By
-        <a class="article-author" href="#!/article-list/Everything/{{article.author.name}}">
+        <a class="article-author" href="/article-list/Everything/{{article.author.name}}">
             {{article.author.name}}
         </a>
         - posted on
         <span>{{article.date | date}}</span>
         <p class="article-snippet">
-            <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.content | snippet"></a>
+            <a href="/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.content | snippet"></a>
         </p>
 
     </div><!-- /.blog-post -->
@@ -66,7 +66,7 @@
         <h4>Archives</h4>
         <ol class="list-unstyled">
             <li ng-repeat="dateRange in $ctrl.dates | orderBy : '-start'">
-                <a href="#!/article-list/{{$ctrl.categoryName}}/{{dateRange.start.getTime()}}/{{dateRange.end.getTime()}}">
+                <a href="/article-list/{{$ctrl.categoryName}}/{{dateRange.start.getTime()}}/{{dateRange.end.getTime()}}">
                     {{dateRange.start | date : 'MMM yyyy' : mma}}
                 </a>
             </li>
@@ -77,7 +77,7 @@
         <h4>Authors</h4>
         <ol class="list-unstyled">
             <li ng-repeat="author in $ctrl.authors | orderBy : 'name'">
-                <a href="#!/article-list/{{$ctrl.categoryName}}/{{author.name}}">{{author.name}}</a>
+                <a href="/article-list/{{$ctrl.categoryName}}/{{author.name}}">{{author.name}}</a>
             </li>
         </ol>
     </div>
@@ -86,7 +86,7 @@
         <h4>Categories</h4>
         <ol class="list-unstyled">
             <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
-                <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+                <a href="/article-list/{{category.name}}">{{category.name}}</a>
             </li>
         </ol>
     </div>

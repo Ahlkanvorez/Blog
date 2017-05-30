@@ -64,7 +64,7 @@
 
                     $timeout(function () {
                         window.prerenderReady = true;
-                    }, 7000)
+                    }, 15 * 1000);
 
                     /* For pagination
                      // TODO: Sort articles.

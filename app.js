@@ -4,6 +4,9 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const expressWinston = require('express-winston'); /* logging */
+const winston = require('winston');
+const get_ip = require('ipware')().get_ip;
 
 /* Database requirements and initialization */
 const mongoose = require('mongoose');
@@ -19,19 +22,22 @@ const blog = require('./routes/blog');
 
 const app = express();
 
+/* Provides many automatic security boosts. */
+const helmet = require('helmet');
+app.use(helmet());
+
 /* Allow web-crawlers to gather the right metadata for pretty links to any page
  * on the single-page site. This needs to happen early in the code or it won't work.
  */
 app.use(require('prerender-node')
-    .set('prerenderToken', '__PRERENDER_TOKEN__'));
+    .set('prerenderToken', 'rgmj0PnUpueVFYXOYOCh'));
 
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-/* uncomment the following after placing your favicon in '/public':
- * app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
- */
+app.use(favicon(path.join(__dirname, 'public/img', 'favicon.png')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -60,9 +66,32 @@ app.use(session({
     duration : 30 * 60 * 1000, /* 30 minutes */
     activeDuration : 15 * 60 * 1000, /* activity adds 15 minutes */
     httpOnly : true, /* Cookie is inaccessible via javascript */
-    // secure : true, /* Cookie will only be sent over SSL */
+    secure : true, /* Cookie will only be sent over SSL */
     ephemeral : true /* Delete cookies on browser exit, so it's safer to login on a public computer. TODO: Fix. */
 }));
+
+/* Log requests using winston */
+app.use(expressWinston.logger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        })
+    ]
+}));
+
+/* Inform webcrawlers not to investigate the /users, /blog, or /admin sections of the site. */
+app.get('/robots.txt', function (req, res) {
+    res.type('text/plain');
+    res.send("User-agent: *\nDisallow: /admin/\nDisallow: /users/\nDisallow: /blog/");
+});
+
+/* Log the IP information for each request */
+app.use(function(req, res, next) {
+    var ip_info = get_ip(req);
+    console.log(ip_info);
+    next();
+});
 
 /* Make the database accessible to the router */
 app.use(function(req, res, next) {
@@ -74,6 +103,16 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/blog', blog);
+
+/* Log errors using winston */
+app.use(expressWinston.errorLogger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        })
+    ]
+}));
 
 /* catch 404 and forward to error handler */
 app.use(function(req, res, next) {
