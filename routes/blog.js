@@ -41,10 +41,8 @@
 
     /**
      * GET a list of all articles, public or private, as a JSON array of objects.
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/all-article-list', function (req, res, next) {
+    router.get('/all-article-list', checkAuth, function (req, res, next) {
         Article.find().exec(callback(res));
     });
 
@@ -64,10 +62,8 @@
     /**
      * GET a list of all articles, public or private, in the given category (which can be either a plain String, or a regex
      * pattern), as a JSON array of objects. Note that '/all-article-list/Everything' is equivalent to '/all-article-list'
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/all-article-list/:category', function (req, res, next) {
+    router.get('/all-article-list/:category', checkAuth, function (req, res, next) {
         var category = req.params.category;
         if (category === 'Everything') {
             Article.find().exec(callback(res));
@@ -103,10 +99,8 @@
      * desired, '/all-article-list/Everything/:author' will return all articles of any category by the specified author.
      * Also note, that '/all-article-list/Everything/Everything' is equivalent to '/all-article-list', and that
      * '/all-article-list/:category/Everything' is equivalent to '/all-article-list/:category'.
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/all-article-list/:category/:author', function (req, res, next) {
+    router.get('/all-article-list/:category/:author', checkAuth, function (req, res, next) {
         var category = req.params.category;
         var author = req.params.author;
 
@@ -149,10 +143,8 @@
      * pattern) between the two specified dates, inclusive for the first date, and exclusive for the second date, as a JSON
      * array of objects. Note, that '/all-article-list/Everything/:startDate/:endDate' will return all articles between the
      * specified dates, of all categories.
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/all-article-list/:category/:startDate/:endDate', function (req, res, next) {
+    router.get('/all-article-list/:category/:startDate/:endDate', checkAuth, function (req, res, next) {
         var category = req.params.category;
         var startDate = new Date();
         var endDate = new Date();
@@ -189,10 +181,8 @@
     /**
      * Get the unique article, public or private, with the specified ID, as a JSON object. Note, that unlike the other
      * handles in this REST API, this one does NOT return a JSON Array.
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/get-private-article/:id', function (req, res, next) {
+    router.get('/get-private-article/:id', checkAuth, function (req, res, next) {
         var articleId = req.params.id;
 
         Article.find().byId(articleId).exec(function (err, docs) {
@@ -281,10 +271,8 @@
 
     /**
      * GET a list of all categories, public or private, as a JSON array of objects.
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/all-category-list', function (req, res, next) {
+    router.get('/all-category-list', checkAuth, function (req, res, next) {
         Category.find().exec(callback(res));
     });
 
@@ -308,10 +296,8 @@
      * GET a list of all categories, public or private, with names matching the provided name (which can be either a plain
      * String, or a regex pattern), as a JSON array of objects. Note that '/get-private-category/Everything' is the unique
      * category which technically does not contain any articles, but is used to represent the category of all articles.
-     *
-     * TODO: Determine whether this should be protected by checkAuth or not.
      */
-    router.get('/get-private-category/:name', function (req, res, next) {
+    router.get('/get-private-category/:name', checkAuth, function (req, res, next) {
         var name = req.params.name;
 
         /* TODO: Validate name. */
