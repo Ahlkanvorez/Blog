@@ -19,7 +19,6 @@
      */
     angular.module('blogApp').config(['$locationProvider', '$routeProvider',
         function config($locationProvider, $routeProvider) {
-            // $locationProvider.hashPrefix('!');
             $locationProvider.html5Mode({ enabled: true, requireBase: true });
 
             $routeProvider.when('/about', {
@@ -33,7 +32,7 @@
             }).when('/article-list/:category/:startDate/:endDate/', {
                 template: '<article-list></article-list>'
             }).when('/article-list/:category/:authorName/:startDate/:endDate/', {
-                template: '<article-list></article-list>'
+                template: '<article-list>r</article-list>'
             }).when('/articles/:title', {
                 template: '<article-view></article-view>'
             }).otherwise('/article-list');
