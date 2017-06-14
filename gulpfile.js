@@ -10,9 +10,6 @@
     var ngAnnotate = require('gulp-ng-annotate');
     var babili = require('gulp-babili');
 
-    /* Turn off sourcemaps once this section is completed. It doubles the size of the js file,
-         and is only needed for testing. */
-
     /* Concatenate all the requisite files for either of the angular apps. */
     gulp.task('js', function () {
         /* Make file for public app */

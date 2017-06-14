@@ -32,7 +32,7 @@ if [[ $status == *"stopped"* ]]
 then
     pm2 start ./bin/www
 else
-    echo "Server was already running: restarting server..."
+    echo "Server was already running: restarting server ..."
     pm2 restart www
 fi
 
