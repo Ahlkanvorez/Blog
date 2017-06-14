@@ -26,6 +26,10 @@ const app = express();
 const helmet = require('helmet');
 app.use(helmet());
 
+/* Provides automatic performance boosts. */
+const compression = require('compression');
+app.use(compression());
+
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -80,13 +84,6 @@ app.get('/robots.txt', function (req, res) {
     res.send("User-agent: *\nDisallow: /admin/\nDisallow: /users/\nDisallow: /blog/");
 });
 
-/* Log the IP information for each request */
-app.use(function(req, res, next) {
-    var ip_info = get_ip(req);
-    console.log(ip_info);
-    next();
-});
-
 /* Make the database accessible to the router */
 app.use(function(req, res, next) {
     req.db = db;
@@ -98,7 +95,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/blog', blog);
 
-/* Log errors using winston */
+/* Log errors using winston. */
 app.use(expressWinston.errorLogger({
     transports: [
         new winston.transports.Console({
@@ -126,6 +123,14 @@ if (app.get('env') === 'development') {
       error : err
     });
   });
+
+  /* Log the IP information for each request */
+  app.use(function(req, res, next) {
+    var ip_info = get_ip(req);
+    console.log(ip_info);
+    next();
+  });
+
 }
 
 /* production error handler no stack-traces leaked to user */
@@ -133,7 +138,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message : err.message,
-    error : {},
+    error : {}
   });
 });
 
