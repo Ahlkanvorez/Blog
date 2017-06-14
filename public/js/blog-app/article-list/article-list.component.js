@@ -61,17 +61,6 @@
                     } else if (self.categoryName) {
                         getArticlesByCategory();
                     }
-
-                    /* For pagination
-                     // TODO: Sort articles.
-                     $scope.numberOfPages = (self.articles.length - (self.articles.length % ARTICLES_PER_PAGE)) / ARTICLES_PER_PAGE
-                     + (self.articles.length % ARTICLES_PER_PAGE === 0 ? 0 : 1);
-
-                     if (self.articles.length > ARTICLES_PER_PAGE) {
-                     self.allArticles = self.articles;
-                     self.articles = self.articles.slice(0, ARTICLES_PER_PAGE);
-                     $scope.hasNextPage = true;
-                     } */
                 });
 
                 /* Set the contents of the search bar to the given query, resulting in a filtered article list. Also watch
@@ -82,47 +71,6 @@
                 $scope.updateQuery = function updateQuery() {
                     $route.updateParams({'query': $scope.query});
                 };
-
-                /* Paginate the articles.
-                 function displayArticlesForPage() {
-                 self.articles = self.allArticles.slice($scope.page * ARTICLES_PER_PAGE,
-                 ($scope.page + 1) * ARTICLES_PER_PAGE);
-                 };
-                 */
-
-                /*
-                 Functions called by the view
-                 */
-
-                /* Pagination functions
-                 $scope.viewNextPage = function viewNextPage() {
-                 if ($scope.page < $scope.numberOfPages) {
-                 $scope.page++;
-                 displayArticlesForPage();
-
-                 // For use in hiding buttons
-                 $scope.hasPreviousPage = true;
-                 }
-                 if ($scope.page >= $scope.numberOfPages) {
-                 // For use in hiding buttons
-                 $scope.hasNextPage = false;
-                 }
-                 };
-
-                 $scope.viewPreviousPage = function viewPreviousPage() {
-                 if ($scope.page > 0) {
-                 $scope.page--;
-                 displayArticlesForPage();
-
-                 // For use in hiding buttons
-                 $scope.hasNextPage = true;
-                 }
-                 // Not an else, because we always want to check if we need to disable a button.
-                 if ($scope.page <= 0) {
-                 // For use in hiding buttons
-                 $scope.hasPreviousPage = false;
-                 }
-                 } */
 
                 /*
                  GET operations
@@ -186,15 +134,17 @@
                     const articles = self.articles;
                     const dateSet = {};
                     for (var n in articles) {
-                        /* Only make archive dates for articles in the current category. Of course, if the current
-                         category is 'Everything', then make archives for everything. */
-                        if (self.categoryName != 'Everything' && articles[n].category !== self.categoryName) {
-                            continue;
-                        }
-                        const a = new Date(articles[n].date);
-                        if (a.toString() !== 'Invalid Date') {
-                            const start = new Date(a.getFullYear(), a.getMonth(), 1);
-                            dateSet[start] = new Date(a.getFullYear(), a.getMonth() + 1, 1);
+                        if (articles.hasOwnProperty(n)) {
+                            /* Only make archive dates for articles in the current category. Of course, if the current
+                             category is 'Everything', then make archives for everything. */
+                            if (self.categoryName !== 'Everything' && articles[n].category !== self.categoryName) {
+                                continue;
+                            }
+                            const a = new Date(articles[n].date);
+                            if (a.toString() !== 'Invalid Date') {
+                                const start = new Date(a.getFullYear(), a.getMonth(), 1);
+                                dateSet[start] = new Date(a.getFullYear(), a.getMonth() + 1, 1);
+                            }
                         }
                     }
 
@@ -219,12 +169,13 @@
                         });
 
                         self.authors = [];
-                        for (var authorName in authorMap) {
-                            self.authors.push(authorMap[authorName]);
+                        for (var name in authorMap) {
+                            if (authorMap.hasOwnProperty(name)) {
+                                self.authors.push(authorMap[name]);
+                            }
                         }
                     }
                 }
-
             }
         ]
     });

@@ -1,8 +1,8 @@
 {
   "name": "blog",
   "author": "Robert Mitchell",
-  "version": "0.0.1",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
   "scripts": {
     "start": "node ./bin/www",
     "postinstall": "bower install",
@@ -13,10 +13,12 @@
     "body-parser": "~1.15.1",
     "bower": "latest",
     "client-sessions": "^0.7.0",
+    "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "latest",
     "express-winston": "^2.4.0",
+    "graceful-fs": "^4.1.11",
     "helmet": "^3.6.1",
     "ipware": "^1.0.0",
     "jade": "^1.11.0",
@@ -30,8 +32,8 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "gulp": "latest",
-    "gulp-concat": "latest",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-ng-annotate": "latest",
     "gulp-sourcemaps": "latest",
     "gulp-uglify": "latest",
