@@ -7,9 +7,8 @@
      */
     var gulp = require('gulp');
     var concat = require('gulp-concat');
-    var sourcemaps = require('gulp-sourcemaps');
     var ngAnnotate = require('gulp-ng-annotate');
-    var uglify = require('gulp-uglify');
+    var babili = require('gulp-babili');
 
     /* Turn off sourcemaps once this section is completed. It doubles the size of the js file,
          and is only needed for testing. */
@@ -21,10 +20,8 @@
             'public/js/blog-app/**/*.module.js',
             'public/js/blog-app/**/*.js'])
             .pipe(concat('blog-app.js'))
-//            .pipe(sourcemaps.init())
+            .pipe(babili({ mangle: { keepClassName: true } }))
             .pipe(ngAnnotate())
-            .pipe(uglify())
-//            .pipe(sourcemaps.write())
             .pipe(gulp.dest('./public'));
 
         /* Make file for admin app */
@@ -32,10 +29,8 @@
             'public/js/blog-admin-app/**/*.module.js',
             'public/js/blog-admin-app/**/*.js'])
             .pipe(concat('blog-admin-app.js'))
-//            .pipe(sourcemaps.init())
+            .pipe(babili({ mangle: { keepClassName: true } }))
             .pipe(ngAnnotate())
-            .pipe(uglify())
-//            .pipe(sourcemaps.write())
             .pipe(gulp.dest('./public'));
     });
 
