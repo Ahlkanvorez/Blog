@@ -3,12 +3,12 @@
      * For the origin of this authentication implementation, see:
      * - http://devsmash.com/blog/password-authentication-with-mongoose-and-bcrypt
      * - http://devsmash.com/blog/implementing-max-login-attempts-with-mongoose
-     * For additional reference on Bcryptjs, see: https://www.npmjs.com/package/bcryptjs
+     * And for general bcrypt reference, see: https://www.npmjs.com/package/bcrypt
      */
 
     var express = require('express');
     var mongoose = require('mongoose');
-    var bcrypt = require('bcryptjs');
+    var bcrypt = require('bcrypt');
     const saltWorkFactor = 10;
 
     /* After five attempts, lock the account for two hours. */
@@ -149,7 +149,7 @@
                  */
                 user.password = hash;
                 next();
-            });
+            })
         });
     });
 

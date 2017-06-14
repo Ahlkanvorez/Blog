@@ -1,5 +1,5 @@
 (function () {
-    var bcrypt = require('bcryptjs');
+    var bcrypt = require('bcrypt');
     var express = require('express');
 
     /* Security Features implemented:
