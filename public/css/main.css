@@ -41,8 +41,8 @@ textarea:focus, input:focus {
 p {
     font-family: inherit;
     font-weight: normal;
-    font-size: 1em;
-    line-height: 1.65;
+    font-size: 1.2em;
+    line-height: 1.6;
     margin-bottom: 1.25em;
     text-align: justify;
     text-rendering: optimizeLegibility;
@@ -106,7 +106,7 @@ footer p {
 
 .article-author {
     color: #8A0707;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .article-author a {
@@ -123,7 +123,7 @@ footer p {
 
 .article-date {
     float: right;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .article-title {
