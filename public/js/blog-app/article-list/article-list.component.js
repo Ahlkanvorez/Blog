@@ -39,48 +39,29 @@
                     self.categoryName = 'Everything';
                 }
 
-                (async () => {
-                    self.categoryList = await Category.get();
-                    for (var n in self.categoryList) {
-                        if (self.categoryList.hasOwnProperty(n) && self.categoryList[n].name === self.categoryName) {
-                            self.category = self.categoryList[n];
+                // Pull a (usually cached) list of categories from the server.
+                Category.get(function successCallback(categories) {
+                    // Pick the current category from the category list.
+                    self.categoryList = categories;
+                    for (var n in categories) {
+                        if (categories[n].name === self.categoryName) {
+                            // For reference, make a separate copy of the category.
+                            self.category = categories[n];
                             break;
                         }
                     }
+                });
 
-                    self.articles = await ArticleIndex.get();
+                ArticleIndex.get(function successCallback(articleList) {
+                    self.articles = articleList;
                     if (dateStart && dateEnd) {
-                        getArticlesByDateRange(start, end);
+                        getArticlesByDateRange(dateStart, dateEnd);
                     } else if (self.authorName) {
                         getArticlesByAuthor();
                     } else if (self.categoryName) {
                         getArticlesByCategory();
                     }
-                })();
-
-                // Pull a (usually cached) list of categories from the server.
-                // Category.get(function successCallback(categories) {
-                    // Pick the current category from the category list.
-                    // self.categoryList = categories;
-                    // for (var n in categories) {
-                        // if (categories[n].name === self.categoryName) {
-                            // For reference, make a separate copy of the category.
-                            // self.category = categories[n];
-                            // break;
-                        // }
-                    // }
-                // });
-
-                // ArticleIndex.get(function successCallback(articleList) {
-                    // self.articles = articleList;
-                    // if (dateStart && dateEnd) {
-                        // getArticlesByDateRange(dateStart, dateEnd);
-                    // } else if (self.authorName) {
-                        // getArticlesByAuthor();
-                    // } else if (self.categoryName) {
-                        // getArticlesByCategory();
-                    // }
-                // });
+                });
 
                 /* Set the contents of the search bar to the given query, resulting in a filtered article list. Also watch
                  $scope.query for changes, i.e. text being entered in the search box, and reflect those updates in the
