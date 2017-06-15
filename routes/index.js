@@ -20,12 +20,11 @@
             twitter_card : 'summary'
     };
 
-    function getMetaForArticle(articleName, callback) {
+    const getMetaForArticle = function getMetaForArticle(articleName, callback) {
         var correctedName = articleName.split('-').join(' ');
         Article.find().public().byTitle(correctedName).exec(function (err, articles) {
             if (articles === []) {
                 /* No such article exists, so send the default meta for the site. */
-                console.log("Couldn't find the desired article: " + correctedName);
                 callback(default_meta);
                 return;
             }
@@ -40,21 +39,21 @@
                 snippet = snippet.substring('<blockquote>'.length);
             }
             callback({
-                title : article.title + (article.category != 'Miscellany' ? ' | ' + article.category : ''),
+                title : article.title + (article.category !== 'Miscellany' ? ' | ' + article.category : ''),
                 description : snippet.trim(),
                 url : 'https://www.hrodebert.com/articles/' + article.title,
                 type : 'blog',
-                image : 'http://www.hrodebert.com/' + article.image,
-                image_secure_url : 'https://www.hrodebert.com/' + article.image,
-                image_width : article.image_dimensions.width,
-                image_height : article.image_dimensions.height,
+                image : 'http://www.hrodebert.com/' + (article.image || 'img/favicon.png'),
+                image_secure_url : 'https://www.hrodebert.com/' + (article.image || 'img/favicon.png'),
+                image_width : article.image_dimensions.width || default_meta.image_width,
+                image_height : article.image_dimensions.height || default_meta.image_height,
                 twitter_site : '@RobertMitchel_l',
                 twitter_card : 'summary'
             });
         });
-    }
+    };
 
-    function getMetaForCategory(categoryName, callback) {
+    const getMetaForCategory = function getMetaForCategory(categoryName, callback) {
         if (!categoryName) {
             categoryName = 'Everything';
         }
@@ -74,15 +73,15 @@
                 description : category.aboutAuthor,
                 url : "https://www.hrodebert.com/article-list/" + category.name,
                 type : 'blog',
-                image : 'http://www.hrodebert.com/' + category.image,
-                image_secure_url : 'https://www.hrodebert.com/' + category.image,
-                image_width : category.image_dimensions.width,
-                image_height : category.image_dimensions.height,
+                image : 'http://www.hrodebert.com/' + (category.image || 'img/favicon.png'),
+                image_secure_url : 'https://www.hrodebert.com/' + (category.image || 'img/favicon.png'),
+                image_width : category.image_dimensions.width || default_meta.image_width,
+                image_height : category.image_dimensions.height || default_meta.image_height,
                 twitter_site : '@RobertMitchel_l',
                 twitter_card : 'summary'
             });
         });
-    }
+    };
 
     /**
      * GET the home page.
@@ -172,7 +171,6 @@
      * Renders the article with the given name with the proper meta tags for SEO.
      */
     router.get('/articles/:title', function (req, res, next) {
-        // TODO: Pull the article from the database and render the appropriate meta tags.
         getMetaForArticle(req.params.title, function (meta) {
             res.render('index', meta);
         });
