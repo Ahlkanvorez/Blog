@@ -92,17 +92,9 @@ footer p {
     text-align: justify;
 }
 
-/* TODO: Consider how to indicate an article is clickable.
-.article-container {
-    padding-left: 15px;
+.article-container a {
+    font-size: 1.2em;
 }
-*/
-/*
-.article-container:hover {
-    border-left: 5px solid #8A0707;
-    padding-left: 10px;
-}
-*/
 
 .article-author {
     color: #8A0707;
