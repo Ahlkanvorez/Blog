@@ -31,7 +31,7 @@
         content: String,
         sticky: {type: Boolean, default: false},
         private: {type: Boolean, default: true},
-        image: {type: String, default: 'img/favicon.png'},
+        image: {type: String, default: 'img/favicon/png'},
         image_dimensions : {width: Number, height: Number}
     });
 
