@@ -19,11 +19,11 @@
             const promise = $http.get(ServerConfig.baseUrl + '/blog/category-list');
 
             return {
-                get: function (success, error) {
+                get: function (callback) {
                     /* Pass the given callback to the promise for use when the HTTP GET request is successful,
                      so that the caller interacts with this as if they were just making an HTTP GET request each
                      time get(callback) is called. */
-                    promise.then(success, error);
+                    promise.success(callback);
                 }
             };
         }

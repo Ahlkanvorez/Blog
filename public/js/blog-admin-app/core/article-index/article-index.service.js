@@ -16,27 +16,28 @@
      *  - $http is required in order to send HTTP requests to the server.
      *  - ServerConfig is required in order to access the base URL of the server, which is only recorded in that one
      *      location, to prevent possible bugs if the server url ever changes.
+     *
      */
     angular.module('core.articleIndex').factory('ArticleIndex', ['$http', 'ServerConfig',
         function ArticleIndexService($http, ServerConfig) {
-            const allArticleListUrl = ServerConfig.baseUrl + '/blog/all-article-list';
+            var allArticleListUrl = ServerConfig.baseUrl + '/blog/all-article-list';
             /* Record the promise for article objects */
             var promise = $http.get(allArticleListUrl);
 
             return {
-                get: function (success, error) {
+                get: function (callback) {
                     /* Feed the promise the given callback, so the data can be retrieved as if it were a fresh request
                      * each time.
                      */
-                    promise.then(success, error);
+                    promise.success(callback);
                 },
 
-                refresh: function (success, error) {
+                refresh: function (callback) {
                     /* Create a new promise and feed that the callback, so that the data is actually reloaded from the
                      * server, and then appears to be a fresh request on each subsequent access.
                      */
                     promise = $http.get(allArticleListUrl);
-                    promise.then(success, error);
+                    promise.success(callback);
                 },
 
                 createArticle: function (category, successCallback, errorCallback) {
