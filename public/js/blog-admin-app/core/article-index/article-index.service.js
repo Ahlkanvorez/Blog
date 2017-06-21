@@ -20,24 +20,24 @@
      */
     angular.module('core.articleIndex').factory('ArticleIndex', ['$http', 'ServerConfig',
         function ArticleIndexService($http, ServerConfig) {
-            var allArticleListUrl = ServerConfig.baseUrl + '/blog/all-article-list';
+            const allArticleListUrl = ServerConfig.baseUrl + '/blog/all-article-list';
             /* Record the promise for article objects */
             var promise = $http.get(allArticleListUrl);
 
             return {
-                get: function (callback) {
+                get: function (success, error) {
                     /* Feed the promise the given callback, so the data can be retrieved as if it were a fresh request
                      * each time.
                      */
-                    promise.success(callback);
+                    promise.then(success, error);
                 },
 
-                refresh: function (callback) {
+                refresh: function (success, error) {
                     /* Create a new promise and feed that the callback, so that the data is actually reloaded from the
                      * server, and then appears to be a fresh request on each subsequent access.
                      */
                     promise = $http.get(allArticleListUrl);
-                    promise.success(callback);
+                    promise.then(success, error);
                 },
 
                 createArticle: function (category, successCallback, errorCallback) {

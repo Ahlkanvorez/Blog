@@ -18,17 +18,17 @@
      *      location, to prevent possible bugs if the server url ever changes.
      */    angular.module('core.category').factory('Category', ['$http', 'ServerConfig',
         function ($http, ServerConfig) {
-            var allCategoryListUrl = ServerConfig.baseUrl + '/blog/all-category-list';
+            const allCategoryListUrl = ServerConfig.baseUrl + '/blog/all-category-list';
             var promise = $http.get(allCategoryListUrl);
 
             return {
-                get: function (callback) {
-                    promise.success(callback);
+                get: function (success, error) {
+                    promise.then(success, error);
                 },
 
-                refresh: function (callback) {
+                refresh: function (success, error) {
                     promise = $http.get(allCategoryListUrl);
-                    promise.success(callback);
+                    promise.then(success, error);
                 },
 
                 createCategory: function (successCallback, errorCallback) {

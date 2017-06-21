@@ -17,14 +17,14 @@
     angular.module('core.articleIndex').factory('ArticleIndex', ['$http', 'ServerConfig',
         function ArticleIndexService($http, ServerConfig) {
             /* Record the promise of an HTTP GET request for the category list. */
-            var promise = $http.get(ServerConfig.baseUrl + '/blog/article-list');
+            const promise = $http.get(ServerConfig.baseUrl + '/blog/article-list');
 
             return {
-                get: function (callback) {
+                get: function (success, error) {
                     /* Pass the given callback to the promise for use when the HTTP GET request is successful,
                      so that the caller interacts with this as if they were just making an HTTP GET request each
                      time get(callback) is called. */
-                    promise.success(callback);
+                    promise.then(success, error);
                 }
             };
         }

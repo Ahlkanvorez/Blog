@@ -1,11 +1,11 @@
 (function () {
-    var express = require('express');
-    var blogDatabase = require('../data/blog-database');
-    var checkAuth = require('./auth').checkAuth;
-    var router = express.Router();
+    const express = require('express');
+    const blogDatabase = require('../data/blog-database');
+    const checkAuth = require('./auth').checkAuth;
+    const router = express.Router();
 
-    var Article = blogDatabase.Article;
-    var Category = blogDatabase.Category;
+    const Article = blogDatabase.Article;
+    const Category = blogDatabase.Category;
 
     const default_meta = {
             title : 'Blog | Robert Mitchell',
