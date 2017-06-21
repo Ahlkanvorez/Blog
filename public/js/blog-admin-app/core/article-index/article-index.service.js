@@ -16,7 +16,6 @@
      *  - $http is required in order to send HTTP requests to the server.
      *  - ServerConfig is required in order to access the base URL of the server, which is only recorded in that one
      *      location, to prevent possible bugs if the server url ever changes.
-     *
      */
     angular.module('core.articleIndex').factory('ArticleIndex', ['$http', 'ServerConfig',
         function ArticleIndexService($http, ServerConfig) {
