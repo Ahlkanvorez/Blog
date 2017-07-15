@@ -1,50 +1,15 @@
 import { Component } from '@angular/core';
+import { Article, articles } from "./article";
 
-export class Article {
-  _id: number;
-  title: string;
-  author: { name: string; email: string; };
-  date: Date;
-  category: string;
-  content: string;
-  sticky: boolean;
-  image: string;
-  image_dimensions: { width: number, height: number };
-}
-
-export const articles: Article[] = [
-  {
-    _id: 1,
-    title: 'test1',
-    author: { name: 'robert', email: 'a@b.c' },
-    date: new Date(),
-    category: 'test',
-    content: 'this is a test article.  This sentence should only display on click. Same goes for this one.',
-    sticky: false,
-    image: '',
-    image_dimensions: { width: 0, height: 0 }
-  },
-  {
-    _id: 2,
-    title: 'test2',
-    author: { name: 'mitchell', email: 'a@b.c' },
-    date: new Date(),
-    category: 'test',
-    content: 'this is another test article. This sentence should only display on click.',
-    sticky: true,
-    image: '',
-    image_dimensions: { width: 0, height: 0 }
-  }
-];
-//  | orderBy:['-sticky', '-date']
-// | date
-
+// TODO: Order articles by stickiness first, then date.
 @Component({
   selector: 'blog',
   template: `
   <h1>{{ name }}</h1>
   <ul class="articles">
-    <li *ngFor="let article of articles" (click)="onSelect(article)">
+    <li *ngFor="let article of articles"
+        (click)="onSelect(article)"
+        [class.selected]="article==selectedArticle">
       <h2>{{ article.title }}</h2>
       <a>{{ article.category }}</a>
       - By
@@ -54,15 +19,7 @@ export const articles: Article[] = [
       <p>{{ article.content.slice(0, article.content.indexOf('.')) }}</p>
     </li>
   </ul>
-  <div *ngIf="selectedArticle">
-    <h1>{{ selectedArticle.title }}</h1>
-    <a>{{ selectedArticle.category }}</a>
-    - By
-    <a>{{ selectedArticle.author.name }}</a>
-    - posted on
-    <span>{{ selectedArticle.date | date }}</span>
-    <p>{{ selectedArticle.content }}</p>
-  </div>`,
+  <article-view [article]="selectedArticle"></article-view>`,
   styles: [`
     .selected {
       background-color: #cfd8dc !important;
