@@ -4,7 +4,11 @@ import { Component } from '@angular/core';
   selector: 'blog',
   template: `
   <h1>{{ title }}</h1>
-  <articles></articles>`
+  <nav>
+    <a routerLink="/about">About</a>
+    <a routerLink="/articles">Articles</a>
+  </nav>
+  <router-outlet></router-outlet>`
 })
 export class AppComponent {
   title = 'Blog';

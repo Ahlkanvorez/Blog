@@ -12,24 +12,17 @@ import { ArticleService } from "./article.service";
       Loading Articles ...
     </li>
     <li *ngFor="let article of articles"
-        (click)="onSelect(article)"
-        [class.selected]="article==selectedArticle">
+        [routerLink]="['/articles', article.title]">
       <h2>{{ article.title }}</h2>
-      <a>{{ article.category }}</a>
+      <span>{{ article.category }}</span>
       - By
-      <a>{{ article.author.name }}</a>
+      <span>{{ article.author.name }}</span>
       - posted on
       <span>{{ article.date | date }}</span>
       <p>{{ article.content.slice(0, article.content.indexOf('.')) }}</p>
     </li>
-  </ul>
-  <article-view [article]="selectedArticle"></article-view>`,
+  </ul>`,
   styles: [`
-    .selected {
-      background-color: #cfd8dc !important;
-      color: white;
-    }
-    
     .articles {
       margin: 0 0 2em 0;
       list-style-type: none;
@@ -44,20 +37,10 @@ import { ArticleService } from "./article.service";
       border-radius: 4px;
     }
     
-    .articles li.selected:hover {
-      background-color: #bbd8dc !important;
-      color: white;
-    }
-    
     .articles li:hover {
       color: #607d8b;
       background-color: #dddddd;
       left: 0.1em;
-    }
-    
-    .articles .text {
-      position: relative;
-      top: -3px;
     }
   `],
   providers: [ ArticleService ]
@@ -65,15 +48,10 @@ import { ArticleService } from "./article.service";
 export class ArticlesComponent implements OnInit {
   name = 'Articles';
 
-  selectedArticle: Article;
   articles: Article[];
 
   constructor (private articleService: ArticleService) {
 
-  }
-
-  onSelect (article: Article): void {
-    this.selectedArticle = article;
   }
 
   getArticles (): void {

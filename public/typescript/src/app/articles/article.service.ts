@@ -32,6 +32,12 @@ export class ArticleService {
     return Promise.resolve(articles);
   }
 
+  getArticle (title: string): Promise<Article> {
+    return this.getArticles()
+      .then(articles => articles.find(article => article.title === title))
+      .catch(err => console.error(err));
+  }
+
   // TODO: Ensure this is never called, and is not provided, in production.
   getArticlesSlowly (): Promise<Article[]> {
     // Simulate 2s of server latency.
