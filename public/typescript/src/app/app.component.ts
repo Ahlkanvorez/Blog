@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Article, articles } from "./article";
+import { Component, OnInit } from '@angular/core';
+import { Article } from "./articles/article";
+import { ArticleService } from "./articles/article.service";
 
 // TODO: Order articles by stickiness first, then date.
 @Component({
@@ -55,14 +56,30 @@ import { Article, articles } from "./article";
       position: relative;
       top: -3px;
     }
-  `]
+  `],
+  providers: [ ArticleService ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   name = 'Blog';
-  articles = articles;
-  selectedArticle: Article;
 
-  onSelect(article: Article): void {
+  selectedArticle: Article;
+  articles: Article[];
+
+  constructor (private articleService: ArticleService) {
+
+  }
+
+  onSelect (article: Article): void {
     this.selectedArticle = article;
+  }
+
+  getArticles (): void {
+    this.articleService.getArticles()
+      .then(articles => this.articles = articles)
+      .catch(err => console.error(err));
+  }
+
+  ngOnInit () {
+    this.getArticles();
   }
 }

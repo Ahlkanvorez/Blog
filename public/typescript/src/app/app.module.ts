@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ArticleViewComponent } from './article-view.component';
+import { ArticleViewComponent } from './articles/article-view.component';
 
 @NgModule({
   imports: [ BrowserModule ],

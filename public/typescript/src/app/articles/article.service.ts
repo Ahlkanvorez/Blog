@@ -1,16 +1,7 @@
-export class Article {
-  _id: number;
-  title: string;
-  author: { name: string; email: string; };
-  date: Date;
-  category: string;
-  content: string;
-  sticky: boolean;
-  image: string;
-  image_dimensions: { width: number, height: number };
-}
+import { Injectable } from '@angular/core';
+import { Article } from "./article";
 
-export const articles: Article[] = [
+const articles: Article[] = [
   {
     _id: 1,
     title: 'test1',
@@ -34,3 +25,10 @@ export const articles: Article[] = [
     image_dimensions: { width: 0, height: 0 }
   }
 ];
+
+@Injectable()
+export class ArticleService {
+  getArticles (): Promise<Article[]> {
+    return Promise.resolve(articles);
+  }
+}
