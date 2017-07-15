@@ -8,7 +8,9 @@ import { ArticleService } from "./articles/article.service";
   template: `
   <h1>{{ name }}</h1>
   <ul class="articles">
-    <li *ngIf="articles == []"
+    <li *ngIf="articles == undefined">
+      Loading Articles ...
+    </li>
     <li *ngFor="let article of articles"
         (click)="onSelect(article)"
         [class.selected]="article==selectedArticle">
