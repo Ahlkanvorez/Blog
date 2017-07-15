@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'article-view',
-  templateUrl: './article-view.template.html'
+  templateUrl: './article-view.component.html'
 })
 export class ArticleViewComponent implements OnInit {
   @Input() article: Article;

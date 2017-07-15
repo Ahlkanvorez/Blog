@@ -2,7 +2,7 @@
     'use strict';
 
     /** Defines the ArticleView module, and registers it with the module, which contains the View in
-     *     an HTML file (/js/blog-admin-app/article-view/article-view.template.html), with the associated Controller in
+     *     an HTML file (/js/blog-admin-app/article-view/article-view.component.html), with the associated Controller in
      *     this file. This controller & view also manages creation, editing, and deletion of articles, which includes
      *     altering which category they belong to.
      * - $sanitize is used to allow injecting HTML into the page via the ng-bind-html tag.
@@ -18,7 +18,7 @@
      * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
      */
     angular.module('articleView').component('articleView', {
-        templateUrl: '/js/blog-admin-app/article-view/article-view.template.html',
+        templateUrl: '/js/blog-admin-app/article-view/article-view.component.html',
         controller: ['$sanitize', '$window', '$scope', '$routeParams', 'ArticleIndex', 'ServerConfig', 'ViewModes', 'Category',
             function articleViewController($sanitize, $window, $scope, $routeParams, ArticleIndex, ServerConfig, ViewModes, Category) {
                 const self = this;

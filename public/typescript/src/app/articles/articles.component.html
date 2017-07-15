@@ -1,0 +1,16 @@
+<h1>{{ name }}</h1>
+<ul class="articles">
+  <li *ngIf="articles == undefined">
+    Loading Articles ...
+  </li>
+  <li *ngFor="let article of articles"
+      [routerLink]="['/articles', article.title]">
+    <h2>{{ article.title }}</h2>
+    <span>{{ article.category }}</span>
+    - By
+    <span>{{ article.author.name }}</span>
+    - posted on
+    <span>{{ article.date | date }}</span>
+    <p>{{ article.content.slice(0, article.content.indexOf('.')) }}</p>
+  </li>
+</ul>
