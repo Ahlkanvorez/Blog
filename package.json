@@ -1,7 +1,8 @@
 {
-  "name": "blog",
+  "name": "Blog",
   "author": "Robert Mitchell",
-  "version": "1.0.0",
+  "description": "A personal blog written on the MEAN stack using Angular 2.",
+  "version": "2.0.0",
   "private": false,
   "scripts": {
     "start": "node ./bin/www",
