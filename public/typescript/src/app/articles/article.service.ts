@@ -1,41 +1,26 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+
 import { Article } from "./article";
 
-const articles: Article[] = [
-  {
-    _id: 1,
-    title: 'test1',
-    author: { name: 'robert', email: 'a@b.c' },
-    date: new Date(),
-    category: 'test',
-    content: 'this is a test article.  This sentence should only display on click. Same goes for this one.',
-    sticky: false,
-    image: '',
-    image_dimensions: { width: 0, height: 0 }
-  },
-  {
-    _id: 2,
-    title: 'test2',
-    author: { name: 'mitchell', email: 'a@b.c' },
-    date: new Date(),
-    category: 'test',
-    content: 'this is another test article. This sentence should only display on click.',
-    sticky: true,
-    image: '',
-    image_dimensions: { width: 0, height: 0 }
-  }
-];
+const articlesUrl = 'api/articles';
 
 @Injectable()
 export class ArticleService {
+
+  constructor (private http: Http) {}
+
   getArticles (): Promise<Article[]> {
-    return Promise.resolve(articles);
+    return this.http.get(articlesUrl).toPromise()
+      .then(res => res.json().data as Article[])
+      .catch(this.handleError);
   }
 
   getArticle (title: string): Promise<Article> {
-    return this.getArticles()
-      .then(articles => articles.find(article => article.title === title))
-      .catch(err => console.error(err));
+    return this.http.get(`${articlesUrl}/${title}`).toPromise()
+      .then(res => res.json().data as Article)
+      .catch(this.handleError);
   }
 
   // TODO: Ensure this is never called, and is not provided, in production.
@@ -44,5 +29,10 @@ export class ArticleService {
     return new Promise(resolve => {
       setTimeout(() => resolve(this.getArticles()), 2000);
     });
+  }
+
+  handleError (err: any): Promise<any> {
+    console.error(err);
+    return Promise.reject(err.message || err);
   }
 }
