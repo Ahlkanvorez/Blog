@@ -8,6 +8,7 @@ import { ArticleService } from "./articles/article.service";
   template: `
   <h1>{{ name }}</h1>
   <ul class="articles">
+    <li *ngIf="articles == []"
     <li *ngFor="let article of articles"
         (click)="onSelect(article)"
         [class.selected]="article==selectedArticle">
@@ -74,7 +75,8 @@ export class AppComponent implements OnInit {
   }
 
   getArticles (): void {
-    this.articleService.getArticles()
+    // TODO: Use the normal getArticles() method in production.
+    this.articleService.getArticlesSlowly()
       .then(articles => this.articles = articles)
       .catch(err => console.error(err));
   }

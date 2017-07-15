@@ -31,4 +31,12 @@ export class ArticleService {
   getArticles (): Promise<Article[]> {
     return Promise.resolve(articles);
   }
+
+  // TODO: Ensure this is never called, and is not provided, in production.
+  getArticlesSlowly (): Promise<Article[]> {
+    // Simulate 2s of server latency.
+    return new Promise(resolve => {
+      setTimeout(() => resolve(this.getArticles()), 2000);
+    });
+  }
 }
