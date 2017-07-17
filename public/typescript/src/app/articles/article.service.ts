@@ -4,31 +4,27 @@ import 'rxjs/add/operator/toPromise';
 
 import { Article } from "./article";
 
-const articlesUrl = 'api/articles';
-
 @Injectable()
 export class ArticleService {
+
+  private articlesUrl = 'api/articles';
 
   constructor (private http: Http) {}
 
   getArticles (): Promise<Article[]> {
-    return this.http.get(articlesUrl).toPromise()
+    return this.http.get(this.articlesUrl)
+      .toPromise()
       .then(res => res.json().data as Article[])
       .catch(this.handleError);
   }
 
   getArticle (title: string): Promise<Article> {
-    return this.http.get(`${articlesUrl}/${title}`).toPromise()
-      .then(res => res.json().data as Article)
+    // Note: The annoying in-memory-data service uses the pattern :base/:collectionName/:id?, so the title parameter has
+    // to be passed via ?title=___. This is annoying, and should not be reflected in the server-side REST api.
+    return this.http.get(`${this.articlesUrl}/?title=${title}`)
+      .toPromise()
+      .then(res => res.json().data[0] as Article)
       .catch(this.handleError);
-  }
-
-  // TODO: Ensure this is never called, and is not provided, in production.
-  getArticlesSlowly (): Promise<Article[]> {
-    // Simulate 2s of server latency.
-    return new Promise(resolve => {
-      setTimeout(() => resolve(this.getArticles()), 2000);
-    });
   }
 
   handleError (err: any): Promise<any> {

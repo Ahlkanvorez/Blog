@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { Article } from "./article";
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
 export class ArticleViewComponent implements OnInit {
   @Input() article: Article;
 
-  constructor (private articleService: ArticleService, private route: ActivatedRoute, private location: Location) {}
+  constructor (private articleService: ArticleService, private route: ActivatedRoute) {}
 
   ngOnInit (): void {
     // Extract the name from the parameters, and populate the article member accordingly from the article service.

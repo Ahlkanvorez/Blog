@@ -14,13 +14,10 @@ export class ArticlesComponent implements OnInit {
 
   articles: Article[];
 
-  constructor (private articleService: ArticleService) {
-
-  }
+  constructor (private articleService: ArticleService) {}
 
   getArticles (): void {
-    // TODO: Use the normal getArticles() method in production.
-    this.articleService.getArticlesSlowly()
+    this.articleService.getArticles()
       .then(articles => this.articles = articles)
       .catch(err => console.error(err));
   }

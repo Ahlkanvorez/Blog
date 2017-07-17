@@ -2,35 +2,34 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
+import { AppRoutingModule } from './app-routing.module';
+
 // For development purposes only.
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from "./app.component";
+import { AboutComponent } from "./about/about.component";
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleViewComponent } from './articles/article-view.component';
-import { AppComponent } from "./app.component";
 import { ArticleService } from "./articles/article.service";
-import { AboutComponent } from "./about/about.component";
-
+import { ArticleSearchComponent } from './articles/article-search.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
     AppRoutingModule,
-
+    HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   declarations: [
     AppComponent,
+    AboutComponent,
     ArticlesComponent,
     ArticleViewComponent,
-    AboutComponent
+    ArticleSearchComponent
   ],
-  providers: [
-    ArticleService
-  ],
+  providers: [ ArticleService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
