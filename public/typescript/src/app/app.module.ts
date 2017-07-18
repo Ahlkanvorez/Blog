@@ -14,6 +14,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleViewComponent } from './articles/article-view.component';
 import { ArticleService } from "./articles/article.service";
 import { ArticleSearchComponent } from './articles/article-search.component';
+import { CategoryService } from "./categories/category.service";
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { ArticleSearchComponent } from './articles/article-search.component';
     ArticleViewComponent,
     ArticleSearchComponent
   ],
-  providers: [ ArticleService ],
+  providers: [ ArticleService, CategoryService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
