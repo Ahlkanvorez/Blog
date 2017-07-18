@@ -1,17 +1,38 @@
 <h1>{{ name }}</h1>
-<ul class="articles">
-  <li *ngIf="articles == undefined">
-    Loading Articles ...
-  </li>
-  <li *ngFor="let article of articles"
-      [routerLink]="['/articles', article.title]">
-    <h2>{{ article.title }}</h2>
-    <span>{{ article.category }}</span>
-    - By
-    <span>{{ article.author.name }}</span>
-    - posted on
-    <span>{{ article.date | date }}</span>
-    <p>{{ article.content.slice(0, article.content.indexOf('.')) }}</p>
-  </li>
-</ul>
-<article-search></article-search>
+
+<div class="col-md-8">
+
+  <ul class="article-container articles">
+    <li *ngIf="articles == undefined">
+      Loading Articles ...
+    </li>
+    <li *ngFor="let article of articles"
+        [routerLink]="['/articles', article.title]">
+      <h2 class="article-title">
+        {{ article.title }}
+      </h2>
+      <span>{{ article.category }}</span>
+      - By
+      <span>{{ article.author.name }}</span>
+      - posted on
+      <span>{{ article.date | date }}</span>
+      <p>{{ article.content.slice(0, article.content.indexOf('.')) }}</p>
+    </li>
+  </ul>
+
+</div>
+
+<div class="col-sm-3 col-sm-offset-1 sidebar">
+  <div class="sidebar-block">
+    <article-search></article-search>
+  </div>
+
+  <div class="sidebar-block">
+    <h4>Elsewhere</h4>
+    <ol class="list-unstyled">
+      <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
+      <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
+      <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+    </ol>
+  </div>
+</div>
