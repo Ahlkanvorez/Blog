@@ -8,6 +8,8 @@
     var Article = blogDatabase.Article;
     var Category = blogDatabase.Category;
 
+    // TODO: Modernize all the routes.
+
     /**
      * A simple helper factory for callback functions which send the resulting data as JSON to the client, or log an error
      * upon erring.
@@ -167,11 +169,22 @@
      * REST API, this one does NOT return a JSON Array.
      */
     router.get('/get-article/:id', function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = req.params.id;
 
         Article.find().public().byId(articleId).exec(function (err, docs) {
-            if (err || docs.length == 0) {
+            if (err || docs.length === 0) {
                 res.send(500, {error: err});
+            } else {
+                res.json(docs[0]);
+            }
+        });
+    });
+
+    router.get('/get-article/:title', function (req, res, next) {
+        const title = req.params.title;
+        Article.find({ title: title }).public().exec(function (err, docs) {
+            if (err || docs === []) {
+                res.send(500, err ? { error: err } : { error: 'That article does not exist.' } );
             } else {
                 res.json(docs[0]);
             }
@@ -186,7 +199,7 @@
         var articleId = req.params.id;
 
         Article.find().byId(articleId).exec(function (err, docs) {
-            if (err || docs.length == 0) {
+            if (err || docs.length === 0) {
                 res.send(500, {error: err});
             } else {
                 res.json(docs[0]);
