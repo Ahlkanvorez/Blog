@@ -17,6 +17,7 @@ export class ArticlesComponent implements OnInit {
   name = 'Articles';
 
   articles: Article[];
+  categories: Category[];
   category: Category;
 
   constructor (private articleService: ArticleService,
@@ -41,6 +42,15 @@ export class ArticlesComponent implements OnInit {
       .catch(err => console.error(err));
   }
 
+  getCategories (): void {
+    this.categoryService.getCategories()
+      .then(categories => this.categories = categories
+        // Only list categories which have at least one linkable article.
+        .filter(category => category.name === 'Latest Articles' || this.articles.find(article => article.category === category.name))
+        .sort((a: Category, b: Category) => a.name.localeCompare(b.name)))
+      .catch(err => console.error(err));
+  }
+
   getCategory (): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.categoryService.getCategory(params.get('category') || ''))
@@ -49,9 +59,13 @@ export class ArticlesComponent implements OnInit {
 
   ngOnInit () {
     // Ensure the category has been retrieved before articles are loaded, so the articles can
-    // be properly filtered by category if appropriate.
+    // be properly filtered by category if appropriate. Get the categories last, so they can
+    // be filtered to only link to categories which have at least one article (any others
+    // should not exist, but just to be safe ...)
+    this.getCategories();
     Promise.resolve()
       .then(() => this.getCategory())
-      .then(() => this.getArticles());
+      .then(() => this.getArticles())
+      .then(() => this.getCategories());
   }
 }

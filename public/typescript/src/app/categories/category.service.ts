@@ -7,7 +7,7 @@ import { Category } from './category';
 @Injectable()
 export class CategoryService {
   private categoriesUrl = 'api/categories';
-  private defaultCategory: Category = {
+  private defaultCategory = { // Default category needs to be present as soon as the object is instantiated.
     _id: '0',
     name: 'Latest Articles',
     description: '"What the heart liketh best, the mind studieth most." - Richard Sibbes',

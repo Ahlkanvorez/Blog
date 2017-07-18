@@ -64,6 +64,12 @@ export class InMemoryDataService implements InMemoryDbService {
         "name": "Classics",
         "description": "\"To read the Latin and Greek authors in their original, is a sublime luxury ...\" - Thomas Jefferson",
         "aboutAuthor": "The Classics are those great Greek and Roman works that have stood the test of time quite literally, with copies being written over the past two to three thousand years, in genres ranging from love poetry to dry history, nevertheless captivating the imaginations of generations of scholars and laymen alike."
+      },
+      {
+        _id: '0',
+        name: 'Latest Articles',
+        description: '"What the heart liketh best, the mind studieth most." - Richard Sibbes',
+        aboutAuthor: 'Robert Mitchell is Reformed & Presbyterian (a member of the OPC), a reader of Classics, Mathematics, Poetry, Philosophy & Theology, and a student of Chinese, Greek & Latin.'
       }
     ];
     return { articles, categories };
