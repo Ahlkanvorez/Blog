@@ -8,11 +8,15 @@ import { ArticleViewComponent } from './articles/article-view.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/articles',
+    redirectTo: '/article-list',
     pathMatch: 'full'
   },
   {
-    path: 'articles',
+    path: 'article-list',
+    component: ArticlesComponent
+  },
+  {
+    path: 'article-list/:category',
     component: ArticlesComponent
   },
   {

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Article } from "./article";
 import { ArticleService } from "./article.service";
+import { Category } from "../categories/category";
+import { CategoryService } from "../categories/category.service";
+import 'rxjs/add/operator/switchMap';
 
 // TODO: Order articles by stickiness first, then date.
 @Component({
@@ -13,8 +17,11 @@ export class ArticlesComponent implements OnInit {
   name = 'Articles';
 
   articles: Article[];
+  category: Category;
 
-  constructor (private articleService: ArticleService) {}
+  constructor (private articleService: ArticleService,
+               private categoryService: CategoryService,
+               private route: ActivatedRoute) {}
 
   getArticles (): void {
     this.articleService.getArticles()
@@ -32,7 +39,14 @@ export class ArticlesComponent implements OnInit {
       .catch(err => console.error(err));
   }
 
+  getCategory (): void {
+    this.route.paramMap
+      .switchMap((params: ParamMap) => this.categoryService.getCategory(params.get('category') || ''))
+      .subscribe(category => this.category = category);
+  }
+
   ngOnInit () {
     this.getArticles();
+    this.getCategory();
   }
 }
