@@ -26,7 +26,8 @@ export class ArticlesComponent implements OnInit {
   getArticles (): void {
     this.articleService.getArticles()
       .then(articles => this.articles = articles
-        .filter(article => article.category === this.category.name)
+        // Latest Articles is the default category, so if that's the category, return all articles.
+        .filter(article => this.category.name === 'Latest Articles' || article.category === this.category.name)
         .sort((a: Article, b: Article) => {
           const A = -1; // this indicates A is less
           const B = 1;  // this indicates B is less.

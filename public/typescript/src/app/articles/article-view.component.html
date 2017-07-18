@@ -41,7 +41,7 @@
       </div>
 
       <div class="sidebar-block" *ngIf="category">
-        <h4>{{ article.category }}</h4>
+        <h4><a href="/article-list/{{ article.category }}">{{ article.category }}</a></h4>
         <p>{{ category.aboutAuthor }}</p>
       </div>
 
