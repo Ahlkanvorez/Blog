@@ -1,5 +1,6 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Article } from "./articles/article";
+import { Category } from "./categories/category";
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb () {
@@ -39,6 +40,32 @@ export class InMemoryDataService implements InMemoryDbService {
         image_dimensions: { width: 0, height: 0 }
       }
     ];
-    return { articles };
+    const categories: Category[] = [
+      {
+        "_id": "57b5423cf22c6b7d4055fef4",
+        "name": "Technology",
+        "description":"\"... adding one thing to another to find the scheme of things\" Ecclesiastes vii 27b ESV",
+        "aboutAuthor":"Technology, and especially Computer Programming, ought to be approached with all their underlying structure and beauty in mind, not simply as tools to finish a job.",
+      },
+      {
+        "_id": "57b615eb2bbb9de840f4970c",
+        "name": "Everything",
+        "description": "\"What the heart liketh best, the mind studieth most.\" - Richard Sibbes",
+        "aboutAuthor": "Robert Mitchell is Reformed & Presbyterian (a member of the OPC), a reader of Classics, Mathematics, Poetry, Philosophy & Theology, and a student of Chinese, Greek & Latin.",
+        },
+      {
+        "_id": "58acbd8e82ed51604029fa01",
+        "name": "Mathematics",
+        "description": "So teach us to number our days, that we may apply our hearts unto wisdom. - Psalm xc 12",
+        "aboutAuthor": "If Logic is the greatest tool of the human mind, then Mathematics is perhaps the best sandbox in which it can play: with endless subjects to explore, innumerable ways to apply even the most basic thoughts, and a strange sense of beauty that seems unique to some of the most elegant theorems.",
+        },
+      {
+        "_id": "58ae18bb82ed51604029fa04",
+        "name": "Classics",
+        "description": "\"To read the Latin and Greek authors in their original, is a sublime luxury ...\" - Thomas Jefferson",
+        "aboutAuthor": "The Classics are those great Greek and Roman works that have stood the test of time quite literally, with copies being written over the past two to three thousand years, in genres ranging from love poetry to dry history, nevertheless captivating the imaginations of generations of scholars and laymen alike."
+      }
+    ];
+    return { articles, categories };
   }
 }
