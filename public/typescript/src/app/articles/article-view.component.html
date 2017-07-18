@@ -36,9 +36,13 @@
 
     <div class="col-sm-3 sidebar">
 
-      <div class="sidebar-block">
+      <div class="sidebar-block" *ngIf="!category">
+        Loading Category...
+      </div>
+
+      <div class="sidebar-block" *ngIf="category">
         <h4>{{ article.category }}</h4>
-        <p>Category description.</p>
+        <p>{{ category.aboutAuthor }}</p>
       </div>
 
       <div class="sidebar-block">
