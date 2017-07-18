@@ -26,6 +26,7 @@ export class ArticlesComponent implements OnInit {
   getArticles (): void {
     this.articleService.getArticles()
       .then(articles => this.articles = articles
+        .filter(article => article.category === this.category.name)
         .sort((a: Article, b: Article) => {
           const A = -1; // this indicates A is less
           const B = 1;  // this indicates B is less.
@@ -46,7 +47,10 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit () {
-    this.getArticles();
-    this.getCategory();
+    // Ensure the category has been retrieved before articles are loaded, so the articles can
+    // be properly filtered by category if appropriate.
+    Promise.resolve()
+      .then(() => this.getCategory())
+      .then(() => this.getArticles());
   }
 }

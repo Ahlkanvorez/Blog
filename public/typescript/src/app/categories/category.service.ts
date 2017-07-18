@@ -24,7 +24,6 @@ export class CategoryService {
   }
 
   getCategory (name: string): Promise<Category> {
-    console.log(name);
     if (name === '') {
       return Promise.resolve(this.defaultCategory);
     }
