@@ -3,20 +3,12 @@
   src : url('https://www.hrodebert.com/fonts/GoudyIni.ttf');
 }
 
-body {
-  font-family: "Iowan Old Style", 'Lustria',  "Times New Roman", serif;
-}
-
-a, p, label, sup {
-  font-family: "Iowan Old Style", 'Lustria', "Times New Roman", serif;
-}
-
-h1, h2, h3, h4, h2 a, h3 a {
-  font-family: 'Iowan Old Style', 'Lustria', "Times New Roman", serif;
+body, a, p, label, sup, h1, h2, h3, h4, h2 a, h3 a {
+  font-family: "Iowan Old Style", 'Lustria',  "Times New Roman", serif !important;
 }
 
 sup {
-  color: #8A0707;
+  color: #8A0707 !important;
 }
 
 dd {
@@ -24,12 +16,12 @@ dd {
 }
 
 a {
-  color: #8A0707;
+  color: #8A0707 !important;
 }
 
 a:hover {
-  text-decoration: none;
-  color: #8a0707;
+  text-decoration: none !important;
+  color: #8a0707 !important;
 }
 
 textarea:focus, input:focus {
@@ -127,10 +119,6 @@ footer p {
   color: #333;
 }
 
-.article-title a {
-  color: #8A0707;
-}
-
 .article-meta {
   border-top: 1px solid #EFEFEF;
   padding-top: 10px;
@@ -168,7 +156,15 @@ blockquote {
   border-left: 4px solid #8A0707;
 }
 
-article {
+header address {
+  float: left;
+}
+
+header time {
+  float: right;
+}
+
+article, .article {
   margin-left: 15px;
   margin-right: 15px;
 }
