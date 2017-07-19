@@ -56,7 +56,7 @@ export class ArticlesComponent implements OnInit {
       .subscribe(category => this.category = category);
   }
 
-  ngOnInit () {
+  refreshData (): void {
     // Ensure the category has been retrieved before articles are loaded, so the articles can
     // be properly filtered by category if appropriate. Get the categories last, so they can
     // be filtered to only link to categories which have at least one article (any others
@@ -66,5 +66,9 @@ export class ArticlesComponent implements OnInit {
       .then(() => this.getCategory())
       .then(() => this.getArticles())
       .then(() => this.getCategories());
+  }
+
+  ngOnInit () {
+    this.refreshData();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Article } from "./article";
 import { Category } from "../categories/category";
@@ -12,9 +12,9 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: [ './article-view.component.css' ]
 })
 export class ArticleViewComponent implements OnInit {
-  @Input() article: Article;
-  @Input() category: Category;
-  @Input() similarArticles: Article[];
+  article: Article;
+  category: Category;
+  similarArticles: Article[];
 
   constructor (private articleService: ArticleService,
                private categoryService: CategoryService,
