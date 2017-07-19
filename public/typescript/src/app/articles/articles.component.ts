@@ -23,10 +23,16 @@ export class ArticlesComponent implements OnInit {
                private categoryService: CategoryService,
                private route: ActivatedRoute) {}
 
+  getCategory (): void {
+    this.route.paramMap
+      .switchMap((params: ParamMap) => this.categoryService.getCategory(params.get('category') || ''))
+      .subscribe(category => this.category = category);
+  }
+
   getArticles (): void {
-    this.articleService.getArticles()
-      .then(articles => this.articles = articles
-        // Latest Articles is the default category, so if that's the category, return all articles.
+    this.route.paramMap
+      .switchMap((params: ParamMap) => this.articleService.getArticles())
+      .subscribe(articles => this.articles = articles
         .filter(article => this.category.name === 'Latest Articles' || article.category === this.category.name)
         .sort((a: Article, b: Article) => {
           const A = -1; // this indicates A is less
@@ -37,23 +43,16 @@ export class ArticlesComponent implements OnInit {
             return B;
           }
           return a.date < b.date ? A : B;
-        }))
-      .catch(err => console.error(err));
+        }));
   }
 
   getCategories (): void {
     this.categoryService.getCategories()
       .then(categories => this.categories = categories
         // Only list categories which have at least one linkable article.
-        .filter(category => category.name === 'Latest Articles' || this.articles.find(article => article.category === category.name))
+        .filter(category => category.name === 'Latest Articles' || this.articles.some(article => article.category === category.name))
         .sort((a: Category, b: Category) => a.name.localeCompare(b.name)))
-      .catch(err => console.error(err));
-  }
-
-  getCategory (): void {
-    this.route.paramMap
-      .switchMap((params: ParamMap) => this.categoryService.getCategory(params.get('category') || ''))
-      .subscribe(category => this.category = category);
+      .catch(console.error);
   }
 
   refreshData (): void {
@@ -61,7 +60,6 @@ export class ArticlesComponent implements OnInit {
     // be properly filtered by category if appropriate. Get the categories last, so they can
     // be filtered to only link to categories which have at least one article (any others
     // should not exist, but just to be safe ...)
-    this.getCategories();
     Promise.resolve()
       .then(() => this.getCategory())
       .then(() => this.getArticles())
