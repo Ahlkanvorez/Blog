@@ -8,11 +8,13 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'article-view',
-  templateUrl: './article-view.component.html'
+  templateUrl: './article-view.component.html',
+  styleUrls: [ './article-view.component.css' ]
 })
 export class ArticleViewComponent implements OnInit {
   @Input() article: Article;
   @Input() category: Category;
+  @Input() similarArticles: Article[];
 
   constructor (private articleService: ArticleService,
                private categoryService: CategoryService,
@@ -29,6 +31,13 @@ export class ArticleViewComponent implements OnInit {
         this.route.paramMap
           .switchMap((params: ParamMap) => this.categoryService.getCategory(this.article.category))
           .subscribe(category => this.category = category);
+
+        // Also get a list of articles in the same category as the one being viewed, and sort them by title.
+        this.articleService.getArticles()
+          .then(articles => this.similarArticles = articles
+            .filter(article => article.category === this.article.category && article._id !== this.article._id)
+            .sort((a: Article, b: Article) => a.title.localeCompare(b.title)))
+          .catch(console.error);
       });
   }
 }

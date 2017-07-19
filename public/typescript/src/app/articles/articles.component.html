@@ -8,7 +8,6 @@
 
   <div class="row">
     <div class="col-md-8 articles">
-
       <ul>
         <li *ngIf="articles == undefined">
           Loading Articles ...
@@ -26,7 +25,6 @@
           <p [innerHTML]="article.content.slice(0, article.content.indexOf('.') + 1)"></p>
         </li>
       </ul>
-
     </div>
 
     <div class="col-md-3 sidebar">
@@ -39,15 +37,16 @@
         <p>{{ category.aboutAuthor }}</p>
       </div>
 
-      <div class="sidebar-block">
+      <div class="sidebar-block categories">
         <h4>Categories</h4>
-        <ol style="list-style-type: none; padding: 0;">
-          <li *ngFor="let category of categories">
-            <a href="/article-list/{{category.name === 'Everything' ? '' : category.name}}">
+        <ul>
+          <li *ngFor="let category of categories"
+              [routerLink]="['/article-list', category.name]">
+            <a [routerLink]="['/article-list', category.name === 'Everything' ? '' : category.name ]">
               {{ category.name }}
             </a>
           </li>
-        </ol>
+        </ul>
       </div>
 
       <div class="sidebar-block">

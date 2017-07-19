@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="col-sm-3 sidebar">
+    <div class="col-md-3 sidebar">
 
       <div class="sidebar-block" *ngIf="!category">
         Loading Category...
@@ -43,6 +43,16 @@
       <div class="sidebar-block" *ngIf="category">
         <h4><a href="/article-list/{{ article.category }}">{{ article.category }}</a></h4>
         <p>{{ category.aboutAuthor }}</p>
+      </div>
+
+      <div class="sidebar-block" *ngIf="similarArticles && similarArticles.length > 0">
+        <h4>Similar Articles</h4>
+        <ul class="similar-articles">
+          <li *ngFor="let article of similarArticles"
+              [routerLink]="['/articles', article.title ]">
+            <a [routerLink]="['/articles', article.title ]">{{ article.title }}</a>
+          </li>
+        </ul>
       </div>
 
       <div class="sidebar-block">

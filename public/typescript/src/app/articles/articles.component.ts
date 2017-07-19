@@ -6,7 +6,6 @@ import { Category } from "../categories/category";
 import { CategoryService } from "../categories/category.service";
 import 'rxjs/add/operator/switchMap';
 
-// TODO: Order articles by stickiness first, then date.
 @Component({
   selector: 'articles',
   templateUrl: './articles.component.html',
