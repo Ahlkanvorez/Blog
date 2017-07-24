@@ -31,8 +31,9 @@ const compression = require('compression');
 app.use(compression());
 
 /* view engine setup */
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+const engines = require('consolidate');
+app.engine('jade', require('jade').__express);
+app.engine('html', require('ejs').renderFile);
 
 app.use(favicon(path.join(__dirname, 'public/img', 'favicon.png')));
 
