@@ -1,5 +1,6 @@
 (function () {
     const express = require('express');
+    const path = require('path');
     const blogDatabase = require('../data/blog-database');
     const checkAuth = require('./auth').checkAuth;
     const router = express.Router();
@@ -90,7 +91,8 @@
      * panel site.
      */
     router.get('/', function (req, res, next) {
-        res.render('index', default_meta);
+        // res.render('index', default_meta);
+        res.sendFile(path.resolve(__dirname, '..', 'public', 'dist', 'index.html'));
     });
 
     /**

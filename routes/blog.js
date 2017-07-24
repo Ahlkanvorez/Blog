@@ -209,10 +209,10 @@
 
     /**
      * POST the provided article to the database. The article must be provided as a JSON object. For more information on the
-     * possible fields in an article, see the articleSchema in article.model.js
+     * possible fields in an article, see the articleSchema in article.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.post('/post-article', checkAuth, function (req, res, next) {
         var article = req.body;
@@ -236,10 +236,10 @@
     /**
      * PUT updates the unique article with the provided ID, by overwriting fields in the database which are provided in the
      * update object. Updates must be provided as a JSON Object. For more information on the possible fields in an article,
-     * see the articleSchema in article.model.js
+     * see the articleSchema in article.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.put('/update-article/:id', checkAuth, function (req, res, next) {
         var articleId = req.params.id;
@@ -263,7 +263,7 @@
      * admin portal is protected by confirmation fields.
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.delete('/remove-article/:id', checkAuth, function (req, res, next) {
         var articleId = req.params.id;
@@ -323,10 +323,10 @@
 
     /**
      * POST the provided category to the database. The category must be provided as a JSON object. For more information on
-     * the possible fields in a category, see the categorySchema in category.model.js
+     * the possible fields in a category, see the categorySchema in category.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.post('/post-category', checkAuth, function (req, res, next) {
         var category = req.body;
@@ -347,10 +347,10 @@
     /**
      * PUT updates the unique category with the provided ID, by overwriting fields in the database which are provided in the
      * update object. Updates must be provided as a JSON Object. For more information on the possible fields in a category,
-     * see the categorySchema in category.model.js
+     * see the categorySchema in category.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.put('/update-category/:id', checkAuth, function (req, res, next) {
         var id = req.params.id;
@@ -383,7 +383,7 @@
      * admin portal is protected by confirmation fields.
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.delete('/remove-category/:id', checkAuth, function (req, res, next) {
         var id = req.params.id;

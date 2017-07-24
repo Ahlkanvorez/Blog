@@ -2,7 +2,7 @@
     'use strict';
 
     /** Defines the ArticleList component, and registers it with the module, which contains the View in an HTML file
-     *    (/js/blog-app/article-list/article-list.template.html), with the associated Controller in this file.
+     *    (/angularJS/blog-app/article-list/article-list.template.html), with the associated Controller in this file.
      * - $scope is used to make certain variables and functions in the Controller available to the View.
      * - $window is used to refresh the page when the url changes, such as when the desired category to display changes.
      * - $routeParams is used to access the desired author name, category name, or range of dates, for use in filtering
@@ -13,7 +13,7 @@
      * - ViewModes is used to allow simple indication of state between editing the current category, and viewing it.
      */
     angular.module('articleList').component('articleList', {
-        templateUrl: '/js/blog-admin-app/article-list/article-list.template.html',
+        templateUrl: '/angularJS/blog-admin-app/article-list/article-list.template.html',
         controller: ['$scope', '$window', '$routeParams', 'ArticleIndex', 'ServerConfig', 'Category', 'ViewModes',
             function ArticleListController($scope, $window, $routeParams, ArticleIndex, ServerConfig, Category, ViewModes) {
                 var self = this;

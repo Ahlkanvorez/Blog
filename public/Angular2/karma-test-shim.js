@@ -7,7 +7,7 @@ Error.stackTraceLimit = 0; // "No stacktrace"" is usually best for app testing.
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
 // builtPaths: root paths for output ("built") files
-// get from karma.config.js, then prefix with '/base/' (default is 'src/')
+// get from karma.config.angularJS, then prefix with '/base/' (default is 'src/')
 var builtPaths = (__karma__.config.builtPaths || ['src/'])
                  .map(function(p) { return '/base/'+p;});
 
@@ -34,7 +34,7 @@ var allSpecFiles = Object.keys(window.__karma__.files)
   .filter(isBuiltFile);
 
 System.config({
-  // Base URL for System.js calls. 'base/' is where Karma serves files from.
+  // Base URL for System.angularJS calls. 'base/' is where Karma serves files from.
   baseURL: 'base/src',
   // Extend usual application package list with test folder
   packages: { 'testing': { main: 'index.js', defaultExtension: 'js' } },
@@ -53,17 +53,17 @@ System.config({
   },
 });
 
-System.import('systemjs.config.js')
+System.import('systemjs.config.angularJS')
   .then(importSystemJsExtras)
   .then(initTestBed)
   .then(initTesting);
 
 /** Optional SystemJS configuration extras. Keep going w/o it */
 function importSystemJsExtras(){
-  return System.import('systemjs.config.extras.js')
+  return System.import('systemjs.config.extras.angularJS')
   .catch(function(reason) {
     console.log(
-      'Warning: System.import could not load the optional "systemjs.config.extras.js". Did you omit it by accident? Continuing without it.'
+      'Warning: System.import could not load the optional "systemjs.config.extras.angularJS". Did you omit it by accident? Continuing without it.'
     );
     console.log(reason);
   });

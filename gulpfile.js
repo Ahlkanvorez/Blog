@@ -13,18 +13,18 @@
     /* Concatenate all the requisite files for either of the angular apps. */
     gulp.task('js', function () {
         /* Make file for public app */
-        gulp.src(['public/js/twitter.js',
-            'public/js/blog-app/**/*.module.js',
-            'public/js/blog-app/**/*.js'])
+        gulp.src(['public/angularJS/twitter.js',
+            'public/angularJS/blog-app/**/*.module.js',
+            'public/angularJS/blog-app/**/*.js'])
             .pipe(concat('blog-app.js'))
             .pipe(babili({ mangle: { keepClassName: true } }))
             .pipe(ngAnnotate())
             .pipe(gulp.dest('./public'));
 
         /* Make file for admin app */
-        gulp.src(['public/js/twitter.js',
-            'public/js/blog-admin-app/**/*.module.js',
-            'public/js/blog-admin-app/**/*.js'])
+        gulp.src(['public/angularJS/twitter.js',
+            'public/angularJS/blog-admin-app/**/*.module.js',
+            'public/angularJS/blog-admin-app/**/*.js'])
             .pipe(concat('blog-admin-app.js'))
             .pipe(babili({ mangle: { keepClassName: true } }))
             .pipe(ngAnnotate())
@@ -33,7 +33,7 @@
 
     /* Watch for changes in either the admin or normal app. */
     gulp.task('watch', ['js'], function () {
-        gulp.watch('public/js/blog-app/**/*.js');
-        gulp.watch('public/js/blog-admin-app/**/*.js');
+        gulp.watch('public/angularJS/blog-app/**/*.js');
+        gulp.watch('public/angularJS/blog-admin-app/**/*.js');
     });
 })();

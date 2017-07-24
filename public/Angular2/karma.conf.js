@@ -32,13 +32,13 @@ module.exports = function(config) {
     },
 
     files: [
-      // System.js for module loading
+      // System.angularJS for module loading
       'node_modules/systemjs/dist/system.src.js',
 
       // Polyfills
       'node_modules/core-js/client/shim.js',
 
-      // zone.js
+      // zone.angularJS
       'node_modules/zone.js/dist/zone.js',
       'node_modules/zone.js/dist/long-stack-trace-zone.js',
       'node_modules/zone.js/dist/proxy.js',

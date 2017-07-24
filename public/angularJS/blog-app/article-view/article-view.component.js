@@ -2,7 +2,7 @@
     'use strict';
 
     /** Defines the ArticleView module, and registers it with the module, which contains the View in
-     *     an HTML file (/js/blog-app/article-view/article-view.component.html), with the associated Controller in this
+     *     an HTML file (/angularJS/blog-app/article-view/article-view.component.html), with the associated Controller in this
      *     file.
      * - $routeParams is used to access the title of the article which is to be displayed.
      * - $window allows the title of the webpage to be changed.
@@ -10,7 +10,7 @@
      * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
      */
     angular.module('articleView').component('articleView', {
-        templateUrl: '/js/blog-app/article-view/article-view.component.html',
+        templateUrl: '/angularJS/blog-app/article-view/article-view.component.html',
         controller: ['$routeParams', '$window', 'ArticleIndex', 'Category',
             function articleViewController($routeParams, $window, ArticleIndex, Category) {
                 const self = this;

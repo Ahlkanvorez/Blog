@@ -18,13 +18,13 @@ module.exports = {
       '@angular/platform-browser-dynamic',
       '@angular/router',
       'angular-in-memory-web-api',
-      'core-js',
+      'core-angularJS',
       'rxjs',
       'zone.js'
     ]
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '..', 'dist'),
     filename: 'blog.bundle.js'
   },
   module: {
@@ -80,6 +80,7 @@ module.exports = {
     new CopyWebpackPlugin([
       // These files are all static.
       'styles.css',
+      'twitter.js',
       'app/app.component.html',
       'app/about/about.component.html',
       'app/articles/articles.component.css',

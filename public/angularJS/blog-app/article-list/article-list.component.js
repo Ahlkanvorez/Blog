@@ -2,7 +2,7 @@
     'use strict';
 
     /** Defines the ArticleList component, and registers it with the module, which contains the View in
-     *     an HTML file (/js/blog-app/article-list/article-list.template.html), with the associated Controller in this
+     *     an HTML file (/angularJS/blog-app/article-list/article-list.template.html), with the associated Controller in this
      *     file.
      * - $sanitize is needed in order to allow Angular to inject the HTML data from the article retreived from the
      *     Server into the web-page, via the ng-bind-html modifier in the View.
@@ -13,7 +13,7 @@
      * - Category is used to access the categories from the server, and acts like a REST API with a GET function.
      */
     angular.module('articleList').component('articleList', {
-        templateUrl: '/js/blog-app/article-list/article-list.template.html',
+        templateUrl: '/angularJS/blog-app/article-list/article-list.template.html',
         controller: ['$sanitize', '$location', '$scope', '$route', '$routeParams', '$window', 'ArticleIndex', 'Category',
             /* NOTE: If you uncomment the code for pagination, you'll need to import $scope again. */
             function ArticleListController($sanitize, $location, $scope, $route, $routeParams, $window, ArticleIndex, Category) {

@@ -4,9 +4,12 @@
 echo "Updating packages ..."
 yarn
 
-# Combine all of the front-end .js files into one file (for each site: one for the public site, one for the admin site).
+# Combine all of the front-end .angularJS files into one file (for each site: one for the public site, one for the admin site).
 echo "Conglomerating front-end javascript files ..."
 gulp js
+
+echo "Conglomerating front-end Angular2 files ..."
+cd public/typescript && yarn && yarn webpack && cd ../..
 
 # Check whether development mode is desired; the default running mode is production.
 mode=$1
