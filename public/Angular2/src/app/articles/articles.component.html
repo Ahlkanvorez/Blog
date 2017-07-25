@@ -41,10 +41,8 @@
         <h4>Categories</h4>
         <ul>
           <li *ngFor="let category of categories"
-              [routerLink]="['/article-list', category.name]">
-            <a [routerLink]="['/article-list', (category.name === 'Latest Articles' || category.name === 'Everything') ? '' : category.name ]">
-              {{ category.name }}
-            </a>
+              [routerLink]="['/article-list', (category.name === 'Latest Articles' || category.name === 'Everything') ? '' : category.name]">
+            <a>{{ category.name }}</a>
           </li>
         </ul>
       </div>
