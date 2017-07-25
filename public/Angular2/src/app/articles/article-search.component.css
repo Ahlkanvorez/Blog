@@ -3,8 +3,9 @@
   border-left: 1px solid gray;
   border-right: 1px solid gray;
   width: 195px;
-  height: 16px;
+  height: 32px;
   padding: 5px;
+  text-overflow: ellipsis;
   background-color: white;
   cursor: pointer;
 }
