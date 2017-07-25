@@ -46,7 +46,7 @@ export class ArticleSearchComponent implements OnInit {
   }
 
   view (article: Article): void {
-    this.router.navigate(['/articles', article.title])
+    this.router.navigate(['/articles', article.title.split(' ').join('-')])
       .catch(err => console.error(err));
   }
 }

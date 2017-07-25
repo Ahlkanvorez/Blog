@@ -13,7 +13,7 @@
           Loading Articles ...
         </li>
         <li *ngFor="let article of articles"
-            [routerLink]="['/articles', article.title]">
+            [routerLink]="['/articles', article.title.split(' ').join('-')]">
           <h2 class="article-title">
             {{ article.title }}
           </h2>

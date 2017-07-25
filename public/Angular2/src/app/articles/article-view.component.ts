@@ -23,7 +23,7 @@ export class ArticleViewComponent implements OnInit {
   ngOnInit (): void {
     // Extract the name from the parameters, and populate the article member accordingly from the article service.
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.articleService.getArticle(params.get('title')))
+      .switchMap((params: ParamMap) => this.articleService.getArticle(params.get('title').split('-').join(' ')))
       .subscribe(article => {
         this.article = article;
 
