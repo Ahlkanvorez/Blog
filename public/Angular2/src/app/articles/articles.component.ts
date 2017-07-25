@@ -33,7 +33,7 @@ export class ArticlesComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.articleService.getArticles())
       .subscribe(articles => this.articles = articles
-        .filter(article => this.category.name === 'Everything' || article.category === this.category.name)
+        .filter(article => this.category.name === 'Latest Articles' || article.category === this.category.name)
         .sort((a: Article, b: Article) => {
           const A = -1; // this indicates A is less
           const B = 1;  // this indicates B is less.
