@@ -6,22 +6,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
+// For dynamic loading of requirements from package.json -- note: better way is to use minChunks param.
+// const pack = require('./package.json');
+
 module.exports = {
   entry: {
     app: path.join(__dirname, './built/main.js'),
-    vendor: [
-      '@angular/common',
-      '@angular/core',
-      '@angular/forms',
-      '@angular/http',
-      '@angular/platform-browser',
-      '@angular/platform-browser-dynamic',
-      '@angular/router',
-      'angular-in-memory-web-api',
-      'core-angularJS',
-      'rxjs',
-      'zone.js'
-    ]
+    // vendor: Object.getOwnPropertyNames(pack.dependencies) // Dynamically load from package.json
   },
   output: {
     path: path.join(__dirname, '..', 'dist'),
@@ -48,7 +39,10 @@ module.exports = {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'vendor.bundle.js'
+      filename: 'vendor.bundle.js',
+      // NOTE: This reduced vendor.bundle.js size from 1.4 mB to 702 kB.
+      // returns true for only those packages that should be bundled.
+      minChunks: ({ resource }) => /node_modules/.test(resource)
     }),
     new UglifyJsPlugin({
       beautify: false,
