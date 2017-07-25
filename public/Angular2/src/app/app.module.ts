@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { UrlSerializer } from "@angular/router";
 
 import { AppRoutingModule } from './app-routing.module';
 import { NoEncodeUrlSerializer } from "./no-encode-url-serializer";
@@ -17,6 +16,7 @@ import { ArticleViewComponent } from './articles/article-view.component';
 import { ArticleService } from "./articles/article.service";
 import { ArticleSearchComponent } from './articles/article-search.component';
 import { CategoryService } from "./categories/category.service";
+import { UrlSerializer } from "@angular/router";
 
 @NgModule({
   imports: [

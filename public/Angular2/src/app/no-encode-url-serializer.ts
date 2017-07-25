@@ -6,7 +6,9 @@ export class NoEncodeUrlSerializer implements UrlSerializer {
   }
 
   serialize(tree: UrlTree): any {
+    const newUrl = decodeURI(new DefaultUrlSerializer().serialize(tree));
+    console.log(newUrl);
     // decoding ensures that no portion of the resulting url is encoded.
-    return decodeURI(new DefaultUrlSerializer().serialize(tree));
+    return newUrl;
   }
 }
