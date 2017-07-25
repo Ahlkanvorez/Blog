@@ -33,7 +33,7 @@ export class ArticlesComponent implements OnInit {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.articleService.getArticles())
       .subscribe(articles => this.articles = articles
-        .filter(article => this.category.name === 'Latest Articles' || article.category === this.category.name)
+        .filter(article => this.category.name === 'Everything' || article.category === this.category.name)
         .sort((a: Article, b: Article) => {
           const A = -1; // this indicates A is less
           const B = 1;  // this indicates B is less.
@@ -51,8 +51,6 @@ export class ArticlesComponent implements OnInit {
   getCategories (): void {
     this.categoryService.getCategories()
       .then(categories => this.categories = categories
-        // Only list categories which have at least one linkable article.
-        .filter(category => category.name === 'Latest Articles' || this.articles.some(article => article.category === category.name))
         .sort((a: Category, b: Category) => a.name.localeCompare(b.name)))
       .catch(console.error);
   }
