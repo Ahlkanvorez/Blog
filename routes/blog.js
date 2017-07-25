@@ -1,12 +1,12 @@
 (function () {
-    var express = require('express');
-    var path = require('path');
-    var blogDatabase = require('../data/blog-database');
-    var checkAuth = require('./auth').checkAuth;
-    var router = express.Router();
+    const express = require('express');
+    const path = require('path');
+    const blogDatabase = require('../data/blog-database');
+    const checkAuth = require('./auth').checkAuth;
+    const router = express.Router();
 
-    var Article = blogDatabase.Article;
-    var Category = blogDatabase.Category;
+    const Article = blogDatabase.Article;
+    const Category = blogDatabase.Category;
 
     // TODO: Modernize all the routes.
 
@@ -53,7 +53,7 @@
      * as a JSON array of objects. Note, that '/article-list/Everything' is equivalent to '/article-list'
      */
     router.get('/article-list/:category', function (req, res, next) {
-        var category = req.params.category;
+        const category = decodeURIComponent(req.params.category);
         if (category === 'Everything') {
             Article.find().public().exec(callback(res));
         } else {
@@ -66,7 +66,7 @@
      * pattern), as a JSON array of objects. Note that '/all-article-list/Everything' is equivalent to '/all-article-list'
      */
     router.get('/all-article-list/:category', checkAuth, function (req, res, next) {
-        var category = req.params.category;
+        const category = decodeURIComponent(req.params.category);
         if (category === 'Everything') {
             Article.find().exec(callback(res));
         } else {
@@ -82,8 +82,8 @@
      * '/article-list/:category/Everything' is equivalent to '/article-list/:category'.
      */
     router.get('/article-list/:category/:author', function (req, res, next) {
-        var category = req.params.category;
-        var author = req.params.author;
+        const category = decodeURIComponent(req.params.category);
+        const author = decodeURIComponent(req.params.author);
 
         // TODO: validate params
         if (category === 'Everything') {
@@ -103,8 +103,8 @@
      * '/all-article-list/:category/Everything' is equivalent to '/all-article-list/:category'.
      */
     router.get('/all-article-list/:category/:author', checkAuth, function (req, res, next) {
-        var category = req.params.category;
-        var author = req.params.author;
+        const category = decodeURIComponent(req.params.category);
+        const author = decodeURIComponent(req.params.author);
 
         // TODO: validate params
         if (category === 'Everything') {
@@ -123,12 +123,12 @@
      * specified dates, of all categories.
      */
     router.get('/article-list/:category/:startDate/:endDate', function (req, res, next) {
-        var category = req.params.category;
-        var startDate = new Date();
-        var endDate = new Date();
+        const category = decodeURIComponent(req.params.category);
+        const startDate = new Date();
+        const endDate = new Date();
 
-        startDate.setTime(parseInt(req.params.startDate));
-        endDate.setTime(parseInt(req.params.endDate));
+        startDate.setTime(parseInt(decodeURIComponent(req.params.startDate)));
+        endDate.setTime(parseInt(decodeURIComponent(req.params.endDate)));
 
         // Validate the dates
         if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
@@ -147,12 +147,12 @@
      * specified dates, of all categories.
      */
     router.get('/all-article-list/:category/:startDate/:endDate', checkAuth, function (req, res, next) {
-        var category = req.params.category;
-        var startDate = new Date();
-        var endDate = new Date();
+        const category = decodeURIComponent(req.params.category);
+        const startDate = new Date();
+        const endDate = new Date();
 
-        startDate.setTime(parseInt(req.params.startDate));
-        endDate.setTime(parseInt(req.params.endDate));
+        startDate.setTime(parseInt(decodeURIComponent(req.params.startDate)));
+        endDate.setTime(parseInt(decodeURIComponent(req.params.endDate)));
 
         /* Ensure the dates are valid. */
         if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
@@ -169,7 +169,7 @@
      * REST API, this one does NOT return a JSON Array.
      */
     router.get('/get-article/:id', function (req, res, next) {
-        const articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
         Article.find().public().byId(articleId).exec(function (err, docs) {
             if (err || docs.length === 0) {
@@ -181,7 +181,7 @@
     });
 
     router.get('/get-article/:title', function (req, res, next) {
-        const title = req.params.title;
+        const title = decodeURIComponent(req.params.title);
         Article.find({ title: title }).public().exec(function (err, docs) {
             if (err || docs === []) {
                 res.send(500, err ? { error: err } : { error: 'That article does not exist.' } );
@@ -196,7 +196,7 @@
      * handles in this REST API, this one does NOT return a JSON Array.
      */
     router.get('/get-private-article/:id', checkAuth, function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
         Article.find().byId(articleId).exec(function (err, docs) {
             if (err || docs.length === 0) {
@@ -242,9 +242,9 @@
      * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.put('/update-article/:id', checkAuth, function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
-        var updates = req.body;
+        const updates = req.body;
 
         /* TODO: Validate updates. */
 
@@ -266,7 +266,7 @@
      * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.delete('/remove-article/:id', checkAuth, function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
         Article.findById(articleId).remove().exec(callback(res));
     });
@@ -295,7 +295,7 @@
      * technically does not contain any articles, but is used to represent the category of all articles.
      */
     router.get('/get-category/:name', function (req, res, next) {
-        var name = req.params.name;
+        const name = decodeURIComponent(req.params.name);
 
         /* TODO: Validate name. */
         if (name === 'Everything') {
@@ -311,7 +311,7 @@
      * category which technically does not contain any articles, but is used to represent the category of all articles.
      */
     router.get('/get-private-category/:name', checkAuth, function (req, res, next) {
-        var name = req.params.name;
+        const name = decodeURIComponent(req.params.name);
 
         /* TODO: Validate name. */
         if (name === 'Everything') {
@@ -353,10 +353,10 @@
      * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.put('/update-category/:id', checkAuth, function (req, res, next) {
-        var id = req.params.id;
+        const id = decodeURIComponent(req.params.id);
 
         /* TODO: validate updates & id. */
-        var updates = req.body;
+        const updates = req.body;
 
         Category.findById(id, function (err, doc) {
             if (err) {
@@ -386,7 +386,7 @@
      * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.delete('/remove-category/:id', checkAuth, function (req, res, next) {
-        var id = req.params.id;
+        const id = decodeURIComponent(req.params.id);
 
         /* TODO: validate id. */
 
