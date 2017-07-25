@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { UrlSerializer } from "@angular/router";
 
 import { AppRoutingModule } from './app-routing.module';
+import { NoEncodeUrlSerializer } from "./no-encode-url-serializer";
 
 // For development purposes only.
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -30,7 +32,7 @@ import { CategoryService } from "./categories/category.service";
     ArticleViewComponent,
     ArticleSearchComponent
   ],
-  providers: [ ArticleService, CategoryService ],
+  providers: [ ArticleService, CategoryService, { provide: UrlSerializer, useClass: NoEncodeUrlSerializer } ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

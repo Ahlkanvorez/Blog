@@ -11,6 +11,7 @@ export class ArticleSearchService {
   constructor (private http: Http) {}
 
   search (term: string): Observable<Article[]> {
+    // TODO: Fix for real server routes.
     return this.http
       .get(`api/articles/?title=${term}`)
       .map(res => res.json().data as Article[]);
