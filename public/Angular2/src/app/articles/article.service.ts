@@ -7,12 +7,16 @@ import { Article } from "./article";
 @Injectable()
 export class ArticleService {
 
-  private articlesUrl = 'api/articles';
+  // development var:
+  // private articlesUrl = 'api/articles';
+  private articlesUrl = 'https://www.hrodebert.com';
 
   constructor (private http: Http) {}
 
   getArticles (): Promise<Article[]> {
-    return this.http.get(this.articlesUrl)
+    // Development request
+    // return this.http.get(this.articlesUrl)
+    return this.http.get(`${this.articlesUrl}/article-list`)
       .toPromise()
       .then(res => res.json().data as Article[])
       .catch(this.handleError);
@@ -21,7 +25,8 @@ export class ArticleService {
   getArticle (title: string): Promise<Article> {
     // Note: The annoying in-memory-data service uses the pattern :base/:collectionName/:id?, so the title parameter has
     // to be passed via ?title=___. This is annoying, and should not be reflected in the server-side REST api.
-    return this.http.get(`${this.articlesUrl}/?title=${title}`)
+    // return this.http.get(`${this.articlesUrl}/?title=${title}`)
+    return this.http.get(`${this.articlesUrl}/get-article/${title}`)
       .toPromise()
       .then(res => res.json().data[0] as Article)
       .catch(this.handleError);

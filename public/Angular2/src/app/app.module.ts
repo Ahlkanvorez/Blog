@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 // For development purposes only.
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService }  from './in-memory-data.service';
 
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
@@ -21,7 +21,7 @@ import { CategoryService } from "./categories/category.service";
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService)
+    // InMemoryWebApiModule.forRoot(InMemoryDataService) // for development purposes only
   ],
   declarations: [
     AppComponent,

@@ -6,7 +6,10 @@ import { Category } from './category';
 
 @Injectable()
 export class CategoryService {
-  private categoriesUrl = 'api/categories';
+
+  // development var:
+  // private categoriesUrl = 'api/categories';
+  private categoriesUrl = 'https://www.hrodebert.com';
   private defaultCategory = { // Default category needs to be present as soon as the object is instantiated.
     _id: '0',
     name: 'Latest Articles',
@@ -17,7 +20,9 @@ export class CategoryService {
   constructor (private http: Http) {}
 
   getCategories (): Promise<Category[]> {
-    return this.http.get(this.categoriesUrl)
+    // development request
+    // return this.http.get(this.categoriesUrl)
+    return this.http.get(`${this.categoriesUrl}/category-list`)
       .toPromise()
       .then(res => res.json().data as Category[])
       .catch(this.handleError);
@@ -27,7 +32,9 @@ export class CategoryService {
     if (name === '') {
       return Promise.resolve(this.defaultCategory);
     }
-    return this.http.get(`${this.categoriesUrl}/?name=${name}`)
+    // development request
+    // return this.http.get(`${this.categoriesUrl}/?name=${name}`)
+    return this.http.get(`${this.categoriesUrl}/get-category/${name}`)
       .toPromise()
       .then(res => res.json().data[0] as Category)
       .catch(this.handleError);
