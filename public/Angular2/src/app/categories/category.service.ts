@@ -24,7 +24,7 @@ export class CategoryService {
     // return this.http.get(this.categoriesUrl)
     return this.http.get(`${this.categoriesUrl}/category-list`)
       .toPromise()
-      .then((res: any) =>  res._body as Category[])
+      .then((res: any) =>  JSON.parse(res._body) as Category[])
       .catch(this.handleError);
   }
 
@@ -36,7 +36,7 @@ export class CategoryService {
     // return this.http.get(`${this.categoriesUrl}/?name=${name}`)
     return this.http.get(`${this.categoriesUrl}/get-category/${name}`)
       .toPromise()
-      .then((res: any) => res._body[0] as Category)
+      .then((res: any) => JSON.parse(res._body)[0] as Category)
       .catch(this.handleError);
   }
 
