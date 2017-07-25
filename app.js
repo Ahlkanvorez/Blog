@@ -36,7 +36,7 @@ app.engine('jade', require('jade').__express);
 app.engine('html', require('ejs').renderFile);
 
 app.set('view engine', 'jade');
-app.set('views', [ __dirname + '/views', __dirname + 'public/dist']);
+app.set('views', [ path.join(__dirname, 'views'), path.join(__dirname, 'public', 'dist') ]);
 
 app.use(favicon(path.join(__dirname, 'public/img', 'favicon.png')));
 
