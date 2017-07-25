@@ -9,7 +9,7 @@ export class ArticleService {
 
   // development var:
   // private articlesUrl = 'api/articles';
-  private articlesUrl = 'https://www.hrodebert.com';
+  private articlesUrl = 'https://www.hrodebert.com/blog';
 
   constructor (private http: Http) {}
 

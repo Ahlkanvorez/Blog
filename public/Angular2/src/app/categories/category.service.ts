@@ -9,7 +9,7 @@ export class CategoryService {
 
   // development var:
   // private categoriesUrl = 'api/categories';
-  private categoriesUrl = 'https://www.hrodebert.com';
+  private categoriesUrl = 'https://www.hrodebert.com/blog';
   private defaultCategory = { // Default category needs to be present as soon as the object is instantiated.
     _id: '0',
     name: 'Latest Articles',
