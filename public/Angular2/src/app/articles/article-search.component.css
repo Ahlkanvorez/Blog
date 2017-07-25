@@ -5,6 +5,7 @@
   width: 195px;
   padding: 5px;
   text-overflow: ellipsis;
+  text-align: left;
   background-color: white;
   cursor: pointer;
 }
