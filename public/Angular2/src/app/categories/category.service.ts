@@ -24,7 +24,10 @@ export class CategoryService {
     // return this.http.get(this.categoriesUrl)
     return this.http.get(`${this.categoriesUrl}/category-list`)
       .toPromise()
-      .then(res => res.json().data as Category[])
+      .then(res => {
+        console.log(res);
+        return res.json().data as Category[];
+      })
       .catch(this.handleError);
   }
 

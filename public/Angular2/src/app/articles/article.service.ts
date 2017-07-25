@@ -18,7 +18,10 @@ export class ArticleService {
     // return this.http.get(this.articlesUrl)
     return this.http.get(`${this.articlesUrl}/article-list`)
       .toPromise()
-      .then(res => res.json().data as Article[])
+      .then(res => {
+        console.log(res);
+        return res.json().data as Article[];
+      })
       .catch(this.handleError);
   }
 
