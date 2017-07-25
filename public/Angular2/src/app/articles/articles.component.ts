@@ -37,12 +37,14 @@ export class ArticlesComponent implements OnInit {
         .sort((a: Article, b: Article) => {
           const A = -1; // this indicates A is less
           const B = 1;  // this indicates B is less.
+          // Put sticky articles at the top
           if (a.sticky && !b.sticky) {
             return A;
           } else if (b.sticky && !a.sticky) {
             return B;
           }
-          return a.date < b.date ? A : B;
+          // Otherwise, put newer articles at the top.
+          return a.date > b.date ? A : B;
         }));
   }
 
