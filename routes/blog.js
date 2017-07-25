@@ -181,7 +181,9 @@
     });
 
     router.get('/get-article/:title', function (req, res, next) {
+        console.log(req.params);
         const title = decodeURIComponent(req.params.title);
+        console.log(title);
         Article.find({ title: title }).public().exec(function (err, docs) {
             if (err || docs === []) {
                 res.send(500, err ? { error: err } : { error: 'That article does not exist.' } );
