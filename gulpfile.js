@@ -19,7 +19,7 @@
             .pipe(concat('blog-app.js'))
             .pipe(babili({ mangle: { keepClassName: true } }))
             .pipe(ngAnnotate())
-            .pipe(gulp.dest('./public'));
+            .pipe(gulp.dest('./public/dist'));
 
         /* Make file for admin app */
         gulp.src(['public/angularJS/twitter.js',
@@ -28,7 +28,7 @@
             .pipe(concat('blog-admin-app.js'))
             .pipe(babili({ mangle: { keepClassName: true } }))
             .pipe(ngAnnotate())
-            .pipe(gulp.dest('./public'));
+            .pipe(gulp.dest('./public/dist'));
     });
 
     /* Watch for changes in either the admin or normal app. */

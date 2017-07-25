@@ -43,7 +43,7 @@ app.use(favicon(path.join(__dirname, 'public/img', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', 'dist')));
 
 /**
  * Generate a random string of alphanumeric characters
