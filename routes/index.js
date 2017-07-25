@@ -8,7 +8,7 @@
     const Article = blogDatabase.Article;
     const Category = blogDatabase.Category;
 
-    const angular2Template = path.resolve(__dirname, '..', 'public', 'dist', 'index.html');
+    const angular2Template = 'index.html';
 
     const default_meta = {
             title : 'Blog | Robert Mitchell',
@@ -24,7 +24,7 @@
     };
 
     const getMetaForArticle = function getMetaForArticle(articleName, callback) {
-        var correctedName = articleName.split('-').join(' ');
+        const correctedName = articleName.split('-').join(' ');
         Article.find().public().byTitle(correctedName).exec(function (err, articles) {
             if (articles === []) {
                 /* No such article exists, so send the default meta for the site. */
@@ -34,7 +34,7 @@
             const article = articles[0];
             /* The description should be the first sentence of the article, with any wrapping HTML tags trimmed. */
             /* TODO: Determine whether HTML is supported in Open Graph meta tags and Twitter card meta tags. */
-            var snippet = new RegExp("^([^.!?。]+.)").exec(article.content)[0];
+            let snippet = new RegExp("^([^.!?。]+.)").exec(article.content)[0];
             if (snippet.indexOf('<p>') === 0) {
                 snippet = snippet.substring('<p>'.length);
             }
@@ -67,7 +67,7 @@
                 callback(default_meta);
             }
             const category = categories[0];
-            var name = category.name;
+            let name = category.name;
             if (name === 'Everything') {
                 name = 'Latest Articles';
             }
