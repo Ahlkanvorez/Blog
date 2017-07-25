@@ -164,29 +164,29 @@
         }
     });
 
-    /**
-     * GET the unique public article with the specified ID, as a JSON object. Note, that unlike the other handles in this
-     * REST API, this one does NOT return a JSON Array.
-     */
-    router.get('/get-article/:id', function (req, res, next) {
-        const articleId = decodeURIComponent(req.params.id);
-
-        Article.find().public().byId(articleId).exec(function (err, docs) {
-            if (err || docs.length === 0) {
-                res.send(500, {error: err});
-            } else {
-                res.json(docs[0]);
-            }
-        });
-    });
-
-    router.get('/get-article/:title', function (req, res, next) {
+    router.get('/get-article/title/:title', function (req, res, next) {
         console.log(req.params);
         const title = decodeURIComponent(req.params.title);
         console.log(title);
         Article.find({ title: title }).public().exec(function (err, docs) {
             if (err || docs === []) {
                 res.send(500, err ? { error: err } : { error: 'That article does not exist.' } );
+            } else {
+                res.json(docs[0]);
+            }
+        });
+    });
+
+    /**
+     * GET the unique public article with the specified ID, as a JSON object. Note, that unlike the other handles in this
+     * REST API, this one does NOT return a JSON Array.
+     */
+    router.get('/get-article/id/:id', function (req, res, next) {
+        const articleId = decodeURIComponent(req.params.id);
+
+        Article.find().public().byId(articleId).exec(function (err, docs) {
+            if (err || docs.length === 0) {
+                res.send(500, {error: err});
             } else {
                 res.json(docs[0]);
             }
