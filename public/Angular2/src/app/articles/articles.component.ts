@@ -26,26 +26,34 @@ export class ArticlesComponent implements OnInit {
   getCategory (): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.categoryService.getCategory(params.get('category') || ''))
-      .subscribe(category => this.category = category);
+      .subscribe(category => {
+        this.category = category;
+        this.getArticles();
+      });
   }
 
   getArticles (): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.articleService.getArticles())
-      .subscribe(articles => this.articles = articles
-        .filter(article => this.category.name.match(/(?:Latest Articles)|(?:Everything)/) || article.category === this.category.name)
-        .sort((a: Article, b: Article) => {
-          const A = -1; // this indicates A is less
-          const B = 1;  // this indicates B is less.
-          // Put sticky articles at the top
-          if (a.sticky && !b.sticky) {
-            return A;
-          } else if (b.sticky && !a.sticky) {
-            return B;
-          }
-          // Otherwise, put newer articles at the top.
-          return a.date > b.date ? A : B;
-        }));
+      .subscribe(articles => {
+        this.articles = articles
+          .filter(article => this.category.name === 'Latest Articles'
+            || this.category.name === 'Everything'
+            || article.category === this.category.name)
+          .sort((a: Article, b: Article) => {
+            const A = -1; // this indicates A is less
+            const B = 1;  // this indicates B is less.
+            // Put sticky articles at the top
+            if (a.sticky && !b.sticky) {
+              return A;
+            } else if (b.sticky && !a.sticky) {
+              return B;
+            }
+            // Otherwise, put newer articles at the top.
+            return a.date > b.date ? A : B;
+          });
+        this.getCategories();
+      });
   }
 
   getCategories (): void {
@@ -55,18 +63,11 @@ export class ArticlesComponent implements OnInit {
       .catch(console.error);
   }
 
-  refreshData (): void {
+  ngOnInit () {
     // Ensure the category has been retrieved before articles are loaded, so the articles can
     // be properly filtered by category if appropriate. Get the categories last, so they can
     // be filtered to only link to categories which have at least one article (any others
     // should not exist, but just to be safe ...)
-    Promise.resolve()
-      .then(() => this.getCategory())
-      .then(() => this.getArticles())
-      .then(() => this.getCategories());
-  }
-
-  ngOnInit () {
-    this.refreshData();
+    this.getCategory();
   }
 }
