@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+db.log
+server.log
+test.log
+.idea/Blog.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+node_modules/
+public/bower_components/
+public/dist/img/

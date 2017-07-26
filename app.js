@@ -31,15 +31,19 @@ const compression = require('compression');
 app.use(compression());
 
 /* view engine setup */
-app.set('views', path.join(__dirname, 'views'));
+const engines = require('consolidate');
+app.engine('jade', require('jade').__express);
+app.engine('html', require('ejs').renderFile);
+
 app.set('view engine', 'jade');
+app.set('views', [ path.join(__dirname, 'views'), path.join(__dirname, 'public', 'dist') ]);
 
 app.use(favicon(path.join(__dirname, 'public/img', 'favicon.png')));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', 'dist')));
 
 /**
  * Generate a random string of alphanumeric characters

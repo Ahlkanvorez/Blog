@@ -1,11 +1,14 @@
 (function () {
     const express = require('express');
+    const path = require('path');
     const blogDatabase = require('../data/blog-database');
     const checkAuth = require('./auth').checkAuth;
     const router = express.Router();
 
     const Article = blogDatabase.Article;
     const Category = blogDatabase.Category;
+
+    const angular2Template = 'index.html';
 
     const default_meta = {
             title : 'Blog | Robert Mitchell',
@@ -21,7 +24,7 @@
     };
 
     const getMetaForArticle = function getMetaForArticle(articleName, callback) {
-        var correctedName = articleName.split('-').join(' ');
+        const correctedName = articleName.split('-').join(' ');
         Article.find().public().byTitle(correctedName).exec(function (err, articles) {
             if (articles === []) {
                 /* No such article exists, so send the default meta for the site. */
@@ -31,7 +34,7 @@
             const article = articles[0];
             /* The description should be the first sentence of the article, with any wrapping HTML tags trimmed. */
             /* TODO: Determine whether HTML is supported in Open Graph meta tags and Twitter card meta tags. */
-            var snippet = new RegExp("^([^.!?。]+.)").exec(article.content)[0];
+            let snippet = new RegExp("^([^.!?。]+.)").exec(article.content)[0];
             if (snippet.indexOf('<p>') === 0) {
                 snippet = snippet.substring('<p>'.length);
             }
@@ -64,7 +67,7 @@
                 callback(default_meta);
             }
             const category = categories[0];
-            var name = category.name;
+            let name = category.name;
             if (name === 'Everything') {
                 name = 'Latest Articles';
             }
@@ -90,7 +93,7 @@
      * panel site.
      */
     router.get('/', function (req, res, next) {
-        res.render('index', default_meta);
+        res.render(angular2Template, default_meta);
     });
 
     /**
@@ -98,7 +101,7 @@
      * Renders the about page with the proper meta tags for SEO.
      */
     router.get('/about', function (req, res, next) {
-        res.render('index', {
+        res.render(angular2Template, {
             title : 'About | Robert Mitchell',
             description : "I write to investigate the Good, the Beautiful, the Simple, the Sublime, and the Just, in order to better understand what wisdom is, what a good education is, and what a good life is.",
             url : 'https://www.hrodebert.com/about',
@@ -117,10 +120,10 @@
      * Renders the article-list page with the proper meta tags for SEO.
      */
     router.get('/article-list', function (req, res, next) {
-        var meta = JSON.parse(JSON.stringify(default_meta));
+        const meta = JSON.parse(JSON.stringify(default_meta));
         meta.title = 'Latest Articles | Robert Mitchell';
         meta.url = 'https://www.hrodebert.com/article-list';
-        res.render('index', meta);
+        res.render(angular2Template, meta);
     });
 
     /**
@@ -129,7 +132,7 @@
      */
     router.get('/article-list/:category', function (req, res, next) {
         getMetaForCategory(req.params.category, function (meta) {
-            res.render('index', meta);
+            res.render(angular2Template, meta);
         });
     });
 
@@ -140,7 +143,7 @@
     router.get('/article-list/:category/:author', function (req, res, next) {
         getMetaForCategory(req.params.category, function (meta) {
             meta.url = 'https://www.hrodebert.com/article-list/' + req.params.category + '/' + req.params.author;
-            res.render('index', meta);
+            res.render(angular2Template, meta);
         });
     });
 
@@ -151,7 +154,7 @@
     router.get('/article-list/:category/:startDate/:endDate', function (req, res, next) {
         getMetaForCategory(req.params.category, function (meta) {
             meta.url = 'https://www.hrodebert.com/article-list/' + req.params.category + '/' + req.params.startDate + '/' + req.params.endDate;
-            res.render('index', meta);
+            res.render(angular2Template, meta);
         });
     });
 
@@ -162,7 +165,7 @@
     router.get('/article-list/:category/:authorName/:startDate/:endDate', function (req, res, next) {
         getMetaForCategory(req.params.category, function (meta) {
             meta.url = 'https://www.hrodebert.com/article-list/' + req.params.category + '/' + req.params.authorName + '/' + req.params.startDate + '/' + req.params.endDate;
-            res.render('index', meta);
+            res.render(angular2Template, meta);
         });
     });
 
@@ -172,7 +175,7 @@
      */
     router.get('/articles/:title', function (req, res, next) {
         getMetaForArticle(req.params.title, function (meta) {
-            res.render('index', meta);
+            res.render(angular2Template, meta);
         });
     });
 
