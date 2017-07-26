@@ -1,17 +1,20 @@
 {
-	"name" : "blog",
-	"description" : "A simple blog",
-	"version" : "1.0.0",
-	"license" : "MIT",
-	"private" : true,
-	"dependencies" : {
-		"angular" : "1.5.x",
-		"angular-mocks" : "1.5.x",
-		"angular-resource" : "1.5.x",
-		"angular-route" : "1.5.x",
-		"angular-sanitize" : "1.5.x",
-		"angular-update-meta" : "2.0.x",
-		"bootstrap" : "3.3.x",
-		"jquery" : "2.2.x"
-	}
+  "name": "blog",
+  "description": "A simple blog",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x",
+    "angular-sanitize": "1.5.x",
+    "angular-update-meta": "2.0.x",
+    "bootstrap": "3.3.x",
+    "jquery": "2.2.x"
+  },
+  "resolutions": {
+    "angular": "1.5.11"
+  }
 }
