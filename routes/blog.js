@@ -1,12 +1,14 @@
 (function () {
-    var express = require('express');
-    var path = require('path');
-    var blogDatabase = require('../data/blog-database');
-    var checkAuth = require('./auth').checkAuth;
-    var router = express.Router();
+    const express = require('express');
+    const path = require('path');
+    const blogDatabase = require('../data/blog-database');
+    const checkAuth = require('./auth').checkAuth;
+    const router = express.Router();
 
-    var Article = blogDatabase.Article;
-    var Category = blogDatabase.Category;
+    const Article = blogDatabase.Article;
+    const Category = blogDatabase.Category;
+
+    // TODO: Modernize all the routes.
 
     /**
      * A simple helper factory for callback functions which send the resulting data as JSON to the client, or log an error
@@ -51,7 +53,7 @@
      * as a JSON array of objects. Note, that '/article-list/Everything' is equivalent to '/article-list'
      */
     router.get('/article-list/:category', function (req, res, next) {
-        var category = req.params.category;
+        const category = decodeURIComponent(req.params.category);
         if (category === 'Everything') {
             Article.find().public().exec(callback(res));
         } else {
@@ -64,7 +66,7 @@
      * pattern), as a JSON array of objects. Note that '/all-article-list/Everything' is equivalent to '/all-article-list'
      */
     router.get('/all-article-list/:category', checkAuth, function (req, res, next) {
-        var category = req.params.category;
+        const category = decodeURIComponent(req.params.category);
         if (category === 'Everything') {
             Article.find().exec(callback(res));
         } else {
@@ -80,8 +82,8 @@
      * '/article-list/:category/Everything' is equivalent to '/article-list/:category'.
      */
     router.get('/article-list/:category/:author', function (req, res, next) {
-        var category = req.params.category;
-        var author = req.params.author;
+        const category = decodeURIComponent(req.params.category);
+        const author = decodeURIComponent(req.params.author);
 
         // TODO: validate params
         if (category === 'Everything') {
@@ -101,8 +103,8 @@
      * '/all-article-list/:category/Everything' is equivalent to '/all-article-list/:category'.
      */
     router.get('/all-article-list/:category/:author', checkAuth, function (req, res, next) {
-        var category = req.params.category;
-        var author = req.params.author;
+        const category = decodeURIComponent(req.params.category);
+        const author = decodeURIComponent(req.params.author);
 
         // TODO: validate params
         if (category === 'Everything') {
@@ -121,12 +123,12 @@
      * specified dates, of all categories.
      */
     router.get('/article-list/:category/:startDate/:endDate', function (req, res, next) {
-        var category = req.params.category;
-        var startDate = new Date();
-        var endDate = new Date();
+        const category = decodeURIComponent(req.params.category);
+        const startDate = new Date();
+        const endDate = new Date();
 
-        startDate.setTime(parseInt(req.params.startDate));
-        endDate.setTime(parseInt(req.params.endDate));
+        startDate.setTime(parseInt(decodeURIComponent(req.params.startDate)));
+        endDate.setTime(parseInt(decodeURIComponent(req.params.endDate)));
 
         // Validate the dates
         if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
@@ -145,12 +147,12 @@
      * specified dates, of all categories.
      */
     router.get('/all-article-list/:category/:startDate/:endDate', checkAuth, function (req, res, next) {
-        var category = req.params.category;
-        var startDate = new Date();
-        var endDate = new Date();
+        const category = decodeURIComponent(req.params.category);
+        const startDate = new Date();
+        const endDate = new Date();
 
-        startDate.setTime(parseInt(req.params.startDate));
-        endDate.setTime(parseInt(req.params.endDate));
+        startDate.setTime(parseInt(decodeURIComponent(req.params.startDate)));
+        endDate.setTime(parseInt(decodeURIComponent(req.params.endDate)));
 
         /* Ensure the dates are valid. */
         if (startDate.toString() !== 'Invalid Date' && endDate.toString() !== 'Invalid Date') {
@@ -162,15 +164,28 @@
         }
     });
 
+    router.get('/get-article/title/:title', function (req, res, next) {
+        console.log(req.params);
+        const title = decodeURIComponent(req.params.title);
+        console.log(title);
+        Article.find({ title: title }).public().exec(function (err, docs) {
+            if (err || docs === []) {
+                res.send(500, err ? { error: err } : { error: 'That article does not exist.' } );
+            } else {
+                res.json(docs[0]);
+            }
+        });
+    });
+
     /**
      * GET the unique public article with the specified ID, as a JSON object. Note, that unlike the other handles in this
      * REST API, this one does NOT return a JSON Array.
      */
-    router.get('/get-article/:id', function (req, res, next) {
-        var articleId = req.params.id;
+    router.get('/get-article/id/:id', function (req, res, next) {
+        const articleId = decodeURIComponent(req.params.id);
 
         Article.find().public().byId(articleId).exec(function (err, docs) {
-            if (err || docs.length == 0) {
+            if (err || docs.length === 0) {
                 res.send(500, {error: err});
             } else {
                 res.json(docs[0]);
@@ -183,10 +198,10 @@
      * handles in this REST API, this one does NOT return a JSON Array.
      */
     router.get('/get-private-article/:id', checkAuth, function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
         Article.find().byId(articleId).exec(function (err, docs) {
-            if (err || docs.length == 0) {
+            if (err || docs.length === 0) {
                 res.send(500, {error: err});
             } else {
                 res.json(docs[0]);
@@ -196,10 +211,10 @@
 
     /**
      * POST the provided article to the database. The article must be provided as a JSON object. For more information on the
-     * possible fields in an article, see the articleSchema in article.model.js
+     * possible fields in an article, see the articleSchema in article.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.post('/post-article', checkAuth, function (req, res, next) {
         var article = req.body;
@@ -223,15 +238,15 @@
     /**
      * PUT updates the unique article with the provided ID, by overwriting fields in the database which are provided in the
      * update object. Updates must be provided as a JSON Object. For more information on the possible fields in an article,
-     * see the articleSchema in article.model.js
+     * see the articleSchema in article.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.put('/update-article/:id', checkAuth, function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
-        var updates = req.body;
+        const updates = req.body;
 
         /* TODO: Validate updates. */
 
@@ -250,10 +265,10 @@
      * admin portal is protected by confirmation fields.
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.delete('/remove-article/:id', checkAuth, function (req, res, next) {
-        var articleId = req.params.id;
+        const articleId = decodeURIComponent(req.params.id);
 
         Article.findById(articleId).remove().exec(callback(res));
     });
@@ -282,7 +297,7 @@
      * technically does not contain any articles, but is used to represent the category of all articles.
      */
     router.get('/get-category/:name', function (req, res, next) {
-        var name = req.params.name;
+        const name = decodeURIComponent(req.params.name);
 
         /* TODO: Validate name. */
         if (name === 'Everything') {
@@ -298,7 +313,7 @@
      * category which technically does not contain any articles, but is used to represent the category of all articles.
      */
     router.get('/get-private-category/:name', checkAuth, function (req, res, next) {
-        var name = req.params.name;
+        const name = decodeURIComponent(req.params.name);
 
         /* TODO: Validate name. */
         if (name === 'Everything') {
@@ -310,10 +325,10 @@
 
     /**
      * POST the provided category to the database. The category must be provided as a JSON object. For more information on
-     * the possible fields in a category, see the categorySchema in category.model.js
+     * the possible fields in a category, see the categorySchema in category.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.post('/post-category', checkAuth, function (req, res, next) {
         var category = req.body;
@@ -334,16 +349,16 @@
     /**
      * PUT updates the unique category with the provided ID, by overwriting fields in the database which are provided in the
      * update object. Updates must be provided as a JSON Object. For more information on the possible fields in a category,
-     * see the categorySchema in category.model.js
+     * see the categorySchema in category.model.angularJS
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.put('/update-category/:id', checkAuth, function (req, res, next) {
-        var id = req.params.id;
+        const id = decodeURIComponent(req.params.id);
 
         /* TODO: validate updates & id. */
-        var updates = req.body;
+        const updates = req.body;
 
         Category.findById(id, function (err, doc) {
             if (err) {
@@ -370,10 +385,10 @@
      * admin portal is protected by confirmation fields.
      *
      * Note, that this handle requires the user be logged in, and will not be called unless proper authentication succeeds.
-     * For more on that process, see auth.js, user.js, and user.model.js
+     * For more on that process, see auth.angularJS, user.angularJS, and user.model.angularJS
      */
     router.delete('/remove-category/:id', checkAuth, function (req, res, next) {
-        var id = req.params.id;
+        const id = decodeURIComponent(req.params.id);
 
         /* TODO: validate id. */
 

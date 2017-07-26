@@ -1,8 +1,8 @@
 (function () {
-    var express = require('express');
-    var mongoose = require('mongoose');
+    const express = require('express');
+    const mongoose = require('mongoose');
 
-    var Schema = mongoose.Schema;
+    const Schema = mongoose.Schema;
 
     /**
      * Defines the raw contents of an article posted to the database.
@@ -23,7 +23,7 @@
      * admin page behind the login.
      * The 'image' attribute is used in the meta for linking to each article page.
      */
-    var articleSchema = new Schema({
+    const articleSchema = new Schema({
         title: String,
         author: {name: String, email: String},
         date: {type: Date, default: Date.now},
@@ -66,7 +66,6 @@
 
     /**
      * Searches for articles whose authors' names match the given pattern (regular expression).
-     * TODO: Consider implementing a similar method for searching by email.
      *
      * @param author The author name or regex to match against the author name, of the desired articles.
      * @returns the articles whose authors' names match the given pattern.

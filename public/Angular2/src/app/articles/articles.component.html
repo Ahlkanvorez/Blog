@@ -1,0 +1,61 @@
+<div class="col-lg-12">
+  <div class="row articles">
+    <div *ngIf="category">
+      <h1>{{ category.name === 'Everything' ? 'Latest Articles' : category.name }}</h1>
+      <h4>{{ category.description }}</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 articles">
+      <ul>
+        <li *ngIf="articles == undefined">
+          Loading Articles ...
+        </li>
+        <li *ngFor="let article of articles"
+            [routerLink]="['/articles', article.title.split(' ').join('-')]">
+          <h2 class="article-title">
+            {{ article.title }}
+          </h2>
+          <span>{{ article.category }}</span>
+          - By
+          <span>{{ article.author.name }}</span>
+          - posted on
+          <span>{{ article.date | date }}</span>
+          <p [innerHTML]="article.content.slice(0, article.content.indexOf('.') + 1)"></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-3 sidebar">
+      <div class="sidebar-block">
+        <article-search></article-search>
+      </div>
+
+      <div class="sidebar-block" *ngIf="category">
+        <h4>About</h4>
+        <p>{{ category.aboutAuthor }}</p>
+      </div>
+
+      <div class="sidebar-block categories">
+        <h4>Categories</h4>
+        <ul>
+          <li *ngFor="let category of categories"
+              [routerLink]="['/article-list', (category.name === 'Latest Articles' || category.name === 'Everything') ? '' : category.name]">
+            <a>{{ category.name }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-block">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
+          <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
+          <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
