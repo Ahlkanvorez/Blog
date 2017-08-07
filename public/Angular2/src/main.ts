@@ -6,6 +6,7 @@ import { AppModule } from './app/app.module';
 import 'zone.js';
 import 'reflect-metadata';
 import { enableProdMode } from "@angular/core";
+import './twitter.js';
 
 enableProdMode();
 
