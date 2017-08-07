@@ -1,6 +1,5 @@
 /**
  * See: https://dev.twitter.com/web/javascript/loading
- * Created by Robert Mitchell on 5/24/17.
  */
 
 window.twttr = (function (d, s, id) {
