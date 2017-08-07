@@ -9,7 +9,7 @@ echo "Conglomerating front-end javascript files ..."
 gulp js
 
 echo "Conglomerating front-end Angular2 files ..."
-cd public/typescript && yarn && yarn webpack && cd ../..
+cd public/Angular2 && yarn && yarn webpack && cd ../..
 
 # Check whether development mode is desired; the default running mode is production.
 mode=$1
