@@ -1,7 +1,9 @@
 <div class="col-lg-12">
   <div class="row articles">
     <div *ngIf="category">
-      <h1>{{ category.name === 'Everything' ? 'Latest Articles' : category.name }}</h1>
+      <h1>{{ category.name === 'Everything'
+            ? 'Latest Articles'
+            : category.name }}</h1>
       <h4>{{ category.description }}</h4>
     </div>
   </div>
@@ -22,7 +24,8 @@
           <span>{{ article.author.name }}</span>
           - posted on
           <span>{{ article.date | date }}</span>
-          <p [innerHTML]="article.content.slice(0, article.content.indexOf('.') + 1)"></p>
+          <p [innerHTML]="article.content.slice(0, article.content.indexOf('.') + 1)">
+          </p>
         </li>
       </ul>
     </div>
@@ -50,9 +53,23 @@
       <div class="sidebar-block">
         <h4>Elsewhere</h4>
         <ol class="list-unstyled">
-          <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
-          <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
-          <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+          <li>
+            <a target="_blank" href="https://github.com/Ahlkanvorez">
+              Github
+            </a>
+          </li>
+          <li>
+            <a target="_blank"
+                href="https://www.facebook.com/robert.mitchell.3367">
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a target="_blank"
+                href="https://twitter.com/RobertMitchel_l">
+              Twitter
+            </a>
+          </li>
         </ol>
       </div>
     </div>

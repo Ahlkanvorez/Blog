@@ -29,7 +29,8 @@
       <div>
         <hr />
         <p>
-          Questions? Comments? Feel free to <a href="mailto:{{article.author.email}}">email the author</a>.
+          Questions? Comments? Feel free to
+          <a href="mailto:{{article.author.email}}">email the author</a>.
         </p>
       </div>
     </div>
@@ -41,16 +42,21 @@
       </div>
 
       <div class="sidebar-block" *ngIf="category">
-        <h4><a href="/article-list/{{ article.category }}">{{ article.category }}</a></h4>
+        <h4><a href="/article-list/{{ article.category }}">
+          {{ article.category }}
+        </a></h4>
         <p>{{ category.aboutAuthor }}</p>
       </div>
 
-      <div class="sidebar-block" *ngIf="similarArticles && similarArticles.length > 0">
+      <div class="sidebar-block"
+          *ngIf="similarArticles && similarArticles.length > 0">
         <h4>Similar Articles</h4>
         <ul class="similar-articles">
           <li *ngFor="let article of similarArticles"
               [routerLink]="['/articles', article.title.split(' ').join('-') ]">
-            <a [routerLink]="['/articles', article.title.split(' ').join('-') ]">{{ article.title }}</a>
+            <a [routerLink]="['/articles', article.title.split(' ').join('-') ]">
+              {{ article.title }}
+            </a>
           </li>
         </ul>
       </div>
@@ -58,9 +64,23 @@
       <div class="sidebar-block">
         <h4>Elsewhere</h4>
         <ol class="list-unstyled">
-          <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
-          <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
-          <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+          <li>
+            <a target="_blank" href="https://github.com/Ahlkanvorez">
+              Github
+            </a>
+          </li>
+          <li>
+            <a target="_blank"
+                href="https://www.facebook.com/robert.mitchell.3367">
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a target="_blank"
+                href="https://twitter.com/RobertMitchel_l">
+              Twitter
+            </a>
+          </li>
         </ol>
       </div>
 

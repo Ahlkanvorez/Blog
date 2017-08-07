@@ -16,6 +16,7 @@ export class ArticleSearchService {
     return this.http
       .get(`https://www.hrodebert.com/blog/article-list`)
       .map((res: any) => (JSON.parse(res._body) as Article[])
-        .filter(article => article.title.includes(term) || article.content.includes(term)));
+        .filter(article => article.title.includes(term)
+                            || article.content.includes(term)));
   }
 }

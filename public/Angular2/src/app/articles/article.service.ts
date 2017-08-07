@@ -31,8 +31,10 @@ export class ArticleService {
   }
 
   getArticle (title: string): Promise<Article> {
-    // Note: The annoying in-memory-data service uses the pattern :base/:collectionName/:id?, so the title parameter has
-    // to be passed via ?title=___. This is annoying, and should not be reflected in the server-side REST api.
+    // Note: The annoying in-memory-data service uses the pattern
+    //      :base/:collectionName/:id?,
+    // so the title parameter has to be passed via ?title=___. This is annoying,
+    // and should not be reflected in the server-side REST api.
     // return this.http.get(`${this.articlesUrl}/?title=${title}`)
     if (this.cache && this.cache.length > 0) {
       return Promise.resolve(this.cache.find(article => article.title === title));

@@ -25,7 +25,8 @@ export class ArticleSearchComponent implements OnInit {
   articles: Observable<Article[]>;
   private searchTerms = new Subject<string>();
 
-  constructor (private articleSearchService: ArticleSearchService, private router: Router) {}
+  constructor (private articleSearchService: ArticleSearchService,
+               private router: Router) {}
 
   // Push a search term into the observable stream
   search (term: string): void {
@@ -34,11 +35,16 @@ export class ArticleSearchComponent implements OnInit {
 
   ngOnInit (): void {
     this.articles = this.searchTerms
-      .debounceTime(300)      // Wait 300ms after each keystroke before considering the term
-      .distinctUntilChanged() // ignore the next term if it is the same as the last term
-      .switchMap(term => term // Switch to the next observable each time the term changes.
-        ? this.articleSearchService.search(term)  // return the HTTP search observable
-        : Observable.of<Article[]>([]))           // or an observable of an empty Article array if there was no term
+      // Wait 300ms after each keystroke before considering the term
+      .debounceTime(300)
+      // ignore the next term if it is the same as the last term
+      .distinctUntilChanged()
+      // Switch to the next observable each time the term changes.
+      .switchMap(term => term
+        // return the HTTP search observable
+        ? this.articleSearchService.search(term)
+        // or an observable of an empty Article array if there was no term
+        : Observable.of<Article[]>([]))
       .catch(err => {
         console.error(err);
         return Observable.of<Article[]>([]);

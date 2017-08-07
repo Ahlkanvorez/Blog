@@ -25,7 +25,8 @@ export class ArticlesComponent implements OnInit {
 
   getCategory (): void {
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.categoryService.getCategory(params.get('category') || ''))
+      .switchMap((params: ParamMap) => this.categoryService
+          .getCategory(params.get('category') || ''))
       .subscribe(category => {
         this.category = category;
         this.getArticles();
@@ -64,10 +65,11 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit () {
-    // Ensure the category has been retrieved before articles are loaded, so the articles can
-    // be properly filtered by category if appropriate. Get the categories last, so they can
-    // be filtered to only link to categories which have at least one article (any others
-    // should not exist, but just to be safe ...)
+    // Ensure the category has been retrieved before articles are loaded, so the
+    // articles can be properly filtered by category if appropriate. Get the
+    // categories last, so they can be filtered to only link to categories which
+    // have at least one article (any others should not exist, but just to be
+    // safe ...)
     this.getCategory();
   }
 }
