@@ -11,11 +11,15 @@ export class CategoryService {
   // private categoriesUrl = 'api/categories';
   private categoriesUrl = 'https://www.hrodebert.com/blog';
 
-  private defaultCategory = { // Default category needs to be present as soon as the object is instantiated.
+  // Default category needs to be present as soon as the object is instantiated.
+  private defaultCategory = {
     _id: '0',
     name: 'Everything',
-    description: '"What the heart liketh best, the mind studieth most." - Richard Sibbes',
-    aboutAuthor: 'Robert Mitchell is Reformed & Presbyterian (a member of the OPC), a reader of Classics, Mathematics, Poetry, Philosophy & Theology, and a student of Chinese, Greek & Latin.'
+    description: '"What the heart liketh best, the mind studieth most." - '
+      + 'Richard Sibbes',
+    aboutAuthor: 'Robert Mitchell is Reformed & Presbyterian (a member of the '
+      + 'OPC), a reader of Classics, Mathematics, Poetry, Philosophy & '
+      + 'Theology, and a student of Chinese, Greek & Latin.'
   };
 
   constructor (private http: Http) {}
