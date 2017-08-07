@@ -23,7 +23,8 @@ import { UrlSerializer } from "@angular/router";
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService) // for development purposes only
+    // for development purposes only
+    // InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   declarations: [
     AppComponent,
@@ -32,7 +33,14 @@ import { UrlSerializer } from "@angular/router";
     ArticleViewComponent,
     ArticleSearchComponent
   ],
-  providers: [ ArticleService, CategoryService, { provide: UrlSerializer, useClass: NoEncodeUrlSerializer } ],
+  providers: [
+    ArticleService,
+    CategoryService,
+    {
+      provide: UrlSerializer,
+      useClass: NoEncodeUrlSerializer
+    }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
