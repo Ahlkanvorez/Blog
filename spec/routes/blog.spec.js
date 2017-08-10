@@ -4,7 +4,7 @@
     const request = require('request');
     const http = require('http');
 
-    const base_url = "https://www.hrodebert.me/blog";
+    const base_url = "https://www.hrodebert.com/blog";
 
     describe('Blog Server, Blog route', function () {
         describe('GET /', function () {
