@@ -38,7 +38,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'jade');
 app.set('views', [ path.join(__dirname, 'views'), path.join(__dirname, 'public', 'dist') ]);
 
-app.use(favicon(path.join(__dirname, 'public/img', 'favicon.png')));
+app.use(favicon(path.join(__dirname, 'public/dist/img', 'favicon.png')));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
