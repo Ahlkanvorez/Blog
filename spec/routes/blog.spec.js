@@ -295,6 +295,48 @@
             );
         });
 
+        describe('GET /get-article/title/:title', function () {
+            it('returns status code 200', function (done) {
+                request(base_url
+                      + '/get-article/title/The%20Making%20of%20my%20Blog',
+                    function (err, res, data) {
+                        expect(res.statusCode).toBe(200);
+                        done();
+                    }
+                );
+            });
+
+            it("returns the 'The Making of my Blog' in JSON form",
+                function (done) {
+                    request(base_url
+                          + '/get-article/title/The%20Making%20of%20my%20Blog',
+                        function (err, res, data) {
+                            const article = JSON.parse(data);
+
+                            expect(article.title)
+                                .toBe('The Making of my Blog');
+                            expect(article.author)
+                                .not.toBe(undefined);
+                            expect(article.author.name)
+                                .toBe('Robert Mitchell');
+                            expect(article.author.email)
+                                .toBe('robert.mitchell36@gmail.com');
+                            expect(article.date)
+                                .toBe('2016-08-30T21:57:37.000Z');
+                            expect(article.category)
+                                .toBe('Technology');
+                            expect(article.sticky)
+                                .toBe(false);
+                            expect(article.private)
+                                .toBe(false);
+
+                            done();
+                        }
+                    );
+                }
+            );
+        });
+
         describe('GET /get-private-article/:id', function () {
             it('returns status code 403', function (done) {
                 request(base_url
