@@ -29,7 +29,7 @@
      */
     angular.module('articleView').component('articleView', {
         templateUrl:
-          '/angularJS/blog-admin-app/article-view/article-view.component.html',
+          '/angularJS/blog-admin-app/article-view/article-view.template.html',
         controller: [ '$sanitize', '$window', '$scope', '$routeParams',
                       'ArticleIndex', 'ServerConfig', 'ViewModes', 'Category',
             function articleViewController ($sanitize, $window, $scope,
