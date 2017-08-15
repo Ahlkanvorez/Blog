@@ -1,28 +1,56 @@
-<update-title title="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-title>
-<update-meta property="og:title" content="{{ $ctrl.category.name }}"></update-meta>
-<update-meta property="og:description" content="{{ $ctrl.category.description }}"></update-meta>
-<update-meta property="og:image" content=""></update-meta>
-<update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
-<update-meta property="og:type" content="blog"></update-meta>
+<update-title title="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}">
+</update-title>
+<update-meta property="og:title"
+             content="{{ $ctrl.category.name }}">
+</update-meta>
+<update-meta property="og:description"
+             content="{{ $ctrl.category.description }}">
+</update-meta>
+<update-meta property="og:image"
+             content="">
+</update-meta>
+<update-meta property="og:url"
+             content="https://www.hrodebert.com/">
+</update-meta>
+<update-meta property="og:type"
+             content="blog">
+</update-meta>
 
-<update-meta name="twitter:card" content="summary"></update-meta>
-<update-meta name="twitter:site" content="@RobertMitchel_l"></update-meta>
-<update-meta name="twitter:title"  content="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}"></update-meta>
-<update-meta name="twitter:description" content="{{ $ctrl.category.description }}"></update-meta>
-<update-meta name="twitter:image" content=""></update-meta>
+<update-meta name="twitter:card"
+             content="summary">
+</update-meta>
+<update-meta name="twitter:site"
+             content="@RobertMitchel_l">
+</update-meta>
+<update-meta name="twitter:title"
+             content="{{ ($ctrl.category.name == 'Everything' ? 'Latest Articles' : $ctrl.category.name ) + ' | Robert Mitchell' }}">
+</update-meta>
+<update-meta name="twitter:description"
+             content="{{ $ctrl.category.description }}">
+</update-meta>
+<update-meta name="twitter:image"
+             content="">
+</update-meta>
 
 <div ng-switch on="$ctrl.mode">
     <div ng-switch-when="edit">
-        <label>Name: </label><input type="text" ng-model="box.category.name"/>
+        <label>Name: </label>
+        <input type="text" ng-model="box.category.name"/>
         <br/>
-        <label>Description: </label><input type="text" ng-model="box.category.description"/>
+        <label>Description: </label>
+        <input type="text" ng-model="box.category.description"/>
         <br/>
-        <label>Private: </label><input type="checkbox" ng-model="box.category.private"/>
+        <label>Private: </label>
+        <input type="checkbox" ng-model="box.category.private"/>
     </div>
 
     <div ng-switch-default>
-        <h1>{{box.category.name === 'Everything' ? 'Latest Articles' : box.category.name}} <i
-                ng-if="box.category.private">-- Private!</i></h1>
+        <h1>
+            {{box.category.name === 'Everything'
+                ? 'Latest Articles'
+                : box.category.name}}
+            <i ng-if="box.category.private">-- Private!</i>
+        </h1>
         <h4>{{box.category.description}}</h4>
     </div>
 </div>
@@ -32,7 +60,8 @@
     <div class="article-container"
          ng-repeat="article in $ctrl.articles | filter : query | orderBy:['-sticky', '-date']">
         <h2 class="article-title">
-            <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
+            <a href="#!/articles/{{article.title.split(' ').join('-')}}"
+               ng-bind-html="article.title"></a>
             <i ng-if="article.private">-- Private!</i>
         </h2>
         <a href="#!/article-list/{{article.category}}">
@@ -45,28 +74,18 @@
         - posted on
         <span>{{article.date | date}}</span>
         <p class="article-snippet">
-            <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.content | snippet"></a>
+            <a href="#!/articles/{{article.title.split(' ').join('-')}}"
+               ng-bind-html="article.content | snippet"></a>
         </p>
 
-    </div><!-- /.blog-post -->
-
-    <!-- Implement pagination for the blog posts, and make the buttons
-          disappear when inappropriate. (i.e. when they wouldn't bring new content)
-
-          TODO: Decide if you want to use this.
-    <nav>
-      <ul class="pager">
-        <li ng-if="hasPreviousPage" ng-click="viewPreviousPage()"><a>Previous</a></li>
-        <span>{{page + 1}} / {{numberOfPages}}</span>
-        <li ng-if="hasNextPage" ng-click="viewNextPage()"><a>Next</a></li>
-      </ul>
-    </nav> -->
-
-</div><!-- /.blog-main -->
+    </div>
+</div>
 
 <div class="col-sm-3 col-sm-offset-1 sidebar">
     <div class="sidebar-block">
-        <label>Search: <input filler="Search by Article Name" ng-model="query.$"/></label>
+        <label>Search:
+            <input filler="Search by Article Name" ng-model="query.$"/>
+        </label>
     </div>
 
     <div class="sidebar-block">
@@ -117,7 +136,9 @@
         <h4>Authors</h4>
         <ol class="list-unstyled">
             <li ng-repeat="author in $ctrl.authors | orderBy:'name'">
-                <a href="#!/article-list/{{$ctrl.categoryName}}/{{author.name}}">{{author.name}}</a>
+                <a href="#!/article-list/{{$ctrl.categoryName}}/{{author.name}}">
+                    {{author.name}}
+                </a>
             </li>
         </ol>
     </div>
@@ -126,7 +147,9 @@
         <h4>Categories</h4>
         <ol class="list-unstyled">
             <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
-                <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+                <a href="#!/article-list/{{category.name}}">
+                    {{category.name}}
+                </a>
             </li>
         </ol>
     </div>
@@ -134,9 +157,24 @@
     <div class="sidebar-block">
         <h4>Elsewhere</h4>
         <ol class="list-unstyled">
-            <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
-            <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+            <li>
+                <a target="_blank"
+                   href="https://github.com/Ahlkanvorez">
+                    Github
+                </a>
+            </li>
+            <li>
+                <a target="_blank"
+                   href="https://www.facebook.com/robert.mitchell.3367">
+                    Facebook
+                </a>
+            </li>
+            <li>
+                <a target="_blank"
+                   href="https://twitter.com/RobertMitchel_l">
+                    Twitter
+                </a>
+            </li>
         </ol>
     </div>
 </div>
