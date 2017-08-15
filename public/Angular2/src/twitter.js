@@ -1,7 +1,4 @@
-/**
- * See: https://dev.twitter.com/web/javascript/loading
- */
-
+// See: https://dev.twitter.com/web/javascript/loading
 window.twttr = (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};

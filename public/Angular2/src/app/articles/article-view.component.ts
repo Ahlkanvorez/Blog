@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Article } from "./article";
 import { Category } from "../categories/category";
@@ -6,15 +6,19 @@ import { ArticleService } from './article.service';
 import { CategoryService } from "../categories/category.service";
 import 'rxjs/add/operator/switchMap';
 
+// This tells Typescript not to throw a compile error when it sees twttr.
+declare var twttr: any;
+
 @Component({
   selector: 'article-view',
   templateUrl: './article-view.component.html',
   styleUrls: [ './article-view.component.css' ]
 })
-export class ArticleViewComponent implements OnInit {
-  article: Article;
+export class ArticleViewComponent implements OnInit, AfterViewChecked {
+  article: Article = undefined;
   category: Category;
   similarArticles: Article[];
+  private didLoadTwitter: boolean = false;
 
   constructor (private articleService: ArticleService,
                private categoryService: CategoryService,
@@ -28,6 +32,7 @@ export class ArticleViewComponent implements OnInit {
           .getArticle(params.get('title').split('-').join(' ')))
       .subscribe(article => {
         this.article = article;
+        this.didLoadTwitter = false;
 
         // Once the article has been gathered, grab the appropriate category.
         this.route.paramMap
@@ -44,5 +49,31 @@ export class ArticleViewComponent implements OnInit {
             .sort((a: Article, b: Article) => a.title.localeCompare(b.title)))
           .catch(console.error);
       });
+  }
+
+  ngAfterViewChecked (): void {
+    if (this.article && !this.didLoadTwitter) {
+      // The twitter button doesn't play nicely with normal Angular
+      // data-binding, so this will dynamically inject the button into the page.
+      const box = document.getElementById('twitter-share-article-container');
+      
+      // First, remove any children from the button box (there shouldn't be any)
+      while (box.firstChild) {
+        box.removeChild(box.firstChild);
+      }
+
+      // Note: twttr is a global defined in twitter.js
+      twttr.widgets.createShareButton(
+        window.location.href,
+        box,
+        {
+          size: "large",
+          text: this.article.title,
+          via: "RobertMitchel_l"
+        }
+      );
+      twttr.widgets.load();
+      this.didLoadTwitter = true;
+    }
   }
 }
