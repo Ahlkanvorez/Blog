@@ -1,22 +1,48 @@
-<update-title title="{{ box.article.title + ' | ' + box.article.category + ' | Robert Mitchell' }}"></update-title>
-<update-meta property="og:site_name" content="Hrodebert.com"></update-meta>
-<update-meta property="og:title" content="{{ box.article.title }}"></update-meta>
-<update-meta property="og:description" content="{{ box.article.content | snippet }}"></update-meta>
-<update-meta property="og:image" content=""></update-meta>
-<update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
-<update-meta property="og:type" content="blog"></update-meta>
+<update-title title="{{ box.article.title + ' | ' + box.article.category + ' | Robert Mitchell' }}">
+</update-title>
+<update-meta property="og:site_name"
+             content="Hrodebert.com">
+</update-meta>
+<update-meta property="og:title"
+             content="{{ box.article.title }}">
+</update-meta>
+<update-meta property="og:description"
+             content="{{ box.article.content | snippet }}">
+</update-meta>
+<update-meta property="og:image"
+             content="">
+</update-meta>
+<update-meta property="og:url"
+             content="https://www.hrodebert.com/">
+</update-meta>
+<update-meta property="og:type"
+             content="blog">
+</update-meta>
 
-<update-meta name="twitter:card" content="summary"></update-meta>
-<update-meta name="twitter:site" content="@RobertMitchel_l"></update-meta>
-<update-meta name="twitter:title"  content="{{ box.article.title + ' | ' + box.article.category }} | Robert Mitchell"></update-meta>
-<update-meta name="twitter:description" content="{{ box.article.content | snippet }}"></update-meta>
-<update-meta name="twitter:image" content=""></update-meta>
+<update-meta name="twitter:card"
+             content="summary">
+</update-meta>
+<update-meta name="twitter:site"
+             content="@RobertMitchel_l">
+</update-meta>
+<update-meta name="twitter:title"
+             content="{{ box.article.title + ' | ' + box.article.category }} | Robert Mitchell">
+</update-meta>
+<update-meta name="twitter:description"
+             content="{{ box.article.content | snippet }}">
+</update-meta>
+<update-meta name="twitter:image"
+             content="">
+</update-meta>
 
 <div ng-switch on="$ctrl.mode">
     <div ng-switch-when="edit">
-        <label>Article title: </label><input class="article-title" ng-model="box.article.title"/>
-        <label>Sticky? </label><input type="checkbox" ng-model="box.article.sticky"/>
-        <label>Private: </label><input type="checkbox" ng-model="box.article.private"/>
+        <label>Article title: </label>
+        <input class="article-title" ng-model="box.article.title"/>
+        <label>Sticky? </label>
+        <input type="checkbox" ng-model="box.article.sticky"/>
+        <label>Private: </label>
+        <input type="checkbox" ng-model="box.article.private"/>
 
         <a ng-click="saveArticleUpdates(box.article)">Save</a>
         -
@@ -43,20 +69,25 @@
     <article class="article" ng-switch on="$ctrl.mode">
         <header class="article-meta">
             <div ng-switch-when="edit">
-                <label>Author name: </label><input class="article-author" ng-model="box.article.author.name"/>
+                <label>Author name: </label>
+                <input class="article-author"
+                       ng-model="box.article.author.name"/>
                 <div class="article-date">
-                    <label>Date posted: </label><input ng-model="box.article.date"/>
+                    <label>Date posted: </label>
+                    <input ng-model="box.article.date"/>
                 </div>
                 <hr/>
             </div>
 
             <div ng-switch-default>
                 <address class="article-author" style="display:inline-block">
-                    <a rel="author" href="#!/article-list/Everything/{{$ctrl.article.author.name}}">
+                    <a rel="author"
+                       href="#!/article-list/Everything/{{$ctrl.article.author.name}}">
                         {{$ctrl.article.author.name}}
                     </a>
                 </address>
-                <time pubdate datetime="{{$ctrl.article.date | date}}" title="{{$ctrl.article.date | date}}"
+                <time pubdate datetime="{{$ctrl.article.date | date}}"
+                      title="{{$ctrl.article.date | date}}"
                       class="article-date">
                     {{$ctrl.article.date | date}}
                 </time>
@@ -66,12 +97,18 @@
 
         <div>
             <div ng-switch-when="edit">
-                <textarea class="article-editing" ng-model="box.article.content"></textarea>
-                <div class="article-content" ng-bind-html="box.article.content"></div>
+                <textarea class="article-editing"
+                          ng-model="box.article.content">
+                </textarea>
+                <div class="article-content"
+                     ng-bind-html="box.article.content">
+                </div>
             </div>
 
             <div ng-switch-default>
-                <div class="article-content" ng-bind-html="box.article.content"></div>
+                <div class="article-content"
+                     ng-bind-html="box.article.content">
+                </div>
             </div>
         </div>
 
@@ -81,12 +118,16 @@
         <hr/>
         <div ng-switch on="$ctrl.mode">
             <div ng-switch-when="view">
-                <p>Questions? Comments? Feel free to <a href="mailto:{{$ctrl.article.author.email}}">email the
-                    author</a>.</p>
+                <p>Questions? Comments? Feel free to
+                    <a href="mailto:{{$ctrl.article.author.email}}">
+                        email the author
+                    </a>.
+                </p>
             </div>
 
             <div ng-switch-when="edit">
-                <label>Author email: </label> <input type="text" ng-model="box.article.author.email"/>
+                <label>Author email: </label>
+                <input type="text" ng-model="box.article.author.email"/>
             </div>
         </div>
     </div>
@@ -96,12 +137,18 @@
     <div class="sidebar-block">
         <div ng-switch on="$ctrl.mode">
             <div ng-switch-when="edit">
-                <select ng-model="box.category" ng-options="category.name for category in $ctrl.categoryList"></select>
+                <select ng-model="box.category"
+                        ng-options="category.name for category in $ctrl.categoryList">
+                </select>
                 <a ng-click="saveCategoryChange(box.category)">Save</a>
             </div>
 
             <div ng-switch-default>
-                <h4><a href="admin#!/article-list/{{box.category.name}}">{{box.category.name}}</a></h4>
+                <h4>
+                    <a href="admin#!/article-list/{{box.category.name}}">
+                        {{box.category.name}}
+                    </a>
+                </h4>
                 <p ng-bind-html="box.category.aboutAuthor"></p>
             </div>
         </div>
@@ -111,7 +158,9 @@
         <h4>Categories</h4>
         <ol class="list-unstyled">
             <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
-                <a href="#!/article-list/{{category.name}}">{{category.name}}</a>
+                <a href="#!/article-list/{{category.name}}">
+                    {{category.name}}
+                </a>
             </li>
         </ol>
     </div>
@@ -120,7 +169,9 @@
         <h4>Similar</h4>
         <ol class="list-unstyled">
             <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">
-                <a href="#!/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
+                <a href="#!/articles/{{article.title.split(' ').join('-')}}"
+                   ng-bind-html="article.title">
+                </a>
             </li>
         </ol>
     </div>
@@ -128,9 +179,21 @@
     <div class="sidebar-block">
         <h4>Elsewhere</h4>
         <ol class="list-unstyled">
-            <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
-            <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+            <li>
+                <a target="_blank" href="https://github.com/Ahlkanvorez">
+                    Github
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">
+                    Facebook
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="https://twitter.com/RobertMitchel_l">
+                    Twitter
+                </a>
+            </li>
         </ol>
     </div>
 
@@ -145,7 +208,8 @@
             </li>
             <li>
                 <a href="https://twitter.com/intent/tweet?screen_name=RobertMitchel_l"
-                   class="twitter-mention-button" data-show-count="false"
+                   class="twitter-mention-button"
+                   data-show-count="false"
                    data-size="large">
                     Discuss</a>
             </li>
