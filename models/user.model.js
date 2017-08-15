@@ -1,3 +1,5 @@
+// TODO: Switch to OAuth2 Google logins.
+
 (function () {
     /*
      * For the origin of this authentication implementation, see:

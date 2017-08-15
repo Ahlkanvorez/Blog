@@ -185,7 +185,7 @@
     );
 
     // GET the article by the given name
-    // Renders the article with the given name with the proper meta tags for SEO.
+    // Renders the article with the given name with the proper meta tags for SEO
     router.get('/articles/:title', function (req, res, next) {
         getMetaForArticle(req.params.title, function (meta) {
             res.render(angular2Template, meta);
