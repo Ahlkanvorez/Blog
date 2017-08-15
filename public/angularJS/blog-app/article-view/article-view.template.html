@@ -1,33 +1,58 @@
-<update-title title="{{ $ctrl.article.title + ' | ' + $ctrl.article.category + ' | Robert Mitchell' }}"></update-title>
-<update-meta property="og:site_name" content="Hrodebert.com"></update-meta>
-<update-meta property="og:title" content="{{ $ctrl.article.title }}"></update-meta>
-<update-meta property="og:description" content="{{ $ctrl.article.content | snippet }}"></update-meta>
-<update-meta property="og:image" content=""></update-meta>
-<update-meta property="og:url" content="https://www.hrodebert.com/"></update-meta>
-<update-meta property="og:type" content="blog"></update-meta>
+<update-title title="{{ $ctrl.article.title + ' | ' + $ctrl.article.category + ' | Robert Mitchell' }}">
+</update-title>
+<update-meta property="og:site_name"
+             content="Hrodebert.com">
+</update-meta>
+<update-meta property="og:title"
+             content="{{ $ctrl.article.title }}">
+</update-meta>
+<update-meta property="og:description"
+             content="{{ $ctrl.article.content | snippet }}">
+</update-meta>
+<update-meta property="og:image"
+             content="">
+</update-meta>
+<update-meta property="og:url"
+             content="https://www.hrodebert.com/">
+</update-meta>
+<update-meta property="og:type"
+             content="blog">
+</update-meta>
 
-<update-meta name="twitter:card" content="summary"></update-meta>
-<update-meta name="twitter:site" content="@RobertMitchel_l"></update-meta>
-<update-meta name="twitter:title"  content="{{ $ctrl.article.title + ' | ' + $ctrl.article.category }} | Robert Mitchell"></update-meta>
-<update-meta name="twitter:description" content="{{ $ctrl.article.content | snippet }}"></update-meta>
-<update-meta name="twitter:image" content=""></update-meta>
+<update-meta name="twitter:card"
+             content="summary">
+</update-meta>
+<update-meta name="twitter:site"
+             content="@RobertMitchel_l">
+</update-meta>
+<update-meta name="twitter:title"
+             content="{{ $ctrl.article.title + ' | ' + $ctrl.article.category }} | Robert Mitchell">
+</update-meta>
+<update-meta name="twitter:description"
+             content="{{ $ctrl.article.content | snippet }}">
+</update-meta>
+<update-meta name="twitter:image"
+             content="">
+</update-meta>
 
 <div>
-    <!-- TODO: If you make articles viewable by title, make sure that titles DO NOT contain HTML tags. -->
     <h1 class="article-title" ng-bind-html="$ctrl.article.title"></h1>
 </div>
 
 <div class="col-sm-9 blog-main">
 
-    <!-- Most of these fancy tags are to make Safari's Reader Mode display all the information. -->
+    <!-- Most of these fancy tags are to make Safari's Reader Mode display all
+        the information. -->
     <article class="article">
         <header class="article-meta">
             <address class="article-author" style="display:inline-block">
-                <a rel="author" href="/article-list/Everything/{{$ctrl.article.author.name}}">
+                <a rel="author"
+                   href="/article-list/Everything/{{$ctrl.article.author.name}}">
                     {{$ctrl.article.author.name}}
                 </a>
             </address>
-            <time pubdate datetime="{{$ctrl.article.date | date}}" title="{{$ctrl.article.date | date}}"
+            <time pubdate datetime="{{$ctrl.article.date | date}}"
+                  title="{{$ctrl.article.date | date}}"
                   class="article-date">
                 {{$ctrl.article.date | date}}
             </time>
@@ -38,15 +63,24 @@
 
     <div>
         <hr/>
-        <p>Questions? Comments? Feel free to <a href="mailto:{{$ctrl.article.author.email}}">email the author</a>.</p>
+        <p>
+            Questions? Comments? Feel free to
+            <a href="mailto:{{$ctrl.article.author.email}}">
+                email the author
+            </a>.
+        </p>
     </div>
 
-</div><!-- /.blog-main -->
+</div>
 
 <div class="col-sm-3 sidebar">
     <div class="sidebar-block">
         <div>
-            <h4><a href="/article-list/{{$ctrl.category.name}}">{{$ctrl.category.name}}</a></h4>
+            <h4>
+                <a href="/article-list/{{$ctrl.category.name}}">
+                    {{$ctrl.category.name}}
+                </a>
+            </h4>
             <p ng-bind-html="$ctrl.category.aboutAuthor"></p>
         </div>
     </div>
@@ -55,7 +89,9 @@
         <h4>Categories</h4>
         <ol class="list-unstyled">
             <li ng-repeat="category in $ctrl.categoryList | orderBy : 'name'">
-                <a href="/article-list/{{category.name}}">{{category.name}}</a>
+                <a href="/article-list/{{category.name}}">
+                    {{category.name}}
+                </a>
             </li>
         </ol>
     </div>
@@ -64,7 +100,9 @@
         <h4>Similar</h4>
         <ol class="list-unstyled">
             <li ng-repeat="article in $ctrl.similarArticles | orderBy : 'title'">
-                <a href="/articles/{{article.title.split(' ').join('-')}}" ng-bind-html="article.title"></a>
+                <a href="/articles/{{article.title.split(' ').join('-')}}"
+                   ng-bind-html="article.title">
+                </a>
             </li>
         </ol>
     </div>
@@ -72,9 +110,24 @@
     <div class="sidebar-block">
         <h4>Elsewhere</h4>
         <ol class="list-unstyled">
-            <li><a target="_blank" href="https://github.com/Ahlkanvorez">Github</a></li>
-            <li><a target="_blank" href="https://www.facebook.com/robert.mitchell.3367">Facebook</a></li>
-            <li><a target="_blank" href="https://twitter.com/RobertMitchel_l">Twitter</a></li>
+            <li>
+                <a target="_blank"
+                   href="https://github.com/Ahlkanvorez">
+                    Github
+                </a>
+            </li>
+            <li>
+                <a target="_blank"
+                   href="https://www.facebook.com/robert.mitchell.3367">
+                    Facebook
+                </a>
+            </li>
+            <li>
+                <a target="_blank"
+                   href="https://twitter.com/RobertMitchel_l">
+                    Twitter
+                </a>
+            </li>
         </ol>
     </div>
 
@@ -85,13 +138,16 @@
                    href="https://twitter.com/intent/tweet"
                    data-text=" "
                    data-size="large">
-                    Share</a>
+                    Share
+                </a>
             </li>
             <li>
                 <a href="https://twitter.com/intent/tweet?screen_name=RobertMitchel_l"
-                   class="twitter-mention-button" data-show-count="false"
+                   class="twitter-mention-button"
+                   data-show-count="false"
                    data-size="large">
-                    Discuss</a>
+                    Discuss
+                </a>
             </li>
         </ol>
     </div>
