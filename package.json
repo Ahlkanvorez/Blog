@@ -1,5 +1,5 @@
 {
-  "name": "Blog",
+  "name": "blog",
   "author": "Robert Mitchell",
   "description": "A personal blog written on the MEAN stack using Angular 2.",
   "version": "2.0.0",
@@ -41,6 +41,8 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "eslint": "^4.4.1",
+    "eslint-config-google": "^0.9.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-ng-annotate": "latest",
