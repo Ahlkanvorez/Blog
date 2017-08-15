@@ -8,8 +8,7 @@
     "start": "node ./bin/www",
     "postinstall": "bower install",
     "test": "snyk test; ./node_modules/.bin/jasmine",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
