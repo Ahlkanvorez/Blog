@@ -12,3 +12,6 @@ patch:
   'npm:uglify-js:20150824':
     - jade > transformers > uglify-js:
         patched: '2017-06-29T13:15:07.605Z'
+  'npm:debug:20170905':
+    - mongoose > mquery > debug:
+        patched: '2017-09-28T23:48:07.405Z'
