@@ -30,7 +30,7 @@
     "jasmine": "^2.6.0",
     "mongodb": "^1.4.4",
     "request": "^2.81.0",
-    "mongoose": "4.10.2",
+    "mongoose": "4.11.14",
     "morgan": "1.8.2",
     "prerender-node": "latest",
     "serve-favicon": "2.4.3",
