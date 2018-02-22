@@ -27,7 +27,7 @@
     "helmet": "^3.6.1",
     "ipware": "^1.0.0",
     "jade": "^1.11.0",
-    "jasmine": "^2.6.0",
+    "jasmine": "^3.0.0",
     "mongodb": "^1.4.4",
     "request": "^2.81.0",
     "mongoose": "4.10.2",
