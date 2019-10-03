@@ -24,7 +24,7 @@
     "express-winston": "^2.4.0",
     "graceful-fs": "^4.1.11",
     "gulp-babili": "^0.1.4",
-    "helmet": "^3.6.1",
+    "helmet": "^3.21.1",
     "ipware": "^1.0.0",
     "jade": "^1.11.0",
     "jasmine": "^2.6.0",
